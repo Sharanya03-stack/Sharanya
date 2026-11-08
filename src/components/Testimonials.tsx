@@ -2,41 +2,20 @@
 
 import { testimonials, verifiedMilestones } from "@/data/testimonials";
 import { motion } from "framer-motion";
+import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
 
 export function Testimonials() {
   const hasRealTestimonials = testimonials.length > 0;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut" as const,
-      },
-    },
-  };
-
   return (
-    <section id="results" className="py-20 lg:py-24 bg-[#101D35] relative z-10">
+    <section id="results" className="py-20 lg:py-24 bg-transparent relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
           className="max-w-2xl mb-12 space-y-2"
         >
           <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
@@ -50,45 +29,48 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Verified Milestones / Standards with Staggered Scroll */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {verifiedMilestones.map((milestone) => (
-            <motion.div
-              key={milestone.label}
-              variants={itemVariants}
-              className="p-5 rounded-xl bg-[#14223E]/90 backdrop-blur-sm border border-[#1E335B] flex flex-col justify-between hover:border-dusk/40 hover:-translate-y-1 transition-all"
-            >
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-dusk">
-                  {milestone.category}
-                </span>
-                <div className="text-2xl font-semibold text-text-primary mt-2 mb-1">
-                  {milestone.value}
+        {/* Verified Milestones with Alternating Directional Reveals */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {verifiedMilestones.map((milestone, idx) => {
+            const variant = idx % 2 === 0 ? slideFromLeft : slideFromRight;
+
+            return (
+              <motion.div
+                key={milestone.label}
+                variants={variant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                custom={idx * 0.35}
+                className="p-5 rounded-xl glass-card flex flex-col justify-between hover:-translate-y-1 transition-all duration-300"
+              >
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-dusk">
+                    {milestone.category}
+                  </span>
+                  <div className="text-2xl font-semibold text-text-primary mt-2 mb-1">
+                    {milestone.value}
+                  </div>
+                  <div className="text-xs font-medium text-text-primary mb-2">
+                    {milestone.label}
+                  </div>
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    {milestone.description}
+                  </p>
                 </div>
-                <div className="text-xs font-medium text-text-primary mb-2">
-                  {milestone.label}
-                </div>
-                <p className="text-xs text-text-secondary leading-relaxed">
-                  {milestone.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
 
         {/* Working Approach & Collaboration Principles */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="rounded-2xl bg-[#14223E]/90 backdrop-blur-sm border border-[#1E335B] p-6 sm:p-8 mb-12"
+          custom={1}
+          className="rounded-2xl glass-card p-6 sm:p-8 mb-12"
         >
           <h3 className="text-base font-semibold text-text-primary mb-6">
             Client Collaboration Principles
@@ -139,12 +121,12 @@ export function Testimonials() {
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="p-6 rounded-xl bg-[#14223E] border border-[#1E335B] space-y-4"
+                className="p-6 rounded-xl glass-card space-y-4"
               >
                 <p className="text-xs sm:text-sm text-text-secondary leading-relaxed italic">
                   &ldquo;{t.content}&rdquo;
                 </p>
-                <div className="pt-3 border-t border-[#1E335B]">
+                <div className="pt-3 border-t border-[rgba(145,184,227,0.12)]">
                   <div className="text-xs font-medium text-text-primary">{t.clientName}</div>
                   <div className="text-[11px] text-text-muted">{t.designation} {t.company && `at ${t.company}`}</div>
                 </div>
@@ -152,7 +134,7 @@ export function Testimonials() {
             ))}
           </div>
         ) : (
-          <div className="p-6 rounded-xl bg-[#121F38] border border-[#1E335B] text-center max-w-xl mx-auto space-y-2">
+          <div className="p-6 rounded-xl glass-card-subtle text-center max-w-xl mx-auto space-y-2">
             <h4 className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
               Client References &amp; Endorsements
             </h4>

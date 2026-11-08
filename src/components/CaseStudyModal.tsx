@@ -41,16 +41,16 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
             onClick={onClose}
           />
 
-          {/* Modal Dialog with Scale/Fade */}
+          {/* Modal Dialog with Scale/Fade & Glassmorphism */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 15 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative w-full max-w-3xl bg-[#101D35] border border-[#1E335B] rounded-2xl shadow-2xl overflow-hidden my-auto z-10 flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-3xl bg-[rgba(16,29,53,0.94)] backdrop-blur-[20px] border border-[rgba(145,184,227,0.22)] rounded-2xl shadow-2xl overflow-hidden my-auto z-10 flex flex-col max-h-[90vh]"
           >
             {/* Header Bar */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#1E335B] bg-[#14223E] sticky top-0 z-20">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[rgba(145,184,227,0.14)] bg-[rgba(20,34,62,0.8)] backdrop-blur-md sticky top-0 z-20">
               <div>
                 <span className="text-[11px] font-mono uppercase tracking-wider text-dusk font-medium">
                   {project.category}
@@ -61,7 +61,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-md bg-[#101D35] border border-[#1E335B] text-text-secondary hover:text-text-primary transition-colors"
+                className="p-1.5 rounded-md glass-card-subtle text-text-secondary hover:text-text-primary transition-colors"
                 aria-label="Close Case Study"
               >
                 <X className="w-5 h-5" />
@@ -71,7 +71,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
             {/* Scrollable Body */}
             <div className="p-6 sm:p-8 overflow-y-auto space-y-8">
               {/* Screenshot */}
-              <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-[#1E335B] bg-[#0C172B]">
+              <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-[rgba(145,184,227,0.18)] bg-[#0C172B]">
                 <Image
                   src={project.image}
                   alt={project.name}
@@ -82,12 +82,12 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
               </div>
 
               {/* Links Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl bg-[#14223E] border border-[#1E335B]">
+              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl glass-card">
                 <div className="flex flex-wrap gap-1.5">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#101D35] border border-[#1E335B] text-text-secondary"
+                      className="text-[11px] font-mono px-2 py-0.5 rounded glass-card-subtle text-text-secondary"
                     >
                       {tech}
                     </span>
@@ -110,7 +110,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-[#101D35] border border-[#1E335B] text-text-primary hover:bg-[#162646] hover:-translate-y-0.5 transition-all"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md glass-card-subtle text-text-primary hover:border-dusk/40 hover:-translate-y-0.5 transition-all"
                     >
                       <Github className="w-3.5 h-3.5" />
                       <span>Repository</span>
@@ -121,7 +121,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
 
               {/* 11 Case Study Points */}
               <div className="space-y-6 text-sm">
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     1. Project Overview
                   </div>
@@ -130,7 +130,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     2. Problem Statement
                   </div>
@@ -139,7 +139,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     3. Proposed Solution
                   </div>
@@ -148,7 +148,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     4. Role &amp; Contributions
                   </div>
@@ -157,16 +157,16 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     5. Technical Architecture
                   </div>
-                  <p className="text-text-secondary font-mono text-xs leading-relaxed p-3 rounded-lg bg-[#101D35] border border-[#1E335B]/70">
+                  <p className="text-text-secondary font-mono text-xs leading-relaxed p-3 rounded-lg glass-card-subtle">
                     {project.caseStudy.technicalArchitecture}
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     6. Technology Stack
                   </div>
@@ -180,7 +180,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </ul>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     7. Implementation Details
                   </div>
@@ -194,20 +194,20 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </ul>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     8. Challenges &amp; Engineering Decisions
                   </div>
                   <ul className="space-y-2">
                     {project.caseStudy.challengesAndDecisions.map((item, idx) => (
-                      <li key={idx} className="p-3 rounded-lg bg-[#101D35] border border-[#1E335B]/70 text-text-secondary text-xs leading-relaxed">
+                      <li key={idx} className="p-3 rounded-lg glass-card-subtle text-text-secondary text-xs leading-relaxed">
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-xl bg-[#14223E] border border-[#1E335B]">
+                <div className="space-y-2 p-5 rounded-xl glass-card">
                   <div className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
                     9. Results &amp; Impact
                   </div>
@@ -221,7 +221,7 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   </ul>
                 </div>
 
-                <div className="p-5 rounded-xl bg-[#121F38] border border-[#1E335B] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-5 rounded-xl glass-card flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="text-left space-y-0.5">
                     <div className="text-xs font-mono text-dusk">10 &bull; 11 Verification &amp; Delivery</div>
                     <div className="text-sm font-medium text-text-primary">Interested in a similar build?</div>

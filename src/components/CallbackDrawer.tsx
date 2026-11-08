@@ -89,16 +89,16 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
           />
 
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-8">
-            {/* Drawer with Slide-in from right */}
+            {/* Drawer with Slide-in from right & Glassmorphism */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="w-screen max-w-md bg-[#101D35] border-l border-[#1E335B] shadow-2xl flex flex-col justify-between overflow-y-auto"
+              className="w-screen max-w-md bg-[rgba(16,29,53,0.95)] backdrop-blur-[20px] border-l border-[rgba(145,184,227,0.2)] shadow-2xl flex flex-col justify-between overflow-y-auto"
             >
               {/* Header */}
-              <div className="px-6 py-4 border-b border-[#1E335B] bg-[#14223E] flex items-center justify-between sticky top-0 z-10">
+              <div className="px-6 py-4 border-b border-[rgba(145,184,227,0.14)] bg-[rgba(20,34,62,0.85)] flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
                 <div>
                   <h3 className="text-sm font-semibold text-text-primary">Initiate Project Inquiry</h3>
                   <p className="text-[11px] text-text-muted">Direct developer response within 24 hours</p>
@@ -125,7 +125,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       placeholder="Your name"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3 py-2 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs"
                     />
                   </div>
 
@@ -139,7 +139,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       placeholder="your.email@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3 py-2 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs"
                     />
                   </div>
 
@@ -152,7 +152,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       placeholder="Company name (optional)"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3 py-2 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs"
                     />
                   </div>
 
@@ -164,13 +164,13 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       <select
                         value={formData.projectType}
                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full px-2.5 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary text-xs focus:outline-none focus:border-dusk transition-colors"
+                        className="w-full px-2.5 py-2 rounded-lg glass-input text-text-primary text-xs"
                       >
-                        <option value="Full-Stack Web Application">Web App</option>
-                        <option value="AI Agent & RAG Pipeline">AI / Agent</option>
-                        <option value="SaaS Platform / Dashboard">SaaS Platform</option>
-                        <option value="Mobile App">Mobile App</option>
-                        <option value="Other">Other</option>
+                        <option value="Full-Stack Web Application" className="bg-[#101D35]">Web App</option>
+                        <option value="AI Agent & RAG Pipeline" className="bg-[#101D35]">AI / Agent</option>
+                        <option value="SaaS Platform / Dashboard" className="bg-[#101D35]">SaaS Platform</option>
+                        <option value="Mobile App" className="bg-[#101D35]">Mobile App</option>
+                        <option value="Other" className="bg-[#101D35]">Other</option>
                       </select>
                     </div>
 
@@ -181,12 +181,12 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       <select
                         value={formData.budget}
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-2.5 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary text-xs focus:outline-none focus:border-dusk transition-colors"
+                        className="w-full px-2.5 py-2 rounded-lg glass-input text-text-primary text-xs"
                       >
-                        <option value="< $2,500">&lt; $2,500</option>
-                        <option value="$2,500 - $5,000">$2.5k - $5k</option>
-                        <option value="$5,000 - $10,000">$5k - $10k</option>
-                        <option value="$10,000+">$10k+</option>
+                        <option value="< $2,500" className="bg-[#101D35]">&lt; $2,500</option>
+                        <option value="$2,500 - $5,000" className="bg-[#101D35]">$2.5k - $5k</option>
+                        <option value="$5,000 - $10,000" className="bg-[#101D35]">$5k - $10k</option>
+                        <option value="$10,000+" className="bg-[#101D35]">$10k+</option>
                       </select>
                     </div>
                   </div>
@@ -201,7 +201,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                       placeholder="Outline your application goals or challenges..."
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-[#14223E] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs focus:outline-none focus:border-dusk transition-colors resize-none"
+                      className="w-full px-3 py-2 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs resize-none"
                     />
                   </div>
 

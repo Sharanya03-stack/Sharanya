@@ -12,9 +12,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#0B1426] border-t border-[#1E335B] text-text-secondary text-xs">
+    <footer className="bg-[rgba(11,20,38,0.85)] backdrop-blur-md border-t border-[rgba(145,184,227,0.12)] text-text-secondary text-xs relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 border-b border-[#1E335B]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 border-b border-[rgba(145,184,227,0.1)]">
           {/* Brand & Positioning */}
           <div className="md:col-span-5 space-y-3">
             <div className="text-base font-semibold text-text-primary tracking-tight">
@@ -113,7 +113,7 @@ export function Footer() {
 
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#101D35] border border-[#1E335B] hover:border-dusk/40 text-text-secondary hover:text-text-primary text-xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md glass-card-subtle text-text-secondary hover:text-text-primary text-xs hover:-translate-y-0.5 transition-all"
           >
             <span>Back to Top</span>
             <ArrowUp className="w-3.5 h-3.5" />

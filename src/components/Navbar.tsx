@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/data/siteConfig";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface NavbarProps {
   onOpenCallback: () => void;
@@ -44,11 +45,14 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "bg-[#101D35]/95 backdrop-blur-md border-b border-[#1E335B] py-3.5 shadow-sm"
-          : "bg-[#101D35]/60 backdrop-blur-sm border-b border-transparent py-5"
+          ? "bg-[rgba(16,29,53,0.88)] backdrop-blur-[16px] border-b border-[rgba(145,184,227,0.14)] py-3.5 shadow-sm"
+          : "bg-transparent border-b border-transparent py-5"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,23 +73,30 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
                 <Link
                   key={link.id}
                   href={link.href}
-                  className={`text-xs tracking-wide transition-colors ${
+                  className={`text-xs tracking-wide transition-colors relative py-1 ${
                     isActive
                       ? "text-dusk font-medium"
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
                   {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-dusk"
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                    />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Action: Single Understated "Let's Talk" Button */}
+          {/* Right Action: Understated "Let's Talk" Button with subtle glass styling */}
           <div className="hidden sm:flex items-center">
             <button
               onClick={onOpenCallback}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-text-primary bg-[#162646] hover:bg-[#1C3159] border border-[#1E335B] hover:border-dusk/40 transition-all duration-200"
+              className="px-4 py-2 rounded-lg text-xs font-medium text-text-primary glass-card-subtle hover:border-dusk/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
             >
               Let&apos;s Talk
             </button>
@@ -95,7 +106,7 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
           <div className="flex sm:hidden items-center gap-3">
             <button
               onClick={onOpenCallback}
-              className="px-3 py-1.5 rounded-md text-xs font-medium text-text-primary bg-[#162646] border border-[#1E335B]"
+              className="px-3 py-1.5 rounded-md text-xs font-medium text-text-primary glass-card-subtle"
             >
               Let&apos;s Talk
             </button>
@@ -110,9 +121,9 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer with Glassmorphism */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#101D35] border-b border-[#1E335B] px-4 pt-3 pb-6 space-y-2">
+        <div className="sm:hidden bg-[rgba(16,29,53,0.96)] backdrop-blur-[20px] border-b border-[rgba(145,184,227,0.16)] px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.id}
@@ -120,26 +131,26 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                 activeSection === link.id
-                  ? "text-dusk font-medium bg-[#162646]"
-                  : "text-text-secondary hover:text-text-primary hover:bg-[#14223E]"
+                  ? "text-dusk font-medium bg-[rgba(20,34,62,0.8)]"
+                  : "text-text-secondary hover:text-text-primary hover:bg-[rgba(20,34,62,0.4)]"
               }`}
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-3 border-t border-[#1E335B]">
+          <div className="pt-3 border-t border-[rgba(145,184,227,0.14)]">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenCallback();
               }}
-              className="w-full py-2.5 rounded-lg text-center text-xs font-medium text-text-primary bg-[#162646] hover:bg-[#1C3159] border border-[#1E335B]"
+              className="w-full py-2.5 rounded-lg text-center text-xs font-medium text-text-primary glass-card hover:border-dusk/40"
             >
               Initiate Project Inquiry
             </button>
           </div>
         </div>
       )}
-    </header>
+    </motion.header>
   );
 }

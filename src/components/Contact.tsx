@@ -4,6 +4,7 @@ import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
 import { ArrowUpRight, CheckCircle2, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -87,15 +88,15 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-24 bg-[#0C172B]/95 backdrop-blur-sm border-t border-[#1E335B] relative z-10">
+    <section id="contact" className="py-20 lg:py-24 bg-[rgba(12,23,43,0.4)] border-t border-[rgba(145,184,227,0.12)] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left Column: Context & Direct Links */}
+          {/* Left Column: Context & Direct Links — Slide From Left */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={slideFromLeft}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
             className="lg:col-span-5 space-y-6"
           >
             <div className="space-y-2">
@@ -111,7 +112,7 @@ export function Contact() {
             </div>
 
             {/* Direct Email & Socials */}
-            <div className="pt-4 border-t border-[#1E335B] space-y-3">
+            <div className="pt-4 border-t border-[rgba(145,184,227,0.14)] space-y-3">
               <div>
                 <span className="text-xs font-mono text-text-muted">Direct Email</span>
                 <div className="mt-1">
@@ -148,15 +149,15 @@ export function Contact() {
             </div>
           </motion.div>
 
-          {/* Right Column: Clean Contact Form */}
+          {/* Right Column: Clean Glassmorphism Contact Form — Slide From Right */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={slideFromRight}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="lg:col-span-7"
           >
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#14223E] border border-[#1E335B]">
+            <div className="p-6 sm:p-8 rounded-2xl glass-card">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Honeypot */}
                 <input
@@ -186,7 +187,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, fullName: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
                     />
                   </div>
 
@@ -206,7 +207,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -226,7 +227,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
                   />
                 </div>
 
@@ -243,7 +244,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectType: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
                   >
                     {projectTypes.map((type) => (
                       <option key={type} value={type} className="bg-[#101D35] text-text-primary">
@@ -267,7 +268,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, budget: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
                     >
                       {budgetTiers.map((tier) => (
                         <option key={tier} value={tier} className="bg-[#101D35] text-text-primary">
@@ -290,7 +291,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, timeline: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
                     >
                       {timelineOptions.map((opt) => (
                         <option key={opt} value={opt} className="bg-[#101D35] text-text-primary">
@@ -317,7 +318,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm resize-none"
                   />
                 </div>
 

@@ -44,15 +44,47 @@ body {
   background: #91B8E3;
 }
 
-/* Refined card utility */
-.card-clean {
-  background: #162646;
-  border: 1px solid rgba(145, 184, 227, 0.12);
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+/* Consistent Glassmorphism Card System */
+.glass-card {
+  background: rgba(20, 34, 62, 0.58);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(145, 184, 227, 0.16);
+  box-shadow: 0 4px 24px -2px rgba(11, 20, 38, 0.45);
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card-clean:hover {
-  border-color: rgba(145, 184, 227, 0.35);
+.glass-card:hover {
+  border-color: rgba(145, 184, 227, 0.38);
+  background: rgba(25, 42, 76, 0.68);
+  box-shadow: 0 10px 32px -4px rgba(11, 20, 38, 0.65);
+}
+
+.glass-card-subtle {
+  background: rgba(16, 29, 53, 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(145, 184, 227, 0.13);
+  transition: all 0.25s ease;
+}
+
+.glass-card-subtle:hover {
+  border-color: rgba(145, 184, 227, 0.3);
+  background: rgba(20, 34, 62, 0.72);
+}
+
+.glass-input {
+  background: rgba(16, 29, 53, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(145, 184, 227, 0.18);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: #91B8E3;
+  background: rgba(20, 34, 62, 0.85);
+  outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
