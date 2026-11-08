@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { About } from "@/components/About";
 import { TechStack } from "@/components/TechStack";
 import { Services } from "@/components/Services";
 import { Projects } from "@/components/Projects";
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <Hero onOpenCallback={() => setIsCallbackOpen(true)} />
+
+      {/* About & Personal Brand Reveal */}
+      <About />
 
       {/* Technology Stack */}
       <TechStack />

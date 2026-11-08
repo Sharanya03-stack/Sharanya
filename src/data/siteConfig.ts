@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Sharanya N",
-  role: "Freelance Full-Stack Developer",
+  role: "FULL-STACK DEVELOPER · AI · SOFTWARE ENGINEERING",
   tagline: "Building modern web applications, AI-powered software products, and business-focused digital solutions.",
-  headline: "I build digital products that turn complex business ideas into scalable solutions.",
-  supportingCopy: "From modern web applications to AI-powered software, I help businesses transform ideas into reliable, user-friendly digital products.",
+  headline: "I turn ideas into powerful digital products.",
+  supportingCopy: "Building modern web applications, intelligent software and scalable digital experiences that solve real-world problems.",
   availability: "Available for Freelance Projects",
   status: "open",
   location: "Bengaluru, India (Available Globally)",
@@ -14,8 +14,35 @@ export const siteConfig = {
     twitter: "https://x.com", // EDITABLE: add your X/Twitter handle
   },
   photo: {
-    src: "/images/sharanya-portrait.png", // EDITABLE: place your portrait image in public/images/sharanya-portrait.png
+    src: "/images/sharanya-portrait.png",
+    rawSrc: "/images/sharanya-portrait-raw.png",
     alt: "Sharanya N — Freelance Full-Stack Developer",
     fallbackInitials: "SN",
   },
+  aboutCards: [
+    {
+      id: "card-1",
+      title: "Full-Stack Developer",
+      description: "Building modern web applications, APIs and scalable systems.",
+      category: "Engineering",
+    },
+    {
+      id: "card-2",
+      title: "AI & Software Engineering",
+      description: "Developing intelligent applications, AI integrations and agentic systems.",
+      category: "Intelligence",
+    },
+    {
+      id: "card-3",
+      title: "IBM Hackathon winner",
+      description: "Participating in technical competitions and building innovative product solutions.",
+      category: "Recognition",
+    },
+    {
+      id: "card-4",
+      title: "UI/UX & Product Design",
+      description: "Designing intuitive interfaces and meaningful digital experiences.",
+      category: "Product",
+    },
+  ],
 };

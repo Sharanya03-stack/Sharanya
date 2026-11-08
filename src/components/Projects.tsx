@@ -35,7 +35,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
   };
 
   return (
-    <section id="projects" className="py-20 lg:py-24 bg-[rgba(12,23,43,0.3)] border-t border-b border-[rgba(145,184,227,0.12)] relative z-10">
+    <section id="projects" className="py-20 lg:py-24 bg-[rgba(11,26,46,0.35)] border-t border-b border-[rgba(79,195,247,0.16)] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -45,7 +45,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
           viewport={{ once: true, amount: 0.2 }}
           className="max-w-2xl mb-12 space-y-2"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+          <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
             Selected Work
           </p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
@@ -78,8 +78,8 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                 onClick={() => setSelectedCategory(category)}
                 className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                   isSelected
-                    ? "bg-dusk text-navy-deep font-semibold"
-                    : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-dusk/30"
+                    ? "bg-skyblue text-navy-deep font-semibold"
+                    : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-skyblue/30"
                 }`}
               >
                 <span>{category}</span>

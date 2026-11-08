@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #101D35;
+  --background: #0B1A2E;
   --foreground: #F5F5F2;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 ::selection {
-  background: rgba(145, 184, 227, 0.25);
+  background: rgba(79, 195, 247, 0.28);
   color: #F5F5F2;
 }
 
@@ -32,58 +32,58 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #101D35;
+  background: #0B1A2E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E335B;
+  background: #182C4F;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #91B8E3;
+  background: #4FC3F7;
 }
 
-/* Consistent Glassmorphism Card System */
+/* Authentic Glassmorphism Card System with Sky Blue / Midnight Navy harmony */
 .glass-card {
-  background: rgba(20, 34, 62, 0.58);
+  background: rgba(16, 29, 53, 0.64);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(145, 184, 227, 0.16);
-  box-shadow: 0 4px 24px -2px rgba(11, 20, 38, 0.45);
+  border: 1px solid rgba(79, 195, 247, 0.18);
+  box-shadow: 0 4px 24px -2px rgba(8, 19, 36, 0.45);
   transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(145, 184, 227, 0.38);
-  background: rgba(25, 42, 76, 0.68);
-  box-shadow: 0 10px 32px -4px rgba(11, 20, 38, 0.65);
+  border-color: rgba(79, 195, 247, 0.42);
+  background: rgba(22, 40, 72, 0.74);
+  box-shadow: 0 10px 32px -4px rgba(8, 19, 36, 0.65);
 }
 
 .glass-card-subtle {
-  background: rgba(16, 29, 53, 0.62);
+  background: rgba(14, 25, 46, 0.58);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(145, 184, 227, 0.13);
+  border: 1px solid rgba(79, 195, 247, 0.14);
   transition: all 0.25s ease;
 }
 
 .glass-card-subtle:hover {
-  border-color: rgba(145, 184, 227, 0.3);
-  background: rgba(20, 34, 62, 0.72);
+  border-color: rgba(79, 195, 247, 0.32);
+  background: rgba(18, 34, 62, 0.70);
 }
 
 .glass-input {
-  background: rgba(16, 29, 53, 0.7);
+  background: rgba(14, 25, 46, 0.75);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(145, 184, 227, 0.18);
+  border: 1px solid rgba(79, 195, 247, 0.18);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .glass-input:focus {
-  border-color: #91B8E3;
-  background: rgba(20, 34, 62, 0.85);
+  border-color: #4FC3F7;
+  background: rgba(18, 34, 62, 0.90);
   outline: none;
 }
 

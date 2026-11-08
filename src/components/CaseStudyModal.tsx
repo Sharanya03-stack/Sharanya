@@ -47,12 +47,12 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 15 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative w-full max-w-3xl bg-[rgba(16,29,53,0.94)] backdrop-blur-[20px] border border-[rgba(145,184,227,0.22)] rounded-2xl shadow-2xl overflow-hidden my-auto z-10 flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-3xl bg-[rgba(11,26,46,0.96)] backdrop-blur-[20px] border border-[rgba(79,195,247,0.22)] rounded-2xl shadow-2xl overflow-hidden my-auto z-10 flex flex-col max-h-[90vh]"
           >
             {/* Header Bar */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[rgba(145,184,227,0.14)] bg-[rgba(20,34,62,0.8)] backdrop-blur-md sticky top-0 z-20">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[rgba(79,195,247,0.18)] bg-[rgba(16,29,53,0.85)] backdrop-blur-md sticky top-0 z-20">
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-dusk font-medium">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-skyblue font-medium">
                   {project.category}
                 </span>
                 <h2 className="text-base sm:text-lg font-semibold text-text-primary">

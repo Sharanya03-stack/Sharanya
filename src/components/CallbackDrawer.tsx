@@ -95,10 +95,10 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="w-screen max-w-md bg-[rgba(16,29,53,0.95)] backdrop-blur-[20px] border-l border-[rgba(145,184,227,0.2)] shadow-2xl flex flex-col justify-between overflow-y-auto"
+              className="w-screen max-w-md bg-[rgba(11,26,46,0.96)] backdrop-blur-[20px] border-l border-[rgba(79,195,247,0.22)] shadow-2xl flex flex-col justify-between overflow-y-auto"
             >
               {/* Header */}
-              <div className="px-6 py-4 border-b border-[rgba(145,184,227,0.14)] bg-[rgba(20,34,62,0.85)] flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
+              <div className="px-6 py-4 border-b border-[rgba(79,195,247,0.18)] bg-[rgba(16,29,53,0.85)] flex items-center justify-between sticky top-0 z-10 backdrop-blur-md">
                 <div>
                   <h3 className="text-sm font-semibold text-text-primary">Initiate Project Inquiry</h3>
                   <p className="text-[11px] text-text-muted">Direct developer response within 24 hours</p>

@@ -12,9 +12,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[rgba(11,20,38,0.85)] backdrop-blur-md border-t border-[rgba(145,184,227,0.12)] text-text-secondary text-xs relative z-10">
+    <footer className="bg-[rgba(11,26,46,0.85)] backdrop-blur-md border-t border-[rgba(79,195,247,0.16)] text-text-secondary text-xs relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 border-b border-[rgba(145,184,227,0.1)]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 border-b border-[rgba(79,195,247,0.12)]">
           {/* Brand & Positioning */}
           <div className="md:col-span-5 space-y-3">
             <div className="text-base font-semibold text-text-primary tracking-tight">
@@ -25,7 +25,7 @@ export function Footer() {
               {siteConfig.headline}
             </p>
 
-            <div className="flex items-center gap-2 text-dusk text-xs font-mono pt-1">
+            <div className="flex items-center gap-2 text-skyblue text-xs font-mono pt-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span>{siteConfig.availability}</span>
             </div>
@@ -38,32 +38,37 @@ export function Footer() {
             </div>
             <ul className="space-y-2">
               <li>
-                <Link href="#hero" className="hover:text-dusk transition-colors">
+                <Link href="#hero" className="hover:text-skyblue transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#stack" className="hover:text-dusk transition-colors">
+                <Link href="#about" className="hover:text-skyblue transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="#stack" className="hover:text-skyblue transition-colors">
                   Stack
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-dusk transition-colors">
+                <Link href="#services" className="hover:text-skyblue transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="hover:text-dusk transition-colors">
+                <Link href="#projects" className="hover:text-skyblue transition-colors">
                   Case Studies
                 </Link>
               </li>
               <li>
-                <Link href="#results" className="hover:text-dusk transition-colors">
+                <Link href="#results" className="hover:text-skyblue transition-colors">
                   Results
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-dusk transition-colors">
+                <Link href="#contact" className="hover:text-skyblue transition-colors">
                   Contact
                 </Link>
               </li>

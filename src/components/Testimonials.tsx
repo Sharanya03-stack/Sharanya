@@ -18,7 +18,7 @@ export function Testimonials() {
           viewport={{ once: true, amount: 0.2 }}
           className="max-w-2xl mb-12 space-y-2"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+          <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
             Standards &amp; Reliability
           </p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">

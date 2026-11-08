@@ -67,6 +67,21 @@ export const scaleReveal: Variants = {
   }),
 };
 
+export const springReveal: Variants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: (custom: number = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 85,
+      damping: 15,
+      mass: 0.85,
+      delay: custom * 0.12,
+    },
+  }),
+};
+
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {

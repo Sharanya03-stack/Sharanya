@@ -14,7 +14,7 @@ export function TechStack() {
       : techCategories.filter((cat) => cat.id === activeTab);
 
   return (
-    <section id="stack" className="py-20 lg:py-24 bg-[rgba(12,23,43,0.35)] border-t border-b border-[rgba(145,184,227,0.12)] relative z-10">
+    <section id="stack" className="py-20 lg:py-24 bg-[rgba(11,26,46,0.45)] border-t border-b border-[rgba(79,195,247,0.16)] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -24,7 +24,7 @@ export function TechStack() {
           viewport={{ once: true, amount: 0.2 }}
           className="max-w-2xl mb-12 space-y-2"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+          <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
             Core Technologies
           </p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
@@ -48,8 +48,8 @@ export function TechStack() {
             onClick={() => setActiveTab("all")}
             className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
               activeTab === "all"
-                ? "bg-dusk text-navy-deep font-semibold"
-                : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-dusk/30"
+                ? "bg-skyblue text-navy-deep font-semibold"
+                : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-skyblue/30"
             }`}
           >
             All
@@ -60,8 +60,8 @@ export function TechStack() {
               onClick={() => setActiveTab(category.id)}
               className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                 activeTab === category.id
-                  ? "bg-dusk text-navy-deep font-semibold"
-                  : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-dusk/30"
+                  ? "bg-skyblue text-navy-deep font-semibold"
+                  : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-skyblue/30"
               }`}
             >
               {category.title}

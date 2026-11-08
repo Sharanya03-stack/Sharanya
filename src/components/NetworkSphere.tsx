@@ -32,12 +32,12 @@ export function NetworkSphere() {
     let height = 0;
     let dpr = 1;
 
-    // Substantially increased size: 1.6x - 1.9x previous dimensions
+    // Balanced node distribution & sizes
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-    const nodeCount = isMobile ? 48 : isTablet ? 76 : 106;
-    const baseRadius = isMobile ? 220 : isTablet ? 310 : 410;
-    const maxConnectionDist = isMobile ? 95 : isTablet ? 125 : 160;
+    const nodeCount = isMobile ? 38 : isTablet ? 68 : 96;
+    const baseRadius = isMobile ? 180 : isTablet ? 280 : 380;
+    const maxConnectionDist = isMobile ? 85 : isTablet ? 115 : 150;
 
     // Generate points on sphere using Fibonacci distribution
     const points: NodePoint[] = [];
@@ -51,8 +51,8 @@ export function NetworkSphere() {
       const x = Math.cos(theta) * radiusAtY;
       const z = Math.sin(theta) * radiusAtY;
 
-      // Restrained Sunset Orange accent nodes (~14%), rest Dusk Blue
-      const isAccent = i % 7 === 0;
+      // Restrained, dimmed Sunset Orange accent nodes (~12%), rest Sky Blue / Dusk Blue
+      const isAccent = i % 8 === 0;
 
       points.push({
         x: x * baseRadius,
@@ -107,11 +107,11 @@ export function NetworkSphere() {
       const delta = (time - lastTime) / 1000;
       lastTime = time;
 
-      // Continuous gentle rotation + smooth scroll interpolation
+      // Continuous gentle rotation + smooth scroll interpolation (reduced rotation speed)
       if (!prefersReducedMotion) {
-        rotY += 0.18 * delta;
-        rotX += (targetRotX - rotX) * 0.06;
-        rotY += (targetRotY - rotY) * 0.06;
+        rotY += 0.08 * delta;
+        rotX += (targetRotX - rotX) * 0.04;
+        rotY += (targetRotY - rotY) * 0.04;
       }
 
       ctx.clearRect(0, 0, width, height);
@@ -119,28 +119,43 @@ export function NetworkSphere() {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollProgress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
 
-      // Centered position across all sections:
-      // True horizontal center (0.50), subtle vertical adjustment for comfortable balance
-      const centerX = width * 0.5;
-      const centerY = height * 0.48;
+      // Dynamic position based on viewport & scroll:
+      // Hero (scrollProgress < 0.10): positioned on the RIGHT side to balance left typography
+      // About (0.10 - 0.26): shifts to deep background with reduced opacity so it never obstructs portrait or cards
+      // Remaining sections: ambient background presence
+      let targetCenterX = isMobile ? width * 0.5 : isTablet ? width * 0.68 : width * 0.72;
+      let targetCenterY = isMobile ? height * 0.65 : height * 0.50;
+      let sphereScale = isMobile ? 0.58 : 1.0;
+      let globalAlpha = isMobile ? 0.25 : 0.65; // Reduced by 25-30% as requested
 
-      // Scale & Global Alpha based on scroll section:
-      // Hero (0.00 - 0.25): Full large central sphere
-      // Tech (0.25 - 0.50): Remains full & visible through glass cards
-      // Services (0.50 - 0.75): Prominent & rotating behind services
-      // Projects (0.75 - 0.88): Slightly condensed (0.90) behind project cards
-      // Contact (0.88 - 1.00): Fades gracefully to 0
-      let sphereScale = 1.0;
-      let globalAlpha = 0.88;
-
-      if (scrollProgress > 0.88) {
-        // Smooth fade out in contact section
-        globalAlpha = Math.max(0, 0.88 - (scrollProgress - 0.88) * 7.0);
-      } else if (scrollProgress > 0.72) {
+      if (scrollProgress >= 0.08 && scrollProgress < 0.28) {
+        // About Section: smoothly shift further back with dimmed opacity
+        const aboutFactor = (scrollProgress - 0.08) / 0.20;
+        targetCenterX = (isMobile ? width * 0.5 : width * 0.72) * (1 - aboutFactor) + (width * 0.5) * aboutFactor;
+        targetCenterY = height * 0.48;
+        sphereScale = isMobile ? 0.50 : 0.85;
+        globalAlpha = isMobile ? 0.15 : 0.32; // Dimmed so portrait remains absolute hero
+      } else if (scrollProgress >= 0.28 && scrollProgress < 0.72) {
+        // Tech & Services: gentle centered ambient presence
+        targetCenterX = width * 0.5;
+        targetCenterY = height * 0.48;
+        sphereScale = isMobile ? 0.60 : 0.95;
+        globalAlpha = isMobile ? 0.20 : 0.58;
+      } else if (scrollProgress >= 0.72 && scrollProgress <= 0.88) {
         // Projects section: slightly condensed
-        sphereScale = 0.92;
-        globalAlpha = 0.82;
+        targetCenterX = width * 0.5;
+        targetCenterY = height * 0.48;
+        sphereScale = isMobile ? 0.55 : 0.88;
+        globalAlpha = isMobile ? 0.18 : 0.52;
+      } else if (scrollProgress > 0.88) {
+        // Smooth fade out in contact section
+        targetCenterX = width * 0.5;
+        sphereScale = 0.85;
+        globalAlpha = Math.max(0, (isMobile ? 0.18 : 0.52) - (scrollProgress - 0.88) * 5.0);
       }
+
+      const centerX = targetCenterX;
+      const centerY = targetCenterY;
 
       if (globalAlpha <= 0.01) {
         animationFrameId = requestAnimationFrame(render);
@@ -183,8 +198,8 @@ export function NetworkSphere() {
         };
       });
 
-      // 1. Draw fine connecting lines
-      ctx.lineWidth = 0.9;
+      // 1. Draw fine connecting lines with Sky Blue & Dusk Blue tones
+      ctx.lineWidth = 0.85;
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
           const p1 = projected[i];
@@ -197,11 +212,11 @@ export function NetworkSphere() {
           const maxDist = maxConnectionDist * sphereScale;
           if (dist < maxDist) {
             const distAlpha = 1 - dist / maxDist;
-            const depthAlpha = Math.max(0.12, (p1.depth + p2.depth) / 2);
-            // High visibility through glass cards:
-            const lineAlpha = distAlpha * depthAlpha * 0.58 * globalAlpha;
+            const depthAlpha = Math.max(0.10, (p1.depth + p2.depth) / 2);
+            // Sophisticated sky blue connecting lines
+            const lineAlpha = distAlpha * depthAlpha * 0.52 * globalAlpha;
 
-            ctx.strokeStyle = `rgba(145, 184, 227, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(79, 195, 247, ${lineAlpha})`;
             ctx.beginPath();
             ctx.moveTo(p1.sx, p1.sy);
             ctx.lineTo(p2.sx, p2.sy);
@@ -210,36 +225,36 @@ export function NetworkSphere() {
         }
       }
 
-      // 2. Draw nodes with crisp depth hierarchy
+      // 2. Draw nodes with subdued, dimmed orange accents
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
-        const depthAlpha = Math.max(0.25, p.depth) * globalAlpha;
-        const nodeRadius = (p.isAccent ? 3.4 : 2.4) * (0.65 + p.depth * 0.6) * sphereScale;
+        const depthAlpha = Math.max(0.20, p.depth) * globalAlpha;
+        const nodeRadius = (p.isAccent ? 2.5 : 2.0) * (0.65 + p.depth * 0.55) * sphereScale;
 
         if (p.isAccent) {
-          // Restrained Sunset Orange Accent Node (#FF713D)
-          ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.98})`;
+          // Dimmed, restrained Sunset Orange Accent Node (#FF713D)
+          ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.70})`;
           ctx.beginPath();
           ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Subtle soft aura around foreground orange nodes
-          if (p.depth > 0.45) {
-            ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.22})`;
+          // Subtle subdued glow
+          if (p.depth > 0.5) {
+            ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.12})`;
             ctx.beginPath();
-            ctx.arc(p.sx, p.sy, nodeRadius * 2.4, 0, Math.PI * 2);
+            ctx.arc(p.sx, p.sy, nodeRadius * 2.0, 0, Math.PI * 2);
             ctx.fill();
           }
         } else {
-          // Dusk Blue Node (#91B8E3)
-          ctx.fillStyle = `rgba(145, 184, 227, ${depthAlpha * 0.92})`;
+          // Sky Blue / Dusk Blue Node (#4FC3F7)
+          ctx.fillStyle = `rgba(79, 195, 247, ${depthAlpha * 0.85})`;
           ctx.beginPath();
           ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Subtle aura for foreground dusk nodes
+          // Subtle aura for foreground nodes
           if (p.depth > 0.6) {
-            ctx.fillStyle = `rgba(145, 184, 227, ${depthAlpha * 0.16})`;
+            ctx.fillStyle = `rgba(79, 195, 247, ${depthAlpha * 0.14})`;
             ctx.beginPath();
             ctx.arc(p.sx, p.sy, nodeRadius * 1.8, 0, Math.PI * 2);
             ctx.fill();

@@ -88,7 +88,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-24 bg-[rgba(12,23,43,0.4)] border-t border-[rgba(145,184,227,0.12)] relative z-10">
+    <section id="contact" className="py-20 lg:py-24 bg-[rgba(11,26,46,0.4)] border-t border-[rgba(79,195,247,0.16)] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Context & Direct Links — Slide From Left */}
@@ -100,7 +100,7 @@ export function Contact() {
             className="lg:col-span-5 space-y-6"
           >
             <div className="space-y-2">
-              <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+              <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
                 Initiate Project
               </p>
               <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
@@ -112,13 +112,13 @@ export function Contact() {
             </div>
 
             {/* Direct Email & Socials */}
-            <div className="pt-4 border-t border-[rgba(145,184,227,0.14)] space-y-3">
+            <div className="pt-4 border-t border-[rgba(79,195,247,0.16)] space-y-3">
               <div>
                 <span className="text-xs font-mono text-text-muted">Direct Email</span>
                 <div className="mt-1">
                   <a
                     href={`mailto:${siteConfig.contactEmail}`}
-                    className="text-sm font-medium text-text-primary hover:text-dusk transition-colors"
+                    className="text-sm font-medium text-text-primary hover:text-skyblue transition-colors"
                   >
                     {siteConfig.contactEmail}
                   </a>

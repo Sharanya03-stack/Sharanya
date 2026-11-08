@@ -10,27 +10,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#101D35", // Midnight Navy (Dominant base)
+        background: "#0B1A2E", // Dominant deep sky canvas (70% skyblue family foundation)
         surface: {
-          DEFAULT: "#14223E",
-          subtle: "#121F38",
-          card: "#162646",
-          hover: "#1A2E53",
+          DEFAULT: "#101D35", // Midnight Navy (20% contrast & depth)
+          subtle: "#0E2238",
+          card: "#122543",
+          hover: "#18325B",
+        },
+        skyblue: {
+          DEFAULT: "#4FC3F7", // Reference sky Blue #4FC3F7
+          hover: "#7DD3FC",
+          light: "#BAE6FD",
+          deep: "#0E2238",
+          canvas: "#0B1A2E",
+          surface: "#132B45",
+          muted: "rgba(79, 195, 247, 0.12)",
+          border: "rgba(79, 195, 247, 0.20)",
         },
         navy: {
-          deep: "#0B1426",
-          DEFAULT: "#101D35",
-          light: "#1C3159",
-          border: "#1E335B",
+          deep: "#0A1324",
+          DEFAULT: "#101D35", // Reference Midnight Navy #101D35
+          light: "#182C4F",
+          border: "#1C355E",
         },
         dusk: {
-          DEFAULT: "#91B8E3", // Dusk Blue
+          DEFAULT: "#91B8E3",
           hover: "#A6C7ED",
           muted: "rgba(145, 184, 227, 0.12)",
           border: "rgba(145, 184, 227, 0.22)",
         },
         sunset: {
-          DEFAULT: "#FF713D", // Sunset Orange (Sparingly for CTAs)
+          DEFAULT: "#FF713D", // Reference Sunset Orange #FF713D (10% selective accents)
           hover: "#FF8557",
           muted: "rgba(255, 113, 61, 0.12)",
           border: "rgba(255, 113, 61, 0.25)",
@@ -41,9 +51,9 @@ const config: Config = {
           muted: "#7887A0", // Understated labels
         },
         border: {
-          DEFAULT: "rgba(145, 184, 227, 0.14)",
+          DEFAULT: "rgba(79, 195, 247, 0.18)",
           subtle: "rgba(255, 255, 255, 0.08)",
-          hover: "#91B8E3",
+          hover: "#4FC3F7",
         },
       },
       fontFamily: {
