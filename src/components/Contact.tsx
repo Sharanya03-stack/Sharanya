@@ -2,19 +2,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
-import {
-  Mail,
-  Github,
-  Linkedin,
-  Send,
-  CheckCircle2,
-  AlertCircle,
-  Sparkles,
-  Calendar,
-  Clock,
-  ArrowUpRight,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowUpRight, CheckCircle2, AlertCircle } from "lucide-react";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -25,7 +13,7 @@ export function Contact() {
     budget: "$2,500 - $5,000",
     timeline: "1 - 2 Months",
     description: "",
-    hp_field: "", // honeypot for bots
+    hp_field: "",
   });
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -38,7 +26,7 @@ export function Contact() {
     "SaaS Platform / Dashboard",
     "Frontend & UI/UX Architecture",
     "Cross-Platform Mobile App",
-    "API & Backend Infrastructure",
+    "Backend & API Infrastructure",
     "Other / Advisory",
   ];
 
@@ -51,7 +39,7 @@ export function Contact() {
   ];
 
   const timelineOptions = [
-    "< 1 Month (Urgent)",
+    "< 1 Month",
     "1 - 2 Months",
     "3+ Months",
     "Flexible",
@@ -76,7 +64,7 @@ export function Contact() {
       }
 
       setStatus("success");
-      setSuccessMessage(result.message || "Thank you! Your inquiry has been sent successfully.");
+      setSuccessMessage(result.message || "Thank you. Your message has been received.");
       setFormData({
         fullName: "",
         email: "",
@@ -98,108 +86,66 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-28 relative bg-[#070a10] border-t border-white/[0.08]">
-      {/* Background radial accent */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-          {/* Left Column: Context, Availability & Social Links */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan text-xs font-mono font-medium">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Section 06 &bull; Initiate Project</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+    <section id="contact" className="py-20 lg:py-24 bg-[#0C172B] border-t border-[#1E335B]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Column: Context & Direct Links */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="space-y-2">
+              <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+                Initiate Project
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
                 Have an idea? Let&apos;s build something meaningful.
               </h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Tell me about your project, your goals, and the challenges you&apos;re trying to solve. Let&apos;s turn your idea into a working product.
+              <p className="text-sm text-text-secondary leading-relaxed">
+                Tell me about your product goals, timeline, and current challenges. I review every inquiry personally and respond within 24 hours.
               </p>
             </div>
 
-            {/* Availability Box */}
-            <div className="p-6 rounded-2xl bg-surface-card border border-white/[0.08] space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Current Status</span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Available for Hire
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Currently accepting freelance, contract, and high-impact build requests for Q1 / Q2. Response time is typically within 24 hours.
-              </p>
-              <div className="pt-2 flex items-center gap-2 text-xs text-slate-400 font-mono">
-                <Clock className="w-3.5 h-3.5 text-accent-cyan" />
-                <span>Typical kickoff turnaround: 3-5 business days</span>
-              </div>
-            </div>
-
-            {/* Direct Channels & Social Links */}
-            <div className="space-y-3">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400">
-                Direct Contact Channels
-              </div>
-              <div className="space-y-2">
-                <a
-                  href={`mailto:${siteConfig.contactEmail}`}
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-dusk/60 hover:bg-dusk border border-white/[0.08] hover:border-accent-cyan/40 transition-all text-xs group"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-surface border border-white/10 flex items-center justify-center text-accent-cyan group-hover:shadow-cyan-glow">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-slate-400 text-[11px] font-mono">Email Address</div>
-                      <div className="font-semibold text-white group-hover:text-accent-cyan transition-colors">
-                        {siteConfig.contactEmail}
-                      </div>
-                    </div>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-accent-cyan group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-
-                <div className="grid grid-cols-2 gap-2">
+            {/* Direct Email & Socials */}
+            <div className="pt-4 border-t border-[#1E335B] space-y-3">
+              <div>
+                <span className="text-xs font-mono text-text-muted">Direct Email</span>
+                <div className="mt-1">
                   <a
-                    href={siteConfig.socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-dusk/60 hover:bg-dusk border border-white/[0.08] hover:border-accent-cyan/40 transition-all text-xs group"
+                    href={`mailto:${siteConfig.contactEmail}`}
+                    className="text-sm font-medium text-text-primary hover:text-dusk transition-colors"
                   >
-                    <div className="flex items-center gap-2">
-                      <Linkedin className="w-4 h-4 text-accent-cyan" />
-                      <span className="font-semibold text-slate-200 group-hover:text-white">LinkedIn</span>
-                    </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-cyan" />
-                  </a>
-
-                  <a
-                    href={siteConfig.socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-dusk/60 hover:bg-dusk border border-white/[0.08] hover:border-accent-cyan/40 transition-all text-xs group"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Github className="w-4 h-4 text-accent-cyan" />
-                      <span className="font-semibold text-slate-200 group-hover:text-white">GitHub</span>
-                    </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-cyan" />
+                    {siteConfig.contactEmail}
                   </a>
                 </div>
+              </div>
+
+              <div className="pt-2 flex items-center gap-4 text-xs">
+                <a
+                  href={siteConfig.socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors"
+                >
+                  <span>LinkedIn</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+
+                <a
+                  href={siteConfig.socialLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors"
+                >
+                  <span>GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Complete Conversion Contact Form */}
+          {/* Right Column: Clean Contact Form */}
           <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-3xl bg-surface-card border border-white/[0.1] shadow-2xl relative">
-              {/* Top border glow */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent" />
-
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#14223E] border border-[#1E335B]">
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Honeypot field (hidden from real users to catch automated spam) */}
+                {/* Honeypot */}
                 <input
                   type="text"
                   name="hp_field"
@@ -210,76 +156,73 @@ export function Contact() {
                   autoComplete="off"
                 />
 
-                {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label
                       htmlFor="fullName"
-                      className="block text-xs font-mono font-medium text-slate-300"
+                      className="block text-xs font-mono text-text-secondary"
                     >
-                      Full Name <span className="text-accent-cyan">*</span>
+                      Full Name *
                     </label>
                     <input
                       id="fullName"
                       type="text"
                       required
-                      placeholder="e.g. John Doe"
+                      placeholder="Your name"
                       value={formData.fullName}
                       onChange={(e) =>
                         setFormData({ ...formData, fullName: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="email"
-                      className="block text-xs font-mono font-medium text-slate-300"
+                      className="block text-xs font-mono text-text-secondary"
                     >
-                      Work / Personal Email <span className="text-accent-cyan">*</span>
+                      Email Address *
                     </label>
                     <input
                       id="email"
                       type="email"
                       required
-                      placeholder="john@company.com"
+                      placeholder="your.email@company.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                     />
                   </div>
                 </div>
 
-                {/* Company / Business */}
                 <div className="space-y-1.5">
                   <label
                     htmlFor="company"
-                    className="block text-xs font-mono font-medium text-slate-300"
+                    className="block text-xs font-mono text-text-secondary"
                   >
-                    Company / Organization <span className="text-slate-400 font-normal">(Optional)</span>
+                    Company / Organization (Optional)
                   </label>
                   <input
                     id="company"
                     type="text"
-                    placeholder="e.g. Acme Innovations"
+                    placeholder="Company name"
                     value={formData.company}
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                   />
                 </div>
 
-                {/* Project Type Select */}
                 <div className="space-y-1.5">
                   <label
                     htmlFor="projectType"
-                    className="block text-xs font-mono font-medium text-slate-300"
+                    className="block text-xs font-mono text-text-secondary"
                   >
-                    Project Type <span className="text-accent-cyan">*</span>
+                    Project Type
                   </label>
                   <select
                     id="projectType"
@@ -287,24 +230,23 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectType: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                   >
                     {projectTypes.map((type) => (
-                      <option key={type} value={type} className="bg-[#0e131f] text-slate-200">
+                      <option key={type} value={type} className="bg-[#101D35] text-text-primary">
                         {type}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                {/* Budget & Timeline Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label
                       htmlFor="budget"
-                      className="block text-xs font-mono font-medium text-slate-300"
+                      className="block text-xs font-mono text-text-secondary"
                     >
-                      Estimated Budget <span className="text-accent-cyan">*</span>
+                      Budget Bracket
                     </label>
                     <select
                       id="budget"
@@ -312,10 +254,10 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, budget: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                     >
                       {budgetTiers.map((tier) => (
-                        <option key={tier} value={tier} className="bg-[#0e131f] text-slate-200">
+                        <option key={tier} value={tier} className="bg-[#101D35] text-text-primary">
                           {tier}
                         </option>
                       ))}
@@ -325,9 +267,9 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="timeline"
-                      className="block text-xs font-mono font-medium text-slate-300"
+                      className="block text-xs font-mono text-text-secondary"
                     >
-                      Expected Timeline <span className="text-accent-cyan">*</span>
+                      Desired Timeline
                     </label>
                     <select
                       id="timeline"
@@ -335,10 +277,10 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, timeline: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors"
                     >
                       {timelineOptions.map((opt) => (
-                        <option key={opt} value={opt} className="bg-[#0e131f] text-slate-200">
+                        <option key={opt} value={opt} className="bg-[#101D35] text-text-primary">
                           {opt}
                         </option>
                       ))}
@@ -346,69 +288,54 @@ export function Contact() {
                   </div>
                 </div>
 
-                {/* Project Description */}
                 <div className="space-y-1.5">
                   <label
                     htmlFor="description"
-                    className="block text-xs font-mono font-medium text-slate-300"
+                    className="block text-xs font-mono text-text-secondary"
                   >
-                    Project Overview &amp; Goals <span className="text-accent-cyan">*</span>
+                    Project Scope &amp; Objectives *
                   </label>
                   <textarea
                     id="description"
                     required
                     rows={4}
-                    placeholder="Briefly describe the product you want to build, existing systems, target users, or key challenges to solve..."
+                    placeholder="Tell me about what you are building, the problem to solve, and your current stage..."
                     value={formData.description}
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-dusk border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-all resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#101D35] border border-[#1E335B] text-text-primary placeholder-text-muted text-xs sm:text-sm focus:outline-none focus:border-dusk transition-colors resize-none"
                   />
                 </div>
 
                 {/* Error Banner */}
                 {status === "error" && (
-                  <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5">
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
+                  <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
                 {/* Success Banner */}
                 {status === "success" && (
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-start gap-2.5">
-                    <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
-                    <div>
-                      <div className="font-semibold text-sm text-emerald-200">Inquiry Transmitted</div>
-                      <p className="mt-0.5 text-xs text-emerald-300/90">{successMessage}</p>
-                    </div>
+                  <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span>{successMessage}</span>
                   </div>
                 )}
 
-                {/* Submit Action Button */}
+                {/* Elegant Submit Button */}
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm text-slate-950 bg-accent-cyan hover:bg-accent-cyan-hover transition-all duration-200 shadow-cyan-glow hover:shadow-cyan-glow-lg active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {status === "submitting" ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
-                      <span>Transmitting Inquiry...</span>
-                    </span>
+                    <span>Submitting...</span>
                   ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      <span>Submit Project Inquiry</span>
-                    </>
+                    <span>Submit Project Inquiry</span>
                   )}
                 </button>
-
-                <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-slate-400 font-mono text-center">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Confidentiality guaranteed &bull; Zero spam &bull; Direct developer review</span>
-                </div>
               </form>
             </div>
           </div>

@@ -18,41 +18,41 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
 
   return (
-    <main className="relative min-h-screen bg-background text-slate-100 selection:bg-accent-cyan/30 selection:text-white">
+    <main className="relative min-h-screen bg-background text-text-primary selection:bg-dusk/20 selection:text-text-primary">
       {/* Sticky Navigation */}
       <Navbar onOpenCallback={() => setIsCallbackOpen(true)} />
 
-      {/* Section 1: Hero */}
+      {/* Hero Section */}
       <Hero onOpenCallback={() => setIsCallbackOpen(true)} />
 
-      {/* Section 2: Trust & Technology Stack */}
+      {/* Technology Stack */}
       <TechStack />
 
-      {/* Section 3: Services Offered */}
+      {/* Services */}
       <Services onOpenCallback={() => setIsCallbackOpen(true)} />
 
-      {/* Section 4: Selected Projects & Case Studies */}
+      {/* Projects & Case Studies */}
       <Projects
         onSelectProject={(project) => setSelectedProject(project)}
         onOpenCallback={() => setIsCallbackOpen(true)}
       />
 
-      {/* Section 5: Client Testimonials & Results */}
+      {/* Results & Principles */}
       <Testimonials />
 
-      {/* Section 6: Contact / Hire Me */}
+      {/* Contact Section */}
       <Contact />
 
       {/* Footer */}
       <Footer />
 
-      {/* Global Interactive Callback Drawer */}
+      {/* Callback Drawer */}
       <CallbackDrawer
         isOpen={isCallbackOpen}
         onClose={() => setIsCallbackOpen(false)}
       />
 
-      {/* Global Detailed Case Study Deep-Dive Modal */}
+      {/* Detailed Case Study Modal */}
       <CaseStudyModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

@@ -1,178 +1,123 @@
 "use client";
 
 import { testimonials, verifiedMilestones } from "@/data/testimonials";
-import {
-  Sparkles,
-  ShieldCheck,
-  CheckCircle2,
-  Clock,
-  Terminal,
-  FileCheck,
-  Star,
-  Quote,
-  Lock,
-} from "lucide-react";
+import { CheckCircle2, ShieldCheck, Clock, FileCheck, Terminal, Lock } from "lucide-react";
 
 export function Testimonials() {
   const hasRealTestimonials = testimonials.length > 0;
 
   return (
-    <section id="results" className="py-20 lg:py-28 relative overflow-hidden">
-      {/* Background Radial Glow */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="results" className="py-20 lg:py-24 bg-[#101D35]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan text-xs font-mono font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Section 05 &bull; Engineering Standards &amp; Results</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Verified Milestones &amp; Client Trust
+        <div className="max-w-2xl mb-12 space-y-2">
+          <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+            Standards &amp; Reliability
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+            Engineering Principles &amp; Delivery Standards
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            Reliability isn&apos;t claimed with vague marketing slogans—it is demonstrated through strict code standards, predictable milestone velocity, and transparent communication.
+          <p className="text-sm text-text-secondary leading-relaxed">
+            I prioritize clarity of communication, strict code standards, and dependable project execution over unsupported marketing claims.
           </p>
         </div>
 
-        {/* Verified Engineering Milestones Row */}
+        {/* Verified Milestones / Standards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {verifiedMilestones.map((milestone) => (
             <div
               key={milestone.label}
-              className="p-6 rounded-2xl bg-surface-card border border-white/[0.08] hover:border-accent-cyan/40 transition-all group"
+              className="p-5 rounded-xl bg-[#14223E] border border-[#1E335B] flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 px-2 py-0.5 rounded border border-accent-cyan/20">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-dusk">
                   {milestone.category}
                 </span>
-                <ShieldCheck className="w-4 h-4 text-slate-400 group-hover:text-accent-cyan transition-colors" />
+                <div className="text-2xl font-semibold text-text-primary mt-2 mb-1">
+                  {milestone.value}
+                </div>
+                <div className="text-xs font-medium text-text-primary mb-2">
+                  {milestone.label}
+                </div>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  {milestone.description}
+                </p>
               </div>
-
-              <div className="text-3xl font-extrabold font-mono text-white mb-1 group-hover:text-accent-cyan transition-colors">
-                {milestone.value}
-              </div>
-
-              <h3 className="text-sm font-bold text-slate-200 mb-2">
-                {milestone.label}
-              </h3>
-
-              <p className="text-xs text-slate-400 leading-relaxed">
-                {milestone.description}
-              </p>
             </div>
           ))}
         </div>
 
-        {/* Client Collaboration Principles Grid */}
-        <div className="rounded-2xl bg-dusk/60 border border-white/[0.08] p-6 lg:p-8 mb-16">
-          <div className="max-w-2xl mb-8 space-y-1">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-accent-cyan" />
-              <span>How I Work With Freelance Clients &amp; Teams</span>
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Clear commitments that eliminate project ambiguity, budget surprises, and communication blackouts.
-            </p>
-          </div>
+        {/* Working Approach & Collaboration Principles */}
+        <div className="rounded-2xl bg-[#14223E] border border-[#1E335B] p-6 sm:p-8 mb-12">
+          <h3 className="text-base font-semibold text-text-primary mb-6">
+            Client Collaboration Principles
+          </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-accent-cyan font-mono">
-                <Clock className="w-4 h-4" />
-                <span>Async &amp; Transparent</span>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-dusk font-mono">
+                Async &amp; Transparent
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Daily asynchronous standup summaries, public staging URLs, and real-time Slack/Discord communication.
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Clear asynchronous progress updates, staging review environments, and direct Slack/Discord channels.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-accent-cyan font-mono">
-                <FileCheck className="w-4 h-4" />
-                <span>Scope Certainty</span>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-dusk font-mono">
+                Scope Certainty
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Clear milestone contracts, detailed architecture blueprints, and no unexpected hidden fee surprises.
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Milestone-based delivery agreements, explicit technical blueprints, and zero surprise overhead.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-accent-cyan font-mono">
-                <Terminal className="w-4 h-4" />
-                <span>Clean Handoffs</span>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-dusk font-mono">
+                Documented Handoffs
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Full documentation, setup walkthroughs, Docker configurations, and recorded deployment handoffs.
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Comprehensive setup walkthroughs, environment blueprints, and recorded architecture overviews.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-accent-cyan font-mono">
-                <Lock className="w-4 h-4" />
-                <span>100% IP Ownership</span>
+            <div className="space-y-1.5">
+              <div className="text-xs font-medium text-dusk font-mono">
+                Full IP Ownership
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                All source code, design assets, and deployment keys are strictly transferred to you upon milestone completion.
+              <p className="text-xs text-text-secondary leading-relaxed">
+                100% of the repository source code, assets, and deployment keys are transferred to you upon milestone sign-off.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Testimonials Showcase / High-Integrity Empty State */}
+        {/* Real Testimonials or Restrained Reference Notice */}
         {hasRealTestimonials ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="p-6 rounded-2xl bg-surface-card border border-white/[0.08] flex flex-col justify-between"
+                className="p-6 rounded-xl bg-[#14223E] border border-[#1E335B] space-y-4"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(t.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
-                    ))}
-                  </div>
-                  <Quote className="w-6 h-6 text-accent-cyan/40" />
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
-                    &ldquo;{t.content}&rdquo;
-                  </p>
-                </div>
-
-                <div className="pt-4 mt-6 border-t border-white/[0.06] flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-bold text-white">{t.clientName}</div>
-                    <div className="text-[11px] text-slate-400">{t.designation} {t.company && `at ${t.company}`}</div>
-                  </div>
-                  {t.projectAssociated && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-accent-cyan border border-white/10">
-                      {t.projectAssociated}
-                    </span>
-                  )}
+                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed italic">
+                  &ldquo;{t.content}&rdquo;
+                </p>
+                <div className="pt-3 border-t border-[#1E335B]">
+                  <div className="text-xs font-medium text-text-primary">{t.clientName}</div>
+                  <div className="text-[11px] text-text-muted">{t.designation} {t.company && `at ${t.company}`}</div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          /* High-Integrity Empty State (Respects policy: Zero fabricated testimonials) */
-          <div className="p-8 rounded-2xl bg-surface-card/60 border border-white/[0.08] text-center max-w-2xl mx-auto space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-dusk border border-white/10 mx-auto flex items-center justify-center text-accent-cyan">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-base font-bold text-white">
-                Client References &amp; Endorsement Policy
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                In strict adherence to professional ethics, this portfolio features zero fabricated testimonials or invented customer reviews. Verified client references, private case study demonstrations, and previous collaborator introductions are available upon request during initial project scoping.
-              </p>
-            </div>
-            <div className="pt-2">
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-accent-cyan bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20">
-                <span>Direct client references provided upon NDA &amp; discovery calls</span>
-              </span>
-            </div>
+          <div className="p-6 rounded-xl bg-[#121F38] border border-[#1E335B] text-center max-w-xl mx-auto space-y-2">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-dusk font-medium">
+              Client References &amp; Endorsements
+            </h4>
+            <p className="text-xs text-text-secondary leading-relaxed">
+              In adherence to strict professional ethics, no fake customer quotes or fabricated metrics are displayed. Verified client references and private technical demos are gladly shared upon mutual agreement during initial discovery calls.
+            </p>
           </div>
         )}
       </div>

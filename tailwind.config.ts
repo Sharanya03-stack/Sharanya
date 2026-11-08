@@ -10,45 +10,68 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#080b11",
-        surface: "#0e131f",
-        "surface-card": "#131a29",
-        "surface-card-hover": "#182236",
-        midnight: "#070a10",
-        dusk: "#162032",
-        "dusk-light": "#1e2c45",
-        "accent-cyan": {
-          DEFAULT: "#00f0ff",
-          hover: "#38f5ff",
-          muted: "rgba(0, 240, 255, 0.12)",
-          border: "rgba(0, 240, 255, 0.25)",
-          glow: "rgba(0, 240, 255, 0.35)",
+        background: "#101D35", // Midnight Navy (Dominant base)
+        surface: {
+          DEFAULT: "#14223E",
+          subtle: "#121F38",
+          card: "#162646",
+          hover: "#1A2E53",
         },
-        "accent-sunset": {
-          DEFAULT: "#f97316",
-          hover: "#fb923c",
-          muted: "rgba(249, 115, 22, 0.12)",
-          border: "rgba(249, 115, 22, 0.25)",
+        navy: {
+          deep: "#0B1426",
+          DEFAULT: "#101D35",
+          light: "#1C3159",
+          border: "#1E335B",
+        },
+        dusk: {
+          DEFAULT: "#91B8E3", // Dusk Blue
+          hover: "#A6C7ED",
+          muted: "rgba(145, 184, 227, 0.12)",
+          border: "rgba(145, 184, 227, 0.22)",
+        },
+        sunset: {
+          DEFAULT: "#FF713D", // Sunset Orange (Sparingly for CTAs)
+          hover: "#FF8557",
+          muted: "rgba(255, 113, 61, 0.12)",
+          border: "rgba(255, 113, 61, 0.25)",
+        },
+        text: {
+          primary: "#F5F5F2", // Off-white primary text
+          secondary: "#A7B2C4", // Calm secondary text
+          muted: "#7887A0", // Understated labels
         },
         border: {
+          DEFAULT: "rgba(145, 184, 227, 0.14)",
           subtle: "rgba(255, 255, 255, 0.08)",
-          hover: "rgba(0, 240, 255, 0.3)",
+          hover: "#91B8E3",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        sans: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "system-ui",
+          "sans-serif",
+        ],
+        serif: [
+          "Georgia",
+          "Cambria",
+          "Times New Roman",
+          "serif",
+        ],
+        mono: [
+          "JetBrains Mono",
+          "Fira Code",
+          "monospace",
+        ],
       },
       boxShadow: {
-        "cyan-glow": "0 0 25px -5px rgba(0, 240, 255, 0.25)",
-        "cyan-glow-lg": "0 0 45px -5px rgba(0, 240, 255, 0.35)",
-        "sunset-glow": "0 0 25px -5px rgba(249, 115, 22, 0.25)",
-        card: "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-gradient": "radial-gradient(ellipse at top center, rgba(0, 240, 255, 0.08), transparent 70%)",
-        "card-gradient": "linear-gradient(180deg, rgba(22, 32, 50, 0.6) 0%, rgba(14, 19, 31, 0.8) 100%)",
+        card: "0 4px 20px -2px rgba(11, 20, 38, 0.5)",
+        "card-hover": "0 10px 30px -4px rgba(11, 20, 38, 0.7)",
+        orange: "0 4px 14px -2px rgba(255, 113, 61, 0.35)",
       },
     },
   },

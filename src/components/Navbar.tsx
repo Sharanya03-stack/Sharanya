@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/data/siteConfig";
-import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 interface NavbarProps {
   onOpenCallback: () => void;
@@ -15,7 +15,7 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("hero");
 
   const navLinks = [
-    { name: "Overview", href: "#hero", id: "hero" },
+    { name: "Home", href: "#hero", id: "hero" },
     { name: "Stack", href: "#stack", id: "stack" },
     { name: "Services", href: "#services", id: "services" },
     { name: "Case Studies", href: "#projects", id: "projects" },
@@ -25,11 +25,10 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 20);
 
-      // Determine active section based on scroll position
       const sections = navLinks.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 180;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -48,84 +47,62 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#080b11]/85 backdrop-blur-md border-b border-white/[0.07] py-3.5 shadow-lg shadow-black/40"
-          : "bg-transparent py-5"
+          ? "bg-[#101D35]/95 backdrop-blur-md border-b border-[#1E335B] py-3.5 shadow-sm"
+          : "bg-[#101D35]/60 backdrop-blur-sm border-b border-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Wordmark */}
+          {/* Brand: Plain, Elegant Typography "Sharanya N" */}
           <Link
             href="#hero"
-            className="group flex items-center gap-2.5 text-slate-100 font-bold tracking-tight text-lg"
+            className="text-text-primary hover:text-dusk font-medium tracking-tight text-base sm:text-lg transition-colors"
           >
-            <div className="w-8 h-8 rounded-lg bg-surface-card border border-white/10 flex items-center justify-center group-hover:border-accent-cyan/50 transition-colors shadow-sm">
-              <span className="font-mono text-accent-cyan font-bold text-sm">S</span>
-            </div>
-            <span className="tracking-tight text-slate-100 group-hover:text-white transition-colors">
-              Sharanya
-              <span className="font-mono text-accent-cyan text-xs ml-1 font-semibold px-1.5 py-0.5 rounded bg-accent-cyan/10 border border-accent-cyan/20">
-                .dev
-              </span>
-            </span>
+            {siteConfig.name}
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 bg-surface-card/60 border border-white/[0.08] px-3 py-1.5 rounded-full backdrop-blur-sm">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <Link
                   key={link.id}
                   href={link.href}
-                  className={`relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                  className={`text-xs tracking-wide transition-colors ${
                     isActive
-                      ? "text-accent-cyan bg-accent-cyan/10 font-semibold"
-                      : "text-slate-300 hover:text-white hover:bg-white/[0.04]"
+                      ? "text-dusk font-medium"
+                      : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent-cyan animate-pulse" />
-                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Availability Badge */}
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span>Available for Hire</span>
-            </div>
-
-            {/* Let's Talk CTA */}
+          {/* Right Action: Single Understated "Let's Talk" Button */}
+          <div className="hidden sm:flex items-center">
             <button
               onClick={onOpenCallback}
-              className="group relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-slate-900 bg-accent-cyan hover:bg-accent-cyan-hover transition-all duration-200 shadow-cyan-glow hover:shadow-cyan-glow-lg active:scale-95"
+              className="px-4 py-2 rounded-lg text-xs font-medium text-text-primary bg-[#162646] hover:bg-[#1C3159] border border-[#1E335B] hover:border-dusk/40 transition-all duration-200"
             >
-              <span>Let&apos;s Talk</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              Let&apos;s Talk
             </button>
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <div className="flex sm:hidden items-center gap-2">
+          {/* Mobile Menu Button */}
+          <div className="flex sm:hidden items-center gap-3">
             <button
               onClick={onOpenCallback}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-900 bg-accent-cyan"
+              className="px-3 py-1.5 rounded-md text-xs font-medium text-text-primary bg-[#162646] border border-[#1E335B]"
             >
               Let&apos;s Talk
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-surface-card border border-white/10 text-slate-200 hover:text-white"
-              aria-label="Toggle mobile navigation menu"
+              className="p-1.5 text-text-secondary hover:text-text-primary"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -133,39 +110,32 @@ export function Navbar({ onOpenCallback }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#0a0e17]/95 border-b border-white/10 px-4 pt-3 pb-6 space-y-2 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-white/5 px-2">
-            <div className="flex items-center gap-2 text-emerald-400 text-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Available for Freelance Projects</span>
-            </div>
-          </div>
+        <div className="sm:hidden bg-[#101D35] border-b border-[#1E335B] px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`block px-3 py-2 text-sm rounded-md transition-colors ${
                 activeSection === link.id
-                  ? "bg-accent-cyan/15 text-accent-cyan font-semibold"
-                  : "text-slate-300 hover:text-white hover:bg-white/5"
+                  ? "text-dusk font-medium bg-[#162646]"
+                  : "text-text-secondary hover:text-text-primary hover:bg-[#14223E]"
               }`}
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-3">
+          <div className="pt-3 border-t border-[#1E335B]">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenCallback();
               }}
-              className="w-full py-2.5 rounded-xl text-center text-sm font-semibold text-slate-900 bg-accent-cyan shadow-cyan-glow flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-lg text-center text-xs font-medium text-text-primary bg-[#162646] hover:bg-[#1C3159] border border-[#1E335B]"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Initiate Project Inquiry</span>
+              Initiate Project Inquiry
             </button>
           </div>
         </div>

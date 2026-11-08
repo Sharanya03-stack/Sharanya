@@ -2,48 +2,6 @@
 
 import { useState } from "react";
 import { techCategories } from "@/data/technologies";
-import {
-  Layers,
-  Atom,
-  Code2,
-  FileCode,
-  Palette,
-  Terminal,
-  Zap,
-  Server,
-  Database,
-  Flame,
-  HardDrive,
-  BrainCircuit,
-  Cpu,
-  Bot,
-  Workflow,
-  Smartphone,
-  TabletSmartphone,
-  Sparkles,
-  CheckCircle,
-} from "lucide-react";
-
-// Icon mapping helper
-const iconMap: Record<string, React.ElementType> = {
-  Layers,
-  Atom,
-  Code2,
-  FileCode,
-  Palette,
-  Terminal,
-  Zap,
-  Server,
-  Database,
-  Flame,
-  HardDrive,
-  BrainCircuit,
-  Cpu,
-  Bot,
-  Workflow,
-  Smartphone,
-  TabletSmartphone,
-};
 
 export function TechStack() {
   const [activeTab, setActiveTab] = useState<string>("all");
@@ -54,42 +12,41 @@ export function TechStack() {
       : techCategories.filter((cat) => cat.id === activeTab);
 
   return (
-    <section id="stack" className="py-20 lg:py-28 relative bg-[#090d15]/50 border-t border-b border-white/[0.06]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="stack" className="py-20 lg:py-24 bg-[#0C172B] border-t border-b border-[#1E335B]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan text-xs font-mono font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Section 02 &bull; Engineering Architecture</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Battle-Tested Technology Stack
+        <div className="max-w-2xl mb-12 space-y-2">
+          <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
+            Core Technologies
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+            Engineering Stack &amp; Tools
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            I don&apos;t chase fleeting framework fads. I select high-leverage, production-tested tools engineered for performance, strict type safety, scalable throughput, and low operational friction.
+          <p className="text-sm text-text-secondary leading-relaxed">
+            A focused toolkit selected for reliability, type safety, throughput, and long-term maintainability.
           </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-10">
           <button
             onClick={() => setActiveTab("all")}
-            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
               activeTab === "all"
-                ? "bg-accent-cyan text-slate-950 font-semibold shadow-cyan-glow"
-                : "bg-surface-card border border-white/10 text-slate-300 hover:text-white hover:bg-white/5"
+                ? "bg-dusk text-navy-deep font-semibold"
+                : "bg-[#14223E] text-text-secondary hover:text-text-primary border border-[#1E335B]"
             }`}
           >
-            All Disciplines
+            All
           </button>
           {techCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+              className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 activeTab === category.id
-                  ? "bg-accent-cyan text-slate-950 font-semibold shadow-cyan-glow"
-                : "bg-surface-card border border-white/10 text-slate-300 hover:text-white hover:bg-white/5"
+                  ? "bg-dusk text-navy-deep font-semibold"
+                  : "bg-[#14223E] text-text-secondary hover:text-text-primary border border-[#1E335B]"
               }`}
             >
               {category.title}
@@ -97,69 +54,50 @@ export function TechStack() {
           ))}
         </div>
 
-        {/* Bento Grid Architecture */}
+        {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCategories.map((category) => (
             <div
               key={category.id}
-              className={`rounded-2xl bg-surface-card/80 border border-white/[0.08] p-6 hover:border-accent-cyan/40 hover:shadow-card transition-all duration-300 flex flex-col justify-between group ${
-                category.id === "ai" || category.id === "frontend"
-                  ? "md:col-span-1 lg:col-span-1"
-                  : ""
-              }`}
+              className="rounded-xl bg-[#14223E] border border-[#1E335B] p-6 hover:border-dusk/40 transition-colors flex flex-col justify-between"
             >
               <div>
-                {/* Category Header */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.06]">
-                  <h3 className="text-base font-bold text-white group-hover:text-accent-cyan transition-colors">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#1E335B]">
+                  <h3 className="text-sm font-semibold text-text-primary">
                     {category.title}
                   </h3>
-                  <span className="text-[11px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">
+                  <span className="text-[11px] font-mono text-text-muted">
                     {category.items.length} tools
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-300 mb-5 leading-relaxed">
+                <p className="text-xs text-text-secondary mb-5 leading-relaxed">
                   {category.description}
                 </p>
 
-                {/* Tech Badges List */}
-                <div className="space-y-2.5">
-                  {category.items.map((tech) => {
-                    const IconComponent = iconMap[tech.iconName] || Code2;
-                    return (
-                      <div
-                        key={tech.name}
-                        className="p-2.5 rounded-xl bg-dusk/50 hover:bg-dusk/90 border border-white/[0.06] hover:border-accent-cyan/30 transition-all flex items-start gap-3"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-surface border border-white/10 flex items-center justify-center shrink-0 text-accent-cyan">
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-slate-200">
-                              {tech.name}
-                            </span>
-                            {tech.highlight && (
-                              <span className="text-[10px] font-mono text-accent-cyan bg-accent-cyan/10 px-1.5 py-0.5 rounded border border-accent-cyan/20">
-                                Primary
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-[11px] text-slate-400 truncate mt-0.5">
-                            {tech.description}
-                          </p>
-                        </div>
+                {/* Clean, Text-based Technology Labels */}
+                <div className="space-y-2">
+                  {category.items.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className="p-2.5 rounded-lg bg-[#101D35] border border-[#1E335B]/70 hover:border-dusk/30 transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium text-text-primary">
+                          {tech.name}
+                        </span>
+                        {tech.highlight && (
+                          <span className="text-[10px] font-mono text-dusk">
+                            Primary
+                          </span>
+                        )}
                       </div>
-                    );
-                  })}
+                      <p className="text-[11px] text-text-muted mt-0.5 truncate">
+                        {tech.description}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              </div>
-
-              {/* Bottom engineering assurance */}
-              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center gap-2 text-[11px] text-slate-400 font-mono">
-                <CheckCircle className="w-3.5 h-3.5 text-accent-cyan shrink-0" />
-                <span>Production proven in active applications</span>
               </div>
             </div>
           ))}

@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #080b11;
-  --foreground: #f1f5f9;
-  --cyan-glow: rgba(0, 240, 255, 0.25);
+  --background: #101D35;
+  --foreground: #F5F5F2;
 }
 
 html {
@@ -18,60 +17,42 @@ body {
   color: var(--foreground);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(0, 240, 255, 0.3);
-  color: #ffffff;
+  background: rgba(145, 184, 227, 0.25);
+  color: #F5F5F2;
 }
 
-/* Custom subtle scrollbar */
+/* Subtle, understated scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080b11;
+  background: #101D35;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1E335B;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f0ff88;
+  background: #91B8E3;
 }
 
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(14, 19, 31, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Refined card utility */
+.card-clean {
+  background: #162646;
+  border: 1px solid rgba(145, 184, 227, 0.12);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-hover:hover {
-  background: rgba(22, 32, 50, 0.8);
-  border-color: rgba(0, 240, 255, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
-}
-
-/* Subtle grid pattern background */
-.bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-.bg-dot-pattern {
-  background-image: radial-gradient(rgba(0, 240, 255, 0.12) 1px, transparent 1px);
-  background-size: 24px 24px;
+.card-clean:hover {
+  border-color: rgba(145, 184, 227, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
