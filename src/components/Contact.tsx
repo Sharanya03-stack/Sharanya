@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
 import { ArrowUpRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -86,11 +87,17 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-24 bg-[#0C172B] border-t border-[#1E335B]">
+    <section id="contact" className="py-20 lg:py-24 bg-[#0C172B]/95 backdrop-blur-sm border-t border-[#1E335B] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Context & Direct Links */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="lg:col-span-5 space-y-6"
+          >
             <div className="space-y-2">
               <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
                 Initiate Project
@@ -122,7 +129,7 @@ export function Contact() {
                   href={siteConfig.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors"
+                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                 >
                   <span>LinkedIn</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -132,17 +139,23 @@ export function Contact() {
                   href={siteConfig.socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors"
+                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                 >
                   <span>GitHub</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Clean Contact Form */}
-          <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            className="lg:col-span-7"
+          >
             <div className="p-6 sm:p-8 rounded-2xl bg-[#14223E] border border-[#1E335B]">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Honeypot */}
@@ -328,7 +341,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
                 >
                   {status === "submitting" ? (
                     <span>Submitting...</span>
@@ -338,7 +351,7 @@ export function Contact() {
                 </button>
               </form>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

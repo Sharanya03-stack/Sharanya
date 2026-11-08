@@ -2,17 +2,46 @@
 
 import { services } from "@/data/services";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ServicesProps {
   onOpenCallback: () => void;
 }
 
 export function Services({ onOpenCallback }: ServicesProps) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.55,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <section id="services" className="py-20 lg:py-24 bg-[#101D35]">
+    <section id="services" className="py-20 lg:py-24 bg-transparent relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-2xl mb-12 space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="max-w-2xl mb-12 space-y-2"
+        >
           <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
             Freelance Services
           </p>
@@ -22,19 +51,26 @@ export function Services({ onOpenCallback }: ServicesProps) {
           <p className="text-sm text-text-secondary leading-relaxed">
             I partner directly with founders and teams to solve technical bottlenecks, architect scalable systems, and ship polished digital products.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Clean Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Services Cards with Staggered Scroll Animation */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {services.map((service) => (
-            <div
+            <motion.div
               key={service.id}
-              className="rounded-xl bg-[#14223E] border border-[#1E335B] p-6 flex flex-col justify-between hover:border-dusk/40 transition-colors"
+              variants={cardVariants}
+              className="rounded-xl bg-[#14223E]/90 backdrop-blur-sm border border-[#1E335B] p-6 flex flex-col justify-between hover:border-dusk/40 hover:-translate-y-1.5 transition-all duration-200 group"
             >
               <div>
                 {/* Header */}
                 <div className="mb-4">
-                  <h3 className="text-base font-semibold text-text-primary mb-1">
+                  <h3 className="text-base font-semibold text-text-primary mb-1 group-hover:text-dusk transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-xs text-dusk font-mono">
@@ -48,7 +84,7 @@ export function Services({ onOpenCallback }: ServicesProps) {
                 </p>
 
                 {/* Problem Solved */}
-                <div className="p-3 rounded-lg bg-[#101D35] border border-[#1E335B]/70 mb-5">
+                <div className="p-3 rounded-lg bg-[#101D35]/80 border border-[#1E335B]/70 mb-5">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted mb-1">
                     Problem Solved
                   </div>
@@ -71,17 +107,17 @@ export function Services({ onOpenCallback }: ServicesProps) {
                 </div>
               </div>
 
-              {/* Action */}
+              {/* Action Button */}
               <button
                 onClick={onOpenCallback}
-                className="w-full inline-flex items-center justify-between py-2.5 px-3.5 rounded-lg text-xs font-medium text-text-primary bg-[#101D35] hover:bg-[#162646] border border-[#1E335B] hover:border-dusk/40 transition-colors group"
+                className="w-full inline-flex items-center justify-between py-2.5 px-3.5 rounded-lg text-xs font-medium text-text-primary bg-[#101D35] hover:bg-[#162646] border border-[#1E335B] hover:border-dusk/40 active:scale-[0.99] transition-all group/btn"
               >
                 <span>Discuss a Project</span>
-                <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-dusk transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover/btn:text-dusk group-hover/btn:translate-x-1 transition-all" />
               </button>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

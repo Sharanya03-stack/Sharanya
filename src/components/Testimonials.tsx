@@ -1,16 +1,44 @@
 "use client";
 
 import { testimonials, verifiedMilestones } from "@/data/testimonials";
-import { CheckCircle2, ShieldCheck, Clock, FileCheck, Terminal, Lock } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function Testimonials() {
   const hasRealTestimonials = testimonials.length > 0;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <section id="results" className="py-20 lg:py-24 bg-[#101D35]">
+    <section id="results" className="py-20 lg:py-24 bg-[#101D35] relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-2xl mb-12 space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="max-w-2xl mb-12 space-y-2"
+        >
           <p className="text-xs font-mono uppercase tracking-widest text-dusk font-medium">
             Standards &amp; Reliability
           </p>
@@ -20,14 +48,21 @@ export function Testimonials() {
           <p className="text-sm text-text-secondary leading-relaxed">
             I prioritize clarity of communication, strict code standards, and dependable project execution over unsupported marketing claims.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Verified Milestones / Standards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Verified Milestones / Standards with Staggered Scroll */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+        >
           {verifiedMilestones.map((milestone) => (
-            <div
+            <motion.div
               key={milestone.label}
-              className="p-5 rounded-xl bg-[#14223E] border border-[#1E335B] flex flex-col justify-between"
+              variants={itemVariants}
+              className="p-5 rounded-xl bg-[#14223E]/90 backdrop-blur-sm border border-[#1E335B] flex flex-col justify-between hover:border-dusk/40 hover:-translate-y-1 transition-all"
             >
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-dusk">
@@ -43,12 +78,18 @@ export function Testimonials() {
                   {milestone.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Working Approach & Collaboration Principles */}
-        <div className="rounded-2xl bg-[#14223E] border border-[#1E335B] p-6 sm:p-8 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="rounded-2xl bg-[#14223E]/90 backdrop-blur-sm border border-[#1E335B] p-6 sm:p-8 mb-12"
+        >
           <h3 className="text-base font-semibold text-text-primary mb-6">
             Client Collaboration Principles
           </h3>
@@ -90,7 +131,7 @@ export function Testimonials() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Real Testimonials or Restrained Reference Notice */}
         {hasRealTestimonials ? (

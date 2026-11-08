@@ -11,6 +11,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { CallbackDrawer } from "@/components/CallbackDrawer";
 import { CaseStudyModal } from "@/components/CaseStudyModal";
+import { NetworkSphere } from "@/components/NetworkSphere";
 import { ProjectCaseStudy } from "@/data/projects";
 
 export default function Home() {
@@ -19,6 +20,9 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background text-text-primary selection:bg-dusk/20 selection:text-text-primary">
+      {/* Signature 3D Interconnected Network Sphere (Canvas Background) */}
+      <NetworkSphere />
+
       {/* Sticky Navigation */}
       <Navbar onOpenCallback={() => setIsCallbackOpen(true)} />
 
