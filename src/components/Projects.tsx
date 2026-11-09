@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { projects, projectCategories, ProjectCaseStudy } from "@/data/projects";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
 
@@ -159,45 +159,37 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                     </div>
                   </div>
 
-                  {/* Actions Footer */}
-                  <div className="px-6 py-4 border-t border-white/10 bg-charcoal/40 flex items-center justify-between">
-                    <button
-                      onClick={() => onSelectProject(project)}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-lightgrey transition-colors group/btn cursor-pointer"
-                    >
-                      <span>View Case Study</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-
-                    <div className="flex items-center gap-3">
-                      {project.liveUrl ? (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
-                        >
-                          <span>Live Demo</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      ) : (
-                        <span className="text-[11px] font-mono text-mediumgrey px-2 py-0.5 rounded border border-white/5 bg-white/[0.02]">
-                          Demo on Request
-                        </span>
-                      )}
-                      {project.githubUrl ? (
+                  {/* Actions Footer: GitHub Repository & Live Project */}
+                  {(Boolean(project.githubUrl && project.githubUrl.trim()) ||
+                    Boolean(project.liveUrl && project.liveUrl.trim())) && (
+                    <div className="px-6 py-3.5 border-t border-white/10 bg-charcoal/40 flex items-center justify-between gap-4 mt-auto">
+                      {project.githubUrl && project.githubUrl.trim() ? (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                          className="inline-flex items-center gap-1.5 text-xs text-lightgrey hover:text-white transition-colors duration-200 group/link py-1"
                         >
-                          <span>Code</span>
-                          <Github className="w-3 h-3" />
+                          <Github className="w-3.5 h-3.5 text-mediumgrey group-hover/link:text-white transition-colors" />
+                          <span>GitHub Repository</span>
+                        </a>
+                      ) : (
+                        <div />
+                      )}
+
+                      {project.liveUrl && project.liveUrl.trim() ? (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-lightgrey hover:text-white transition-colors duration-200 group/link py-1 ml-auto"
+                        >
+                          <span>Live Project</span>
+                          <ExternalLink className="w-3.5 h-3.5 text-mediumgrey group-hover/link:text-white transition-colors" />
                         </a>
                       ) : null}
                     </div>
-                  </div>
+                  )}
                 </motion.div>
               );
             })}
