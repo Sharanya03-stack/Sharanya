@@ -34,9 +34,9 @@ export const siteConfig = {
     },
     {
       id: "card-3",
-      title: "IBM Hackathon winner",
-      description: "Participating in technical competitions and building innovative product solutions.",
-      category: "Recognition",
+      title: "Hackathon & Innovation Experience",
+      description: "Building innovative solutions through technical competitions and product development.",
+      category: "Innovation",
     },
     {
       id: "card-4",

@@ -35,7 +35,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
   };
 
   return (
-    <section id="projects" className="py-20 lg:py-24 bg-[rgba(11,26,46,0.35)] border-t border-b border-[rgba(79,195,247,0.16)] relative z-10">
+    <section id="projects" className="py-14 lg:py-18 bg-charcoal/30 border-t border-b border-white/10 relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -43,15 +43,15 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="max-w-2xl mb-12 space-y-2"
+          className="max-w-2xl mb-10 space-y-2"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
+          <p className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
             Selected Work
           </p>
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
             Featured Case Studies
           </h2>
-          <p className="text-sm text-text-secondary leading-relaxed">
+          <p className="text-sm text-lightgrey leading-relaxed font-body">
             Real production systems, applications, and web platforms built for real-world operations and user adoption.
           </p>
         </motion.div>
@@ -63,7 +63,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           custom={1}
-          className="flex flex-wrap items-center gap-2 mb-10"
+          className="flex flex-wrap items-center gap-2 mb-8"
         >
           {projectCategories.map((category) => {
             const isSelected = selectedCategory === category;
@@ -78,12 +78,12 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                 onClick={() => setSelectedCategory(category)}
                 className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                   isSelected
-                    ? "bg-skyblue text-navy-deep font-semibold"
-                    : "glass-card-subtle text-text-secondary hover:text-text-primary hover:border-skyblue/30"
+                    ? "bg-white text-background font-semibold"
+                    : "glass-card-subtle text-lightgrey hover:text-white hover:border-white/20"
                 }`}
               >
                 <span>{category}</span>
-                <span className={`text-[10px] font-mono ${isSelected ? "text-navy-deep/80" : "text-text-muted"}`}>
+                <span className={`text-[10px] font-mono ${isSelected ? "text-background/80" : "text-mediumgrey"}`}>
                   {count}
                 </span>
               </button>
@@ -110,12 +110,12 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                   viewport={{ once: true, amount: 0.15 }}
                   custom={index * 0.4}
                   exit={{ opacity: 0, scale: 0.96 }}
-                  className="rounded-2xl glass-card overflow-hidden hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group"
+                  className="rounded-2xl glass-card overflow-hidden hover:-translate-y-1.5 hover:border-white/25 transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div>
                     {/* Large, High-Quality Project Screenshot */}
                     <div
-                      className="relative aspect-[16/10] w-full overflow-hidden bg-[#101D35]/80 cursor-pointer"
+                      className="relative aspect-[16/10] w-full overflow-hidden bg-charcoal/80 cursor-pointer"
                       onClick={() => onSelectProject(project)}
                     >
                       <Image
@@ -125,7 +125,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                         className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="text-[10px] font-mono uppercase tracking-wider font-medium px-2 py-0.5 rounded glass-card-subtle text-dusk">
+                        <span className="text-[10px] font-mono uppercase tracking-wider font-medium px-2 py-0.5 rounded glass-card-subtle text-lightgrey">
                           {project.category}
                         </span>
                       </div>
@@ -136,11 +136,11 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                       <div>
                         <h3
                           onClick={() => onSelectProject(project)}
-                          className="text-lg font-semibold text-text-primary group-hover:text-dusk transition-colors cursor-pointer leading-snug"
+                          className="text-lg font-semibold text-white group-hover:text-lightgrey transition-colors cursor-pointer leading-snug font-heading"
                         >
                           {project.name}
                         </h3>
-                        <p className="text-xs sm:text-sm text-text-secondary mt-2 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-lightgrey mt-2 leading-relaxed font-body">
                           {project.shortOverview}
                         </p>
                       </div>
@@ -150,7 +150,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="text-[11px] font-mono px-2 py-0.5 rounded glass-card-subtle text-text-secondary"
+                            className="text-[11px] font-mono px-2 py-0.5 rounded glass-card-subtle text-lightgrey"
                           >
                             {tech}
                           </span>
@@ -160,10 +160,10 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                   </div>
 
                   {/* Actions Footer */}
-                  <div className="px-6 py-4 border-t border-[rgba(145,184,227,0.12)] bg-[rgba(16,29,53,0.5)] flex items-center justify-between">
+                  <div className="px-6 py-4 border-t border-white/10 bg-charcoal/40 flex items-center justify-between">
                     <button
                       onClick={() => onSelectProject(project)}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-dusk hover:text-dusk-hover transition-colors group/btn"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-lightgrey transition-colors group/btn"
                     >
                       <span>View Case Study</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
@@ -175,7 +175,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                          className="text-xs text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                         >
                           <span>Live Demo</span>
                           <ExternalLink className="w-3 h-3" />
@@ -186,7 +186,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                          className="text-xs text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                         >
                           <span>Code</span>
                           <Github className="w-3 h-3" />

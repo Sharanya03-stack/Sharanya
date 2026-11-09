@@ -3,13 +3,14 @@
 import { useEffect, useRef } from "react";
 
 interface NodePoint {
-  x: number;
-  y: number;
-  z: number;
   baseX: number;
   baseY: number;
   baseZ: number;
-  isAccent: boolean; // Sunset Orange node
+  scatterX: number;
+  scatterY: number;
+  scatterZ: number;
+  maxDisplacement: number;
+  isAccent: boolean; // Sunset Orange node vs Electric Blue
   pulseOffset: number;
 }
 
@@ -32,37 +33,57 @@ export function NetworkSphere() {
     let height = 0;
     let dpr = 1;
 
-    // Balanced node distribution & sizes
+    // Responsive node count and scale
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-    const nodeCount = isMobile ? 38 : isTablet ? 68 : 96;
-    const baseRadius = isMobile ? 180 : isTablet ? 280 : 380;
-    const maxConnectionDist = isMobile ? 85 : isTablet ? 115 : 150;
+    const nodeCount = isMobile ? 48 : isTablet ? 84 : 124;
+    const baseRadius = isMobile ? 180 : isTablet ? 270 : 360;
+    const baseConnectionDist = isMobile ? 85 : isTablet ? 115 : 145;
 
-    // Generate points on sphere using Fibonacci distribution
+    // Generate points on sphere using Fibonacci distribution + deterministic scattering
     const points: NodePoint[] = [];
     const phi = Math.PI * (Math.sqrt(5) - 1); // Golden ratio
 
     for (let i = 0; i < nodeCount; i++) {
-      const y = 1 - (i / (nodeCount - 1)) * 2; // from 1 to -1
-      const radiusAtY = Math.sqrt(1 - y * y);
+      const yNorm = 1 - (i / (nodeCount - 1)) * 2; // from 1 to -1
+      const radiusAtY = Math.sqrt(Math.max(0, 1 - yNorm * yNorm));
       const theta = phi * i;
 
-      const x = Math.cos(theta) * radiusAtY;
-      const z = Math.sin(theta) * radiusAtY;
+      const normX = Math.cos(theta) * radiusAtY;
+      const normY = yNorm;
+      const normZ = Math.sin(theta) * radiusAtY;
 
-      // Restrained, dimmed Sunset Orange accent nodes (~12%), rest Sky Blue / Dusk Blue
-      const isAccent = i % 8 === 0;
+      const baseX = normX * baseRadius;
+      const baseY = normY * baseRadius;
+      const baseZ = normZ * baseRadius;
+
+      // Deterministic scattering vector: radial push combined with organic curl
+      const curlX = Math.sin(i * 3.71);
+      const curlY = Math.cos(i * 5.13);
+      const curlZ = Math.sin(i * 7.89);
+
+      // Normalizing the scatter vector
+      const rawScatterX = normX * 0.75 + curlX * 0.25;
+      const rawScatterY = normY * 0.75 + curlY * 0.25;
+      const rawScatterZ = normZ * 0.75 + curlZ * 0.25;
+      const mag = Math.sqrt(rawScatterX * rawScatterX + rawScatterY * rawScatterY + rawScatterZ * rawScatterZ) || 1;
+
+      // Maximum displacement per particle (disperses 200px to 550px outward)
+      const maxDisplacement = (isMobile ? 160 : 320) + (Math.sin(i * 2.14) * 0.5 + 0.5) * (isMobile ? 120 : 260);
+
+      // 1 in 7 nodes is Sunset Orange (#FF713D), others are Electric Blue (#286BFF)
+      const isAccent = i % 7 === 0;
 
       points.push({
-        x: x * baseRadius,
-        y: y * baseRadius,
-        z: z * baseRadius,
-        baseX: x * baseRadius,
-        baseY: y * baseRadius,
-        baseZ: z * baseRadius,
+        baseX,
+        baseY,
+        baseZ,
+        scatterX: (rawScatterX / mag),
+        scatterY: (rawScatterY / mag),
+        scatterZ: (rawScatterZ / mag),
+        maxDisplacement,
         isAccent,
-        pulseOffset: Math.random() * Math.PI * 2,
+        pulseOffset: (i * 0.3) % (Math.PI * 2),
       });
     }
 
@@ -84,19 +105,23 @@ export function NetworkSphere() {
     window.addEventListener("resize", handleResize);
 
     // Continuous rotation angles & scroll-linked target
-    let rotX = 0.25;
+    let rotX = 0.20;
     let rotY = 0;
-    let targetRotX = 0.25;
+    let targetRotX = 0.20;
     let targetRotY = 0;
     let lastTime = performance.now();
 
+    // Scroll progress tracker
+    let currentScrollProgress = 0;
+    let targetScrollProgress = 0;
+
     const handleScroll = () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? window.scrollY / docHeight : 0;
+      targetScrollProgress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
 
-      // Scroll-linked rotation: Continuous re-orientation as user traverses sections
-      targetRotY = progress * Math.PI * 5.5;
-      targetRotX = 0.25 + progress * Math.PI * 2.2;
+      // Scroll-linked continuous rotation
+      targetRotY = targetScrollProgress * Math.PI * 4.0;
+      targetRotX = 0.20 + targetScrollProgress * Math.PI * 1.5;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -107,60 +132,33 @@ export function NetworkSphere() {
       const delta = (time - lastTime) / 1000;
       lastTime = time;
 
-      // Continuous gentle rotation + smooth scroll interpolation (reduced rotation speed)
+      // Smooth interpolation for scroll progress (enables buttery forward & reverse motion)
+      currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08;
+
       if (!prefersReducedMotion) {
-        rotY += 0.08 * delta;
+        rotY += 0.09 * delta; // slow continuous baseline rotation
         rotX += (targetRotX - rotX) * 0.04;
         rotY += (targetRotY - rotY) * 0.04;
       }
 
       ctx.clearRect(0, 0, width, height);
 
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollProgress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+      // Disintegration factor: 0 at top, continuously and deterministically increasing downward
+      // Smooth curve: f(s) = s^1.15
+      const disintegrationFactor = prefersReducedMotion ? 0 : Math.pow(currentScrollProgress, 1.15);
 
-      // Dynamic position based on viewport & scroll:
-      // Hero (scrollProgress < 0.10): positioned on the RIGHT side to balance left typography
-      // About (0.10 - 0.26): shifts to deep background with reduced opacity so it never obstructs portrait or cards
-      // Remaining sections: ambient background presence
-      let targetCenterX = isMobile ? width * 0.5 : isTablet ? width * 0.68 : width * 0.72;
-      let targetCenterY = isMobile ? height * 0.65 : height * 0.50;
-      let sphereScale = isMobile ? 0.58 : 1.0;
-      let globalAlpha = isMobile ? 0.25 : 0.65; // Reduced by 25-30% as requested
+      // Dynamic position across sections
+      // Hero (progress < 0.15): positioned toward the right
+      // Middle sections: centers gradually as it disassembles
+      const heroCenterX = isMobile ? width * 0.5 : width * 0.70;
+      const centeredX = width * 0.5;
+      const transitionProgress = Math.min(currentScrollProgress / 0.25, 1);
+      const centerX = heroCenterX * (1 - transitionProgress) + centeredX * transitionProgress;
+      const centerY = isMobile ? height * 0.60 : height * 0.48;
 
-      if (scrollProgress >= 0.08 && scrollProgress < 0.28) {
-        // About Section: smoothly shift further back with dimmed opacity
-        const aboutFactor = (scrollProgress - 0.08) / 0.20;
-        targetCenterX = (isMobile ? width * 0.5 : width * 0.72) * (1 - aboutFactor) + (width * 0.5) * aboutFactor;
-        targetCenterY = height * 0.48;
-        sphereScale = isMobile ? 0.50 : 0.85;
-        globalAlpha = isMobile ? 0.15 : 0.32; // Dimmed so portrait remains absolute hero
-      } else if (scrollProgress >= 0.28 && scrollProgress < 0.72) {
-        // Tech & Services: gentle centered ambient presence
-        targetCenterX = width * 0.5;
-        targetCenterY = height * 0.48;
-        sphereScale = isMobile ? 0.60 : 0.95;
-        globalAlpha = isMobile ? 0.20 : 0.58;
-      } else if (scrollProgress >= 0.72 && scrollProgress <= 0.88) {
-        // Projects section: slightly condensed
-        targetCenterX = width * 0.5;
-        targetCenterY = height * 0.48;
-        sphereScale = isMobile ? 0.55 : 0.88;
-        globalAlpha = isMobile ? 0.18 : 0.52;
-      } else if (scrollProgress > 0.88) {
-        // Smooth fade out in contact section
-        targetCenterX = width * 0.5;
-        sphereScale = 0.85;
-        globalAlpha = Math.max(0, (isMobile ? 0.18 : 0.52) - (scrollProgress - 0.88) * 5.0);
-      }
-
-      const centerX = targetCenterX;
-      const centerY = targetCenterY;
-
-      if (globalAlpha <= 0.01) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
+      // Scale and baseline opacity
+      const sphereScale = isMobile ? 0.65 : 1.0;
+      const globalAlpha = isMobile ? 0.45 : 0.78;
 
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
@@ -168,18 +166,24 @@ export function NetworkSphere() {
       const sinX = Math.sin(rotX);
 
       // Perspective projection constants
-      const fov = 650;
+      const fov = 680;
       const cameraDistance = 580;
 
-      // Project 3D points to 2D canvas coordinates
+      // 1. Calculate dynamic particle 3D positions with scroll-driven displacement
       const projected = points.map((p) => {
+        // Displaced coordinate along deterministic scattering vector
+        const currentDisplacement = p.maxDisplacement * disintegrationFactor;
+        const curX = p.baseX + p.scatterX * currentDisplacement;
+        const curY = p.baseY + p.scatterY * currentDisplacement;
+        const curZ = p.baseZ + p.scatterZ * currentDisplacement;
+
         // Rotate around Y-axis
-        const x1 = p.baseX * cosY + p.baseZ * sinY;
-        const z1 = -p.baseX * sinY + p.baseZ * cosY;
+        const x1 = curX * cosY + curZ * sinY;
+        const z1 = -curX * sinY + curZ * cosY;
 
         // Rotate around X-axis
-        const y2 = p.baseY * cosX - z1 * sinX;
-        const z2 = p.baseY * sinX + z1 * cosX;
+        const y2 = curY * cosX - z1 * sinX;
+        const z2 = curY * sinX + z1 * cosX;
 
         // Perspective scale factor
         const scale = (fov / (fov + z2 + cameraDistance)) * sphereScale;
@@ -187,7 +191,7 @@ export function NetworkSphere() {
         const sy = centerY + y2 * scale;
 
         // Depth ratio from 0 (far background) to 1 (near foreground)
-        const depth = (z2 + baseRadius) / (baseRadius * 2);
+        const depth = Math.max(0, Math.min(1, (z2 + baseRadius * 1.5) / (baseRadius * 3)));
 
         return {
           sx,
@@ -198,8 +202,11 @@ export function NetworkSphere() {
         };
       });
 
-      // 1. Draw fine connecting lines with Sky Blue & Dusk Blue tones
+      // 2. Dynamic connecting lines: disconnect as particles fly apart
+      // Max connection threshold contracts as disintegration proceeds
+      const currentMaxDist = baseConnectionDist * sphereScale * Math.max(0.2, 1 - disintegrationFactor * 0.65);
       ctx.lineWidth = 0.85;
+
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
           const p1 = projected[i];
@@ -209,62 +216,61 @@ export function NetworkSphere() {
           const dy = p1.sy - p2.sy;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          const maxDist = maxConnectionDist * sphereScale;
-          if (dist < maxDist) {
-            const distAlpha = 1 - dist / maxDist;
-            const depthAlpha = Math.max(0.10, (p1.depth + p2.depth) / 2);
-            // Sophisticated sky blue connecting lines
-            const lineAlpha = distAlpha * depthAlpha * 0.52 * globalAlpha;
+          if (dist < currentMaxDist) {
+            const distAlpha = 1 - dist / currentMaxDist;
+            const depthAlpha = Math.max(0.12, (p1.depth + p2.depth) / 2);
+            // Dynamic fade with disintegration: lines break away organically
+            const lineAlpha = distAlpha * depthAlpha * 0.50 * globalAlpha * (1 - disintegrationFactor * 0.45);
 
-            ctx.strokeStyle = `rgba(79, 195, 247, ${lineAlpha})`;
-            ctx.beginPath();
-            ctx.moveTo(p1.sx, p1.sy);
-            ctx.lineTo(p2.sx, p2.sy);
-            ctx.stroke();
+            if (lineAlpha > 0.01) {
+              ctx.strokeStyle = `rgba(40, 107, 255, ${lineAlpha})`;
+              ctx.beginPath();
+              ctx.moveTo(p1.sx, p1.sy);
+              ctx.lineTo(p2.sx, p2.sy);
+              ctx.stroke();
+            }
           }
         }
       }
 
-      // 2. Draw nodes with subdued, dimmed orange accents
+      // 3. Render particles with Electric Blue & Sunset Orange glow
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
-        const depthAlpha = Math.max(0.20, p.depth) * globalAlpha;
-        const nodeRadius = (p.isAccent ? 2.5 : 2.0) * (0.65 + p.depth * 0.55) * sphereScale;
+        const depthAlpha = Math.max(0.25, p.depth) * globalAlpha;
+        const nodeRadius = (p.isAccent ? 3.0 : 2.2) * (0.65 + p.depth * 0.55) * sphereScale;
 
         if (p.isAccent) {
-          // Dimmed, restrained Sunset Orange Accent Node (#FF713D)
-          ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.70})`;
+          // Sunset Orange Accent Node (#FF713D)
+          ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.95})`;
           ctx.beginPath();
           ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Subtle subdued glow
-          if (p.depth > 0.5) {
-            ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.12})`;
+          // Restrained neon-style illumination glow
+          if (p.depth > 0.4) {
+            ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.22})`;
             ctx.beginPath();
-            ctx.arc(p.sx, p.sy, nodeRadius * 2.0, 0, Math.PI * 2);
+            ctx.arc(p.sx, p.sy, nodeRadius * 2.5, 0, Math.PI * 2);
             ctx.fill();
           }
         } else {
-          // Sky Blue / Dusk Blue Node (#4FC3F7)
-          ctx.fillStyle = `rgba(79, 195, 247, ${depthAlpha * 0.85})`;
+          // Electric Blue Node (#286BFF)
+          ctx.fillStyle = `rgba(40, 107, 255, ${depthAlpha * 0.92})`;
           ctx.beginPath();
           ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Subtle aura for foreground nodes
-          if (p.depth > 0.6) {
-            ctx.fillStyle = `rgba(79, 195, 247, ${depthAlpha * 0.14})`;
+          // Restrained neon-style illumination glow
+          if (p.depth > 0.4) {
+            ctx.fillStyle = `rgba(40, 107, 255, ${depthAlpha * 0.20})`;
             ctx.beginPath();
-            ctx.arc(p.sx, p.sy, nodeRadius * 1.8, 0, Math.PI * 2);
+            ctx.arc(p.sx, p.sy, nodeRadius * 2.2, 0, Math.PI * 2);
             ctx.fill();
           }
         }
       }
 
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
+      animationFrameId = requestAnimationFrame(render);
     };
 
     animationFrameId = requestAnimationFrame(render);
@@ -296,7 +302,7 @@ export function NetworkSphere() {
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full block opacity-95 transition-opacity duration-500"
+        className="w-full h-full block opacity-95 transition-opacity duration-300"
       />
     </div>
   );

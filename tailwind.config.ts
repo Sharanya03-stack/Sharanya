@@ -10,67 +10,66 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0B1A2E", // Dominant deep sky canvas (70% skyblue family foundation)
+        background: "#101114", // Rich Black (Dominant canvas)
+        charcoal: "#191A1E",   // Deep Charcoal
+        graphite: "#292B31",   // Graphite
+        mediumgrey: "#85878D", // Medium Grey
+        lightgrey: "#D5D6D8",  // Light Grey
+        offwhite: "#F5F5F2",   // Off-White
+        purewhite: "#FFFFFF",  // Pure White
         surface: {
-          DEFAULT: "#101D35", // Midnight Navy (20% contrast & depth)
-          subtle: "#0E2238",
-          card: "#122543",
-          hover: "#18325B",
+          DEFAULT: "#191A1E",
+          subtle: "#141518",
+          card: "rgba(25, 26, 30, 0.72)",
+          hover: "#22242A",
+          border: "rgba(255, 255, 255, 0.12)",
         },
-        skyblue: {
-          DEFAULT: "#4FC3F7", // Reference sky Blue #4FC3F7
-          hover: "#7DD3FC",
-          light: "#BAE6FD",
-          deep: "#0E2238",
-          canvas: "#0B1A2E",
-          surface: "#132B45",
-          muted: "rgba(79, 195, 247, 0.12)",
-          border: "rgba(79, 195, 247, 0.20)",
-        },
-        navy: {
-          deep: "#0A1324",
-          DEFAULT: "#101D35", // Reference Midnight Navy #101D35
-          light: "#182C4F",
-          border: "#1C355E",
-        },
-        dusk: {
-          DEFAULT: "#91B8E3",
-          hover: "#A6C7ED",
-          muted: "rgba(145, 184, 227, 0.12)",
-          border: "rgba(145, 184, 227, 0.22)",
+        electric: {
+          DEFAULT: "#286BFF", // Electric Blue accent
+          hover: "#4982FF",
+          muted: "rgba(40, 107, 255, 0.15)",
+          border: "rgba(40, 107, 255, 0.35)",
         },
         sunset: {
-          DEFAULT: "#FF713D", // Reference Sunset Orange #FF713D (10% selective accents)
+          DEFAULT: "#FF713D", // Sunset Orange accent
           hover: "#FF8557",
-          muted: "rgba(255, 113, 61, 0.12)",
-          border: "rgba(255, 113, 61, 0.25)",
+          muted: "rgba(255, 113, 61, 0.15)",
+          border: "rgba(255, 113, 61, 0.35)",
         },
         text: {
-          primary: "#F5F5F2", // Off-white primary text
-          secondary: "#A7B2C4", // Calm secondary text
-          muted: "#7887A0", // Understated labels
+          primary: "#FFFFFF",   // Pure White for high-contrast primary statements
+          secondary: "#D5D6D8", // Crisp Light Grey for readability
+          muted: "#85878D",     // Medium Grey for secondary annotations
         },
         border: {
-          DEFAULT: "rgba(79, 195, 247, 0.18)",
-          subtle: "rgba(255, 255, 255, 0.08)",
-          hover: "#4FC3F7",
+          DEFAULT: "rgba(255, 255, 255, 0.10)",
+          subtle: "rgba(255, 255, 255, 0.06)",
+          hover: "rgba(255, 255, 255, 0.25)",
         },
       },
       fontFamily: {
         sans: [
+          "'Space Grotesk'",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
           "Roboto",
-          "system-ui",
           "sans-serif",
         ],
-        serif: [
-          "Georgia",
-          "Cambria",
-          "Times New Roman",
-          "serif",
+        heading: [
+          "'Space Grotesk'",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+        ],
+        body: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "sans-serif",
         ],
         mono: [
           "JetBrains Mono",

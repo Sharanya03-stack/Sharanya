@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #0B1A2E;
-  --foreground: #F5F5F2;
+  --background: #101114;
+  --foreground: #FFFFFF;
 }
 
 html {
@@ -15,75 +17,75 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(79, 195, 247, 0.28);
-  color: #F5F5F2;
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
 }
 
-/* Subtle, understated scrollbar */
+/* Subtle monochrome scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B1A2E;
+  background: #101114;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #182C4F;
-  border-radius: 4px;
+  background: #292B31;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4FC3F7;
+  background: #85878D;
 }
 
-/* Authentic Glassmorphism Card System with Sky Blue / Midnight Navy harmony */
+/* Refined Frosted Monochrome Glassmorphism Card System */
 .glass-card {
-  background: rgba(16, 29, 53, 0.64);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(79, 195, 247, 0.18);
-  box-shadow: 0 4px 24px -2px rgba(8, 19, 36, 0.45);
-  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(79, 195, 247, 0.42);
-  background: rgba(22, 40, 72, 0.74);
-  box-shadow: 0 10px 32px -4px rgba(8, 19, 36, 0.65);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.8);
 }
 
 .glass-card-subtle {
-  background: rgba(14, 25, 46, 0.58);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(79, 195, 247, 0.14);
-  transition: all 0.25s ease;
+  background: rgba(25, 26, 30, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.22s ease;
 }
 
 .glass-card-subtle:hover {
-  border-color: rgba(79, 195, 247, 0.32);
-  background: rgba(18, 34, 62, 0.70);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(35, 37, 43, 0.75);
 }
 
 .glass-input {
-  background: rgba(14, 25, 46, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(79, 195, 247, 0.18);
+  background: rgba(25, 26, 30, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .glass-input:focus {
-  border-color: #4FC3F7;
-  background: rgba(18, 34, 62, 0.90);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(35, 37, 43, 0.90);
   outline: none;
 }
 

@@ -12,20 +12,20 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[rgba(11,26,46,0.85)] backdrop-blur-md border-t border-[rgba(79,195,247,0.16)] text-text-secondary text-xs relative z-10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 border-b border-[rgba(79,195,247,0.12)]">
+    <footer className="bg-[#101114]/90 backdrop-blur-md border-t border-white/10 text-lightgrey text-xs relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-8 border-b border-white/10">
           {/* Brand & Positioning */}
           <div className="md:col-span-5 space-y-3">
-            <div className="text-base font-semibold text-text-primary tracking-tight">
+            <div className="text-base font-semibold text-white tracking-tight font-heading">
               {siteConfig.name}
             </div>
 
-            <p className="text-text-secondary text-xs sm:text-sm leading-relaxed max-w-sm">
+            <p className="text-lightgrey text-xs sm:text-sm leading-relaxed max-w-sm font-body">
               {siteConfig.headline}
             </p>
 
-            <div className="flex items-center gap-2 text-skyblue text-xs font-mono pt-1">
+            <div className="flex items-center gap-2 text-white text-xs font-mono pt-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span>{siteConfig.availability}</span>
             </div>
@@ -33,42 +33,42 @@ export function Footer() {
 
           {/* Navigation Links */}
           <div className="md:col-span-3 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-wider text-text-primary font-medium">
+            <div className="text-xs font-mono uppercase tracking-wider text-white font-medium">
               Navigation
             </div>
             <ul className="space-y-2">
               <li>
-                <Link href="#hero" className="hover:text-skyblue transition-colors">
+                <Link href="#hero" className="hover:text-white transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="hover:text-skyblue transition-colors">
+                <Link href="#about" className="hover:text-white transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="#stack" className="hover:text-skyblue transition-colors">
+                <Link href="#stack" className="hover:text-white transition-colors">
                   Stack
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-skyblue transition-colors">
+                <Link href="#services" className="hover:text-white transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="hover:text-skyblue transition-colors">
+                <Link href="#projects" className="hover:text-white transition-colors">
                   Case Studies
                 </Link>
               </li>
               <li>
-                <Link href="#results" className="hover:text-skyblue transition-colors">
+                <Link href="#results" className="hover:text-white transition-colors">
                   Results
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-skyblue transition-colors">
+                <Link href="#contact" className="hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>

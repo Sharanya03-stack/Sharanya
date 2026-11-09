@@ -88,9 +88,9 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-24 bg-[rgba(11,26,46,0.4)] border-t border-[rgba(79,195,247,0.16)] relative z-10">
+    <section id="contact" className="py-14 lg:py-18 bg-charcoal/30 border-t border-white/10 relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
           {/* Left Column: Context & Direct Links — Slide From Left */}
           <motion.div
             variants={slideFromLeft}
@@ -100,25 +100,25 @@ export function Contact() {
             className="lg:col-span-5 space-y-6"
           >
             <div className="space-y-2">
-              <p className="text-xs font-mono uppercase tracking-widest text-skyblue font-medium">
+              <p className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
                 Initiate Project
               </p>
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
                 Have an idea? Let&apos;s build something meaningful.
               </h2>
-              <p className="text-sm text-text-secondary leading-relaxed">
+              <p className="text-sm text-lightgrey leading-relaxed font-body">
                 Tell me about your product goals, timeline, and current challenges. I review every inquiry personally and respond within 24 hours.
               </p>
             </div>
 
             {/* Direct Email & Socials */}
-            <div className="pt-4 border-t border-[rgba(79,195,247,0.16)] space-y-3">
+            <div className="pt-4 border-t border-white/10 space-y-3">
               <div>
-                <span className="text-xs font-mono text-text-muted">Direct Email</span>
+                <span className="text-xs font-mono text-mediumgrey">Direct Email</span>
                 <div className="mt-1">
                   <a
                     href={`mailto:${siteConfig.contactEmail}`}
-                    className="text-sm font-medium text-text-primary hover:text-skyblue transition-colors"
+                    className="text-sm font-medium text-white hover:text-lightgrey transition-colors"
                   >
                     {siteConfig.contactEmail}
                   </a>
@@ -130,7 +130,7 @@ export function Contact() {
                   href={siteConfig.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                  className="text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                 >
                   <span>LinkedIn</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -140,7 +140,7 @@ export function Contact() {
                   href={siteConfig.socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                  className="text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
                 >
                   <span>GitHub</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />

@@ -14,31 +14,31 @@ export function Hero({ onOpenCallback }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] flex items-center pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-transparent z-10"
+      className="relative min-h-[84vh] flex items-center pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden bg-transparent z-10"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Pure, focused editorial typography */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-7 text-left">
-            {/* 1. Small professional eyebrow text */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+          {/* Left Column: High-contrast monochromatic typography */}
+          <div className="lg:col-span-7 xl:col-span-8 space-y-6 text-left">
+            {/* 1. Professional eyebrow text */}
             <motion.div
               variants={fadeDown}
               initial="hidden"
               animate="visible"
               custom={0}
             >
-              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.22em] text-skyblue font-semibold">
+              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.22em] text-lightgrey font-semibold">
                 {siteConfig.role}
               </p>
             </motion.div>
 
-            {/* 2. Main headline */}
+            {/* 2. Main high-contrast headline */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               custom={1}
-              className="text-4xl sm:text-5xl lg:text-[3.75rem] font-bold tracking-tight text-text-primary leading-[1.12]"
+              className="text-4xl sm:text-5xl lg:text-[3.85rem] font-bold tracking-tight text-white leading-[1.10] font-heading"
             >
               {siteConfig.headline}
             </motion.h1>
@@ -49,7 +49,7 @@ export function Hero({ onOpenCallback }: HeroProps) {
               initial="hidden"
               animate="visible"
               custom={2}
-              className="text-base sm:text-lg lg:text-xl text-text-secondary leading-relaxed max-w-2xl"
+              className="text-base sm:text-lg lg:text-xl text-lightgrey leading-relaxed max-w-2xl font-body"
             >
               {siteConfig.supportingCopy}
             </motion.p>
@@ -60,11 +60,11 @@ export function Hero({ onOpenCallback }: HeroProps) {
               initial="hidden"
               animate="visible"
               custom={3}
-              className="flex flex-wrap items-center gap-4 pt-3"
+              className="flex flex-wrap items-center gap-4 pt-2"
             >
               <button
                 onClick={onOpenCallback}
-                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-sm sm:text-base font-medium text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-md shadow-sunset/20"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-sm sm:text-base font-medium text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-lg shadow-sunset/25"
               >
                 <span>Let&apos;s Work Together</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -72,18 +72,18 @@ export function Hero({ onOpenCallback }: HeroProps) {
 
               <Link
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-sm sm:text-base font-medium text-text-primary glass-card-subtle hover:border-skyblue/50 hover:text-skyblue hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg text-sm sm:text-base font-medium text-white glass-card hover:border-white/30 hover:bg-white/10 hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <span>Explore My Work</span>
-                <Compass className="w-4 h-4 opacity-70 group-hover:rotate-45 transition-transform" />
+                <Compass className="w-4 h-4 text-lightgrey group-hover:rotate-45 transition-transform" />
               </Link>
             </motion.div>
           </div>
 
-          {/* Right Column: Open spatial area dedicated to the 3D Network Sphere */}
+          {/* Right Column: Spatial canvas area for 3D Disintegrating Sphere */}
           <div
             aria-hidden="true"
-            className="hidden lg:block lg:col-span-5 xl:col-span-4 h-[440px] pointer-events-none"
+            className="hidden lg:block lg:col-span-5 xl:col-span-4 h-[420px] pointer-events-none"
           />
         </div>
       </div>
