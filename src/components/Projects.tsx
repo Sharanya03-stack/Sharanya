@@ -163,14 +163,14 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                   <div className="px-6 py-4 border-t border-white/10 bg-charcoal/40 flex items-center justify-between">
                     <button
                       onClick={() => onSelectProject(project)}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-lightgrey transition-colors group/btn"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-lightgrey transition-colors group/btn cursor-pointer"
                     >
                       <span>View Case Study</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
 
                     <div className="flex items-center gap-3">
-                      {project.liveUrl && (
+                      {project.liveUrl ? (
                         <a
                           href={project.liveUrl}
                           target="_blank"
@@ -180,8 +180,12 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                           <span>Live Demo</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
+                      ) : (
+                        <span className="text-[11px] font-mono text-mediumgrey px-2 py-0.5 rounded border border-white/5 bg-white/[0.02]">
+                          Demo on Request
+                        </span>
                       )}
-                      {project.githubUrl && (
+                      {project.githubUrl ? (
                         <a
                           href={project.githubUrl}
                           target="_blank"
@@ -191,7 +195,7 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                           <span>Code</span>
                           <Github className="w-3 h-3" />
                         </a>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </motion.div>

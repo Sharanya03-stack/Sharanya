@@ -77,16 +77,24 @@ export function Footer() {
 
           {/* Direct Channels */}
           <div className="md:col-span-4 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-wider text-text-primary font-medium">
+            <div className="text-xs font-mono uppercase tracking-wider text-white font-medium">
               Direct Inquiries
             </div>
-            <p className="text-xs text-text-secondary leading-relaxed">
+            <p className="text-xs text-lightgrey leading-relaxed">
               Available for full-stack contracts, technical product architecture, and AI-enabled software development.
             </p>
-            <div className="flex items-center gap-4 pt-1 text-xs">
+            <div className="flex flex-wrap items-center gap-4 pt-1 text-xs">
+              <a
+                href={siteConfig.whatsapp.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+              >
+                WhatsApp
+              </a>
               <a
                 href={`mailto:${siteConfig.contactEmail}`}
-                className="hover:text-dusk transition-colors"
+                className="text-lightgrey hover:text-white transition-colors"
               >
                 Email
               </a>
@@ -94,7 +102,7 @@ export function Footer() {
                 href={siteConfig.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-dusk transition-colors"
+                className="text-lightgrey hover:text-white transition-colors"
               >
                 LinkedIn
               </a>
@@ -102,7 +110,7 @@ export function Footer() {
                 href={siteConfig.socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-dusk transition-colors"
+                className="text-lightgrey hover:text-white transition-colors"
               >
                 GitHub
               </a>

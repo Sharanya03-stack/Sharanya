@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
-import { ArrowUpRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, AlertCircle, MessageCircle, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
 
@@ -12,7 +12,7 @@ export function Contact() {
     email: "",
     company: "",
     projectType: "Full-Stack Web Application",
-    budget: "$2,500 - $5,000",
+    budget: "",
     timeline: "1 - 2 Months",
     description: "",
     hp_field: "",
@@ -30,14 +30,6 @@ export function Contact() {
     "Cross-Platform Mobile App",
     "Backend & API Infrastructure",
     "Other / Advisory",
-  ];
-
-  const budgetTiers = [
-    "< $2,500",
-    "$2,500 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000+",
-    "Flexible / Discussion",
   ];
 
   const timelineOptions = [
@@ -72,7 +64,7 @@ export function Contact() {
         email: "",
         company: "",
         projectType: "Full-Stack Web Application",
-        budget: "$2,500 - $5,000",
+        budget: "",
         timeline: "1 - 2 Months",
         description: "",
         hp_field: "",
@@ -91,7 +83,7 @@ export function Contact() {
     <section id="contact" className="py-14 lg:py-18 bg-charcoal/30 border-t border-white/10 relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-          {/* Left Column: Context & Direct Links — Slide From Left */}
+          {/* Left Column: Context, Direct Email & WhatsApp Action */}
           <motion.div
             variants={slideFromLeft}
             initial="hidden"
@@ -111,20 +103,63 @@ export function Contact() {
               </p>
             </div>
 
-            {/* Direct Email & Socials */}
-            <div className="pt-4 border-t border-white/10 space-y-3">
-              <div>
-                <span className="text-xs font-mono text-mediumgrey">Direct Email</span>
-                <div className="mt-1">
+            {/* Direct Communication Channels */}
+            <div className="space-y-3 pt-4 border-t border-white/10">
+              {/* WhatsApp Fast Channel */}
+              <div className="p-4 rounded-xl glass-card border border-white/10 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-400">
+                      <MessageCircle className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-mono text-mediumgrey uppercase tracking-wider">
+                      Direct WhatsApp
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Quick replies
+                  </span>
+                </div>
+                <p className="text-xs text-lightgrey">
+                  Prefer a rapid discussion? Reach out on WhatsApp directly for quotes, timeline checks, and technical questions.
+                </p>
+                <div className="pt-1">
                   <a
-                    href={`mailto:${siteConfig.contactEmail}`}
-                    className="text-sm font-medium text-white hover:text-lightgrey transition-colors"
+                    href={siteConfig.whatsapp.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-sm group"
                   >
-                    {siteConfig.contactEmail}
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>Chat on WhatsApp</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </a>
                 </div>
               </div>
 
+              {/* Direct Email */}
+              <div className="p-4 rounded-xl glass-card border border-white/10 space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 rounded-md bg-white/5 text-lightgrey">
+                    <Mail className="w-4 h-4" />
+                  </span>
+                  <span className="text-xs font-mono text-mediumgrey uppercase tracking-wider">
+                    Direct Email
+                  </span>
+                </div>
+                <a
+                  href={`mailto:${siteConfig.contactEmail}`}
+                  className="block text-sm font-medium text-white hover:text-lightgrey transition-colors pt-0.5 font-mono"
+                >
+                  {siteConfig.contactEmail}
+                </a>
+                <p className="text-[11px] text-mediumgrey">
+                  For formal RFPs, architecture reviews, and detailed briefs.
+                </p>
+              </div>
+
+              {/* Social Channels */}
               <div className="pt-2 flex items-center gap-4 text-xs">
                 <a
                   href={siteConfig.socialLinks.linkedin}
@@ -157,7 +192,7 @@ export function Contact() {
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-7"
           >
-            <div className="p-6 sm:p-8 rounded-2xl glass-card">
+            <div className="p-6 sm:p-8 rounded-2xl glass-card border border-white/10">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Honeypot */}
                 <input
@@ -174,7 +209,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="fullName"
-                      className="block text-xs font-mono text-text-secondary"
+                      className="block text-xs font-mono text-lightgrey"
                     >
                       Full Name *
                     </label>
@@ -187,14 +222,14 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, fullName: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="email"
-                      className="block text-xs font-mono text-text-secondary"
+                      className="block text-xs font-mono text-lightgrey"
                     >
                       Email Address *
                     </label>
@@ -207,7 +242,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -215,26 +250,26 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="company"
-                    className="block text-xs font-mono text-text-secondary"
+                    className="block text-xs font-mono text-lightgrey"
                   >
                     Company / Organization (Optional)
                   </label>
                   <input
                     id="company"
                     type="text"
-                    placeholder="Company name"
+                    placeholder="Company or startup name"
                     value={formData.company}
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label
                     htmlFor="projectType"
-                    className="block text-xs font-mono text-text-secondary"
+                    className="block text-xs font-mono text-lightgrey"
                   >
                     Project Type
                   </label>
@@ -244,10 +279,10 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectType: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white text-xs sm:text-sm bg-charcoal"
                   >
                     {projectTypes.map((type) => (
-                      <option key={type} value={type} className="bg-[#101D35] text-text-primary">
+                      <option key={type} value={type} className="bg-charcoal text-white">
                         {type}
                       </option>
                     ))}
@@ -258,30 +293,26 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="budget"
-                      className="block text-xs font-mono text-text-secondary"
+                      className="block text-xs font-mono text-lightgrey"
                     >
-                      Budget Bracket
+                      Estimated Project Budget (Optional)
                     </label>
-                    <select
+                    <input
                       id="budget"
+                      type="text"
+                      placeholder="Enter your estimated budget or write 'Let's discuss'"
                       value={formData.budget}
                       onChange={(e) =>
                         setFormData({ ...formData, budget: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
-                    >
-                      {budgetTiers.map((tier) => (
-                        <option key={tier} value={tier} className="bg-[#101D35] text-text-primary">
-                          {tier}
-                        </option>
-                      ))}
-                    </select>
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
+                    />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="timeline"
-                      className="block text-xs font-mono text-text-secondary"
+                      className="block text-xs font-mono text-lightgrey"
                     >
                       Desired Timeline
                     </label>
@@ -291,10 +322,10 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, timeline: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white text-xs sm:text-sm bg-charcoal"
                     >
                       {timelineOptions.map((opt) => (
-                        <option key={opt} value={opt} className="bg-[#101D35] text-text-primary">
+                        <option key={opt} value={opt} className="bg-charcoal text-white">
                           {opt}
                         </option>
                       ))}
@@ -305,7 +336,7 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="description"
-                    className="block text-xs font-mono text-text-secondary"
+                    className="block text-xs font-mono text-lightgrey"
                   >
                     Project Scope &amp; Objectives *
                   </label>
@@ -318,7 +349,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-text-primary placeholder-text-muted text-xs sm:text-sm resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm resize-none"
                   />
                 </div>
 
@@ -342,7 +373,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
+                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                 >
                   {status === "submitting" ? (
                     <span>Submitting...</span>

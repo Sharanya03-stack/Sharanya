@@ -24,6 +24,7 @@ export const techCategories: TechCategory[] = [
       { name: "TypeScript", category: "frontend", description: "Strict type safety, robust interfaces & maintainability", iconName: "Code2", highlight: true },
       { name: "JavaScript", category: "frontend", description: "Modern ESNext, asynchronous patterns & DOM mastery", iconName: "FileCode" },
       { name: "Tailwind CSS", category: "frontend", description: "Design systems, utility-first styling & dark mode aesthetics", iconName: "Palette" },
+      { name: "Vercel", category: "frontend", description: "Edge deployments, automated CI/CD previews & global CDN", iconName: "Globe", highlight: true },
     ],
   },
   {
@@ -34,6 +35,7 @@ export const techCategories: TechCategory[] = [
       { name: "Python", category: "backend", description: "High-performance scripting, data pipelines & AI tooling", iconName: "Terminal", highlight: true },
       { name: "FastAPI", category: "backend", description: "High-throughput asynchronous REST APIs & Pydantic validation", iconName: "Zap", highlight: true },
       { name: "Node.js", category: "backend", description: "Microservices, event-driven backends & serverless workers", iconName: "Server" },
+      { name: "Docker", category: "backend", description: "Containerization, microservices isolation & reproducible runtimes", iconName: "Box", highlight: true },
     ],
   },
   {

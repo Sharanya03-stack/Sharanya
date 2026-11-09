@@ -15,7 +15,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
     email: "",
     company: "",
     projectType: "Full-Stack Web Application",
-    budget: "$2,500 - $5,000",
+    budget: "",
     timeline: "1 - 2 Months",
     description: "",
   });
@@ -60,7 +60,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
         email: "",
         company: "",
         projectType: "Full-Stack Web Application",
-        budget: "$2,500 - $5,000",
+        budget: "",
         timeline: "1 - 2 Months",
         description: "",
       });
@@ -156,39 +156,34 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono text-text-secondary">
-                        Project Type
-                      </label>
-                      <select
-                        value={formData.projectType}
-                        onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full px-2.5 py-2 rounded-lg glass-input text-text-primary text-xs"
-                      >
-                        <option value="Full-Stack Web Application" className="bg-[#101D35]">Web App</option>
-                        <option value="AI Agent & RAG Pipeline" className="bg-[#101D35]">AI / Agent</option>
-                        <option value="SaaS Platform / Dashboard" className="bg-[#101D35]">SaaS Platform</option>
-                        <option value="Mobile App" className="bg-[#101D35]">Mobile App</option>
-                        <option value="Other" className="bg-[#101D35]">Other</option>
-                      </select>
-                    </div>
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-mono text-lightgrey">
+                      Project Type
+                    </label>
+                    <select
+                      value={formData.projectType}
+                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                      className="w-full px-2.5 py-2 rounded-lg glass-input text-white text-xs bg-charcoal"
+                    >
+                      <option value="Full-Stack Web Application" className="bg-[#191A1E]">Web Application</option>
+                      <option value="AI Agent & RAG Pipeline" className="bg-[#191A1E]">AI / Agent Workflow</option>
+                      <option value="SaaS Platform / Dashboard" className="bg-[#191A1E]">SaaS Platform</option>
+                      <option value="Mobile App" className="bg-[#191A1E]">Mobile App</option>
+                      <option value="Other" className="bg-[#191A1E]">Other</option>
+                    </select>
+                  </div>
 
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono text-text-secondary">
-                        Budget
-                      </label>
-                      <select
-                        value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-2.5 py-2 rounded-lg glass-input text-text-primary text-xs"
-                      >
-                        <option value="< $2,500" className="bg-[#101D35]">&lt; $2,500</option>
-                        <option value="$2,500 - $5,000" className="bg-[#101D35]">$2.5k - $5k</option>
-                        <option value="$5,000 - $10,000" className="bg-[#101D35]">$5k - $10k</option>
-                        <option value="$10,000+" className="bg-[#101D35]">$10k+</option>
-                      </select>
-                    </div>
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-mono text-lightgrey">
+                      Estimated Project Budget (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter your estimated budget or write 'Let's discuss'"
+                      value={formData.budget}
+                      onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                      className="w-full px-3 py-2 rounded-lg glass-input text-white placeholder-mediumgrey text-xs"
+                    />
                   </div>
 
                   <div className="space-y-1">

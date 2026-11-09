@@ -48,8 +48,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Triage Latency", value: "< 45s" },
       { label: "Routing Tiers", value: "3 Active" },
     ],
-    liveUrl: "https://cascadeflow-triage.demo.app", // EDITABLE: replace with your live URL
-    githubUrl: "https://github.com/sharanya-dev/cascadeflow-triage", // EDITABLE: replace with your repository URL
+    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
+    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
     caseStudy: {
       projectOverview: "An advanced AI-powered operations control panel designed to ingest large-scale CI/CD crash logs and unidirectional IP network telemetry. The system autonomously determines root causes, executes synthetic test validations, and manages inference costs through tiered multi-agent workspace routing.",
       problemStatement: "Engineering teams lose critical deployment velocity analyzing gigabytes of raw CI/CD failure logs and threat streams. Feeding raw multi-megabyte log files directly into frontier LLMs triggers massive token expenses, high rate-limit latency, and frequent context overflow errors.",
@@ -77,8 +77,8 @@ export const projects: ProjectCaseStudy[] = [
         "Accelerated failure diagnosis cycle time from an average of 22 minutes to under 45 seconds.",
         "Maintained 100% crash trace handling reliability with zero unhandled pipeline exceptions during test runs.",
       ],
-      liveDemoUrl: "https://cascadeflow-triage.demo.app",
-      githubRepositoryUrl: "https://github.com/sharanya-dev/cascadeflow-triage",
+      liveDemoUrl: "",
+      githubRepositoryUrl: "",
     },
   },
   {
@@ -94,8 +94,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Dispatch Accuracy", value: "99.4%" },
       { label: "Pipeline Stages", value: "4 Tracked" },
     ],
-    liveUrl: "https://acs-energy.demo.app", // EDITABLE: replace with your live URL
-    githubUrl: "https://github.com/sharanya-dev/acs-energy-platform", // EDITABLE: replace with your repository URL
+    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
+    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
     caseStudy: {
       projectOverview: "A mission-critical B2B software platform built for electric vehicle hardware manufacturers, certified electrical contractors, and dealership networks to track and execute commercial EV charger installations seamlessly.",
       problemStatement: "Commercial EV charger rollouts face multi-party coordination chaos. OEMs, automotive dealerships, regional contractors, and certified technicians operate across fragmented channels, resulting in delayed approvals, lost compliance photos, and repeated revisits.",
@@ -123,8 +123,8 @@ export const projects: ProjectCaseStudy[] = [
         "Shortened the installation sign-off and verification turnaround cycle from 4 business days to instant digital approval.",
         "Zero data leaks across multi-tenant dealership boundaries during production audits.",
       ],
-      liveDemoUrl: "https://acs-energy.demo.app",
-      githubRepositoryUrl: "https://github.com/sharanya-dev/acs-energy-platform",
+      liveDemoUrl: "",
+      githubRepositoryUrl: "",
     },
   },
   {
@@ -140,8 +140,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Smart Savings", value: "Avg ₹120" },
       { label: "Search Latency", value: "< 40ms" },
     ],
-    liveUrl: "https://nexbasket.demo.app", // EDITABLE: replace with your live URL
-    githubUrl: "https://github.com/sharanya-dev/nexbasket-storefront", // EDITABLE: replace with your repository URL
+    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
+    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
     caseStudy: {
       projectOverview: "A consumer-facing hyperlocal grocery application built to deliver fresh produce, artisan bakery items, and organic essentials within a 15-minute window, powered by an intelligent automated budget-savings engine.",
       problemStatement: "E-commerce grocery platforms struggle with cart abandonment and price sensitivity. Shoppers often abandon full carts when overall totals unexpectedly surge, while navigating thousands of products on mobile devices remains slow and cumbersome.",
@@ -169,8 +169,8 @@ export const projects: ProjectCaseStudy[] = [
         "Delivered 99+ Performance score on Google Lighthouse across mobile benchmarks.",
         "Ensured frictionless sub-50ms catalog filtering even on budget mobile devices.",
       ],
-      liveDemoUrl: "https://nexbasket.demo.app",
-      githubRepositoryUrl: "https://github.com/sharanya-dev/nexbasket-storefront",
+      liveDemoUrl: "",
+      githubRepositoryUrl: "",
     },
   },
   {
@@ -186,8 +186,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Lighthouse Score", value: "99/100" },
       { label: "Avg Session", value: "3.4m" },
     ],
-    liveUrl: "https://zerodegree.demo.app", // EDITABLE: replace with your live URL
-    githubUrl: "https://github.com/sharanya-dev/zerodegree-web", // EDITABLE: replace with your repository URL
+    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
+    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
     caseStudy: {
       projectOverview: "A bespoke, art-directed digital dining portal for Zero Degree—an open-air microbrewery and precision coffee establishment in RR Nagar, Bengaluru. The website drives direct table bookings while immersing guests in the venue's nocturnal atmosphere.",
       problemStatement: "High-end dining destinations suffer from heavy 15-25% commissions charged by aggregator booking apps. Traditional restaurant websites are often clunky, uninspiring, and fail to convey the sensory ambience that motivates guests to visit.",
@@ -215,8 +215,8 @@ export const projects: ProjectCaseStudy[] = [
         "Maintained 99/100 Google Lighthouse Accessibility, Best Practices, and SEO scores.",
         "Achieved an average session duration of 3.4 minutes as visitors explored menus and brewery story.",
       ],
-      liveDemoUrl: "https://zerodegree.demo.app",
-      githubRepositoryUrl: "https://github.com/sharanya-dev/zerodegree-web",
+      liveDemoUrl: "",
+      githubRepositoryUrl: "",
     },
   },
   {
@@ -232,8 +232,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Brokerage Fee", value: "Zero ₹" },
       { label: "Filter Latency", value: "< 120ms" },
     ],
-    liveUrl: "https://househunt.demo.app", // EDITABLE: replace with your live URL
-    githubUrl: "https://github.com/sharanya-dev/househunt-realestate", // EDITABLE: replace with your repository URL
+    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
+    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
     caseStudy: {
       projectOverview: "A nationwide real estate marketplace built to eliminate opaque middleman brokerage fees. The platform connects prospective tenants and homebuyers directly with verified property owners across India.",
       problemStatement: "The urban Indian housing market is notorious for non-transparent pricing, fake duplicate listings, and excessive brokerage commissions (up to 2 months' rent). Finding verified properties with genuine photos is time-consuming and frustrating.",
@@ -261,8 +261,8 @@ export const projects: ProjectCaseStudy[] = [
         "Indexed over 50,000 verified property records with transparent owner contacts.",
         "Saved home seekers millions of rupees in avoided middleman commission fees.",
       ],
-      liveDemoUrl: "https://househunt.demo.app",
-      githubRepositoryUrl: "https://github.com/sharanya-dev/househunt-realestate",
+      liveDemoUrl: "",
+      githubRepositoryUrl: "",
     },
   },
 ];

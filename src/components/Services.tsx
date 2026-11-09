@@ -1,121 +1,241 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { services } from "@/data/services";
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion, useScroll } from "framer-motion";
+import { fadeUp } from "@/lib/animations";
 
 interface ServicesProps {
   onOpenCallback: () => void;
 }
 
 export function Services({ onOpenCallback }: ServicesProps) {
-  // Directional mapping as strictly specified:
-  // 1: Left, 2: Right, 3: Bottom (fadeUp), 4: Left, 5: Right
-  const getDirectionalVariant = (index: number) => {
-    switch (index) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      // Map 0 -> 1 into active card 0 -> 4
+      const nextIndex = Math.min(4, Math.floor(latest * 5.2));
+      setActiveCardIndex(nextIndex);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  // Subtle background variations between cards: Charcoal, Soft Black, Graphite
+  const getCardSurfaceClass = (index: number) => {
+    switch (index % 3) {
       case 0:
-        return slideFromLeft;
+        return "bg-[#191A1E]/85 border-white/12";
       case 1:
-        return slideFromRight;
+        return "bg-[#141518]/90 border-white/10";
       case 2:
-        return fadeUp;
-      case 3:
-        return slideFromLeft;
-      case 4:
       default:
-        return slideFromRight;
+        return "bg-[#22242B]/80 border-white/15";
     }
   };
 
   return (
-    <section id="services" className="py-14 lg:py-18 bg-transparent relative z-10">
+    <section
+      id="services"
+      ref={containerRef}
+      className="relative bg-transparent py-16 lg:py-24 z-10"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="max-w-2xl mb-10 space-y-2"
-        >
-          <p className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
-            Freelance Services
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
-            How I Help Clients Build &amp; Scale
-          </h2>
-          <p className="text-sm text-lightgrey leading-relaxed font-body">
-            I partner directly with founders and teams to solve technical bottlenecks, architect scalable systems, and ship polished digital products.
-          </p>
-        </motion.div>
+        {/* Desktop Layout: Muse Group-inspired Sticky Chapter Rhythm */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-12 items-start relative min-h-[220vh]">
+          {/* Pinned Left Editorial Column */}
+          <div className="lg:col-span-5 sticky top-32 space-y-6">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card-subtle"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
+              <span className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
+                Disciplines &amp; Services
+              </span>
+            </motion.div>
 
-        {/* Services Cards with Alternating Directional Reveal */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => {
-            const variant = getDirectionalVariant(index);
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-heading leading-tight">
+              Strategic execution for modern software products.
+            </h2>
 
-            return (
-              <motion.div
-                key={service.id}
-                variants={variant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
-                custom={index * 0.4}
-                className="rounded-xl glass-card p-6 flex flex-col justify-between hover:-translate-y-1.5 hover:border-white/25 transition-all duration-300 group"
+            <p className="text-sm text-lightgrey leading-relaxed font-body max-w-sm">
+              I partner directly with founders and product teams to architect resilient systems, accelerate launch cycles, and solve engineering bottlenecks.
+            </p>
+
+            {/* Chapter Stepper Indicator */}
+            <div className="pt-4 space-y-2 border-t border-white/10">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-mediumgrey">
+                Active Chapter
+              </span>
+              <div className="flex items-center gap-2">
+                {services.map((service, idx) => (
+                  <div
+                    key={service.id}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      activeCardIndex === idx
+                        ? "w-8 bg-white"
+                        : "w-2 bg-white/20"
+                    }`}
+                  />
+                ))}
+                <span className="text-xs font-mono text-lightgrey pl-2">
+                  0{activeCardIndex + 1} / 0{services.length}
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={onOpenCallback}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-md shadow-sunset/20"
               >
-                <div>
-                  {/* Header */}
-                  <div className="mb-4">
-                    <h3 className="text-base font-semibold text-white mb-1 group-hover:text-lightgrey transition-colors font-heading">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs text-mediumgrey font-mono">
+                <span>Discuss a Project</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Sequential Right Cards Stack */}
+          <div className="lg:col-span-7 space-y-12 pb-24">
+            {services.map((service, index) => {
+              const isActive = activeCardIndex === index;
+
+              return (
+                <div
+                  key={service.id}
+                  className={`p-8 rounded-3xl backdrop-blur-xl transition-all duration-500 shadow-2xl ${getCardSurfaceClass(
+                    index
+                  )} ${
+                    isActive
+                      ? "ring-1 ring-white/30 scale-[1.01]"
+                      : "opacity-80 scale-[0.99]"
+                  }`}
+                >
+                  {/* Service Number & Header */}
+                  <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
+                    <span className="text-sm font-mono tracking-widest text-white/50 font-medium">
+                      CHAPTER {service.number}
+                    </span>
+                    <span className="text-xs font-mono text-mediumgrey uppercase tracking-wider">
                       {service.tagline}
-                    </p>
+                    </span>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-lightgrey mb-5 leading-relaxed font-body">
-                    {service.description}
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight font-heading">
+                    {service.title}
+                  </h3>
+
+                  {/* 1 Concise Sentence Explaining Value */}
+                  <p className="text-sm text-lightgrey leading-relaxed font-body mb-6">
+                    {service.value}
                   </p>
 
-                  {/* Problem Solved */}
-                  <div className="p-3 rounded-lg glass-card-subtle mb-5">
-                    <div className="text-[11px] font-mono uppercase tracking-wider text-mediumgrey mb-1">
-                      Problem Solved
-                    </div>
-                    <p className="text-xs text-lightgrey leading-relaxed font-body">
-                      {service.businessProblem}
-                    </p>
-                  </div>
-
-                  {/* Key Capabilities */}
-                  <div className="space-y-1.5 mb-6">
-                    <div className="text-[11px] font-mono uppercase tracking-wider text-mediumgrey mb-2">
+                  {/* 3 Short Capabilities */}
+                  <div className="space-y-2.5 mb-8 pt-2">
+                    <div className="text-[11px] font-mono uppercase tracking-wider text-mediumgrey">
                       Key Capabilities
                     </div>
                     {service.capabilities.map((cap) => (
-                      <div key={cap} className="flex items-start gap-2 text-xs text-lightgrey">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white/60 mt-1.5 shrink-0" />
+                      <div
+                        key={cap}
+                        className="flex items-center gap-2.5 text-xs text-lightgrey"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-white/70 shrink-0" />
                         <span>{cap}</span>
                       </div>
                     ))}
                   </div>
+
+                  {/* Action */}
+                  <div className="pt-2 border-t border-white/8 flex items-center justify-between">
+                    <button
+                      onClick={onOpenCallback}
+                      className="inline-flex items-center gap-2 text-xs font-medium text-white hover:text-lightgrey transition-colors group"
+                    >
+                      <span>Discuss a Project</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <span className="text-[11px] font-mono text-mediumgrey">
+                      Ready to build
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile & Tablet Layout: Natural Sequential Vertical Scroll */}
+        <div className="lg:hidden space-y-8">
+          <div className="space-y-3 mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card-subtle">
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
+              <span className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
+                Disciplines &amp; Services
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
+              Strategic execution for modern software.
+            </h2>
+            <p className="text-sm text-lightgrey leading-relaxed font-body">
+              I partner directly with founders to architect scalable systems and ship polished digital products.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {services.map((service, index) => (
+              <div
+                key={service.id}
+                className={`p-6 rounded-2xl glass-card ${getCardSurfaceClass(index)}`}
+              >
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <span className="text-xs font-mono text-mediumgrey font-medium">
+                    {service.number}
+                  </span>
+                  <span className="text-[11px] font-mono text-mediumgrey uppercase">
+                    {service.tagline}
+                  </span>
                 </div>
 
-                {/* Action Button */}
+                <h3 className="text-lg font-bold text-white mb-2 font-heading">
+                  {service.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-lightgrey mb-4 leading-relaxed font-body">
+                  {service.value}
+                </p>
+
+                <div className="space-y-2 mb-6">
+                  {service.capabilities.map((cap) => (
+                    <div key={cap} className="flex items-center gap-2 text-xs text-lightgrey">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white/70 shrink-0" />
+                      <span>{cap}</span>
+                    </div>
+                  ))}
+                </div>
+
                 <button
                   onClick={onOpenCallback}
-                  className="w-full inline-flex items-center justify-between py-2.5 px-3.5 rounded-lg text-xs font-medium text-white glass-card-subtle hover:border-white/30 hover:bg-white/10 active:scale-[0.99] transition-all group/btn"
+                  className="w-full py-2.5 px-3.5 rounded-lg text-xs font-medium text-white glass-card-subtle hover:border-white/30 text-center flex items-center justify-center gap-1.5"
                 >
                   <span>Discuss a Project</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-mediumgrey group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
-              </motion.div>
-            );
-          })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
