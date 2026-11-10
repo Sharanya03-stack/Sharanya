@@ -48,8 +48,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Triage Latency", value: "< 45s" },
       { label: "Routing Tiers", value: "3 Active" },
     ],
-    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
-    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
+    liveUrl: "", // Enter deployed live application URL here
+    githubUrl: "", // Enter GitHub repository URL here
     caseStudy: {
       projectOverview: "An advanced AI-powered operations control panel designed to ingest large-scale CI/CD crash logs and unidirectional IP network telemetry. The system autonomously determines root causes, executes synthetic test validations, and manages inference costs through tiered multi-agent workspace routing.",
       problemStatement: "Engineering teams lose critical deployment velocity analyzing gigabytes of raw CI/CD failure logs and threat streams. Feeding raw multi-megabyte log files directly into frontier LLMs triggers massive token expenses, high rate-limit latency, and frequent context overflow errors.",
@@ -94,8 +94,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Dispatch Accuracy", value: "99.4%" },
       { label: "Pipeline Stages", value: "4 Tracked" },
     ],
-    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
-    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
+    liveUrl: "", // Enter deployed live application URL here
+    githubUrl: "", // Enter GitHub repository URL here
     caseStudy: {
       projectOverview: "A mission-critical B2B software platform built for electric vehicle hardware manufacturers, certified electrical contractors, and dealership networks to track and execute commercial EV charger installations seamlessly.",
       problemStatement: "Commercial EV charger rollouts face multi-party coordination chaos. OEMs, automotive dealerships, regional contractors, and certified technicians operate across fragmented channels, resulting in delayed approvals, lost compliance photos, and repeated revisits.",
@@ -140,8 +140,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Smart Savings", value: "Avg ₹120" },
       { label: "Search Latency", value: "< 40ms" },
     ],
-    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
-    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
+    liveUrl: "", // Enter deployed live application URL here
+    githubUrl: "", // Enter GitHub repository URL here
     caseStudy: {
       projectOverview: "A consumer-facing hyperlocal grocery application built to deliver fresh produce, artisan bakery items, and organic essentials within a 15-minute window, powered by an intelligent automated budget-savings engine.",
       problemStatement: "E-commerce grocery platforms struggle with cart abandonment and price sensitivity. Shoppers often abandon full carts when overall totals unexpectedly surge, while navigating thousands of products on mobile devices remains slow and cumbersome.",
@@ -186,8 +186,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Lighthouse Score", value: "99/100" },
       { label: "Avg Session", value: "3.4m" },
     ],
-    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
-    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
+    liveUrl: "", // Enter deployed live application URL here
+    githubUrl: "", // Enter GitHub repository URL here
     caseStudy: {
       projectOverview: "A bespoke, art-directed digital dining portal for Zero Degree—an open-air microbrewery and precision coffee establishment in RR Nagar, Bengaluru. The website drives direct table bookings while immersing guests in the venue's nocturnal atmosphere.",
       problemStatement: "High-end dining destinations suffer from heavy 15-25% commissions charged by aggregator booking apps. Traditional restaurant websites are often clunky, uninspiring, and fail to convey the sensory ambience that motivates guests to visit.",
@@ -232,8 +232,8 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Brokerage Fee", value: "Zero ₹" },
       { label: "Filter Latency", value: "< 120ms" },
     ],
-    liveUrl: "", // EDITABLE: Paste deployed website URL here in VS Code (or leave empty for 'Demo on Request')
-    githubUrl: "", // EDITABLE: Paste GitHub repository URL here in VS Code (or leave empty to hide)
+    liveUrl: "", // Enter deployed live application URL here
+    githubUrl: "", // Enter GitHub repository URL here
     caseStudy: {
       projectOverview: "A nationwide real estate marketplace built to eliminate opaque middleman brokerage fees. The platform connects prospective tenants and homebuyers directly with verified property owners across India.",
       problemStatement: "The urban Indian housing market is notorious for non-transparent pricing, fake duplicate listings, and excessive brokerage commissions (up to 2 months' rent). Finding verified properties with genuine photos is time-consuming and frustrating.",

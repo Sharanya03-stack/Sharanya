@@ -99,6 +99,8 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => {
               const directionalVariant = getProjectDirectionVariant(index);
+              const projectGithubUrl = project.githubUrl?.trim() || project.caseStudy?.githubRepositoryUrl?.trim() || "";
+              const projectLiveUrl = project.liveUrl?.trim() || project.caseStudy?.liveDemoUrl?.trim() || "";
 
               return (
                 <motion.div
@@ -159,13 +161,12 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                     </div>
                   </div>
 
-                  {/* Actions Footer: GitHub Repository & Live Project */}
-                  {(Boolean(project.githubUrl && project.githubUrl.trim()) ||
-                    Boolean(project.liveUrl && project.liveUrl.trim())) && (
-                    <div className="px-6 py-3.5 border-t border-white/10 bg-charcoal/40 flex items-center justify-between gap-4 mt-auto">
-                      {project.githubUrl && project.githubUrl.trim() ? (
+                  {/* Actions Footer: GitHub Repository & Live Project placed side by side */}
+                  {Boolean(projectGithubUrl || projectLiveUrl) && (
+                    <div className="px-6 py-3.5 border-t border-white/10 bg-charcoal/40 flex items-center gap-5 mt-auto">
+                      {projectGithubUrl ? (
                         <a
-                          href={project.githubUrl}
+                          href={projectGithubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs text-lightgrey hover:text-white transition-colors duration-200 group/link py-1"
@@ -173,16 +174,14 @@ export function Projects({ onSelectProject, onOpenCallback }: ProjectsProps) {
                           <Github className="w-3.5 h-3.5 text-mediumgrey group-hover/link:text-white transition-colors" />
                           <span>GitHub Repository</span>
                         </a>
-                      ) : (
-                        <div />
-                      )}
+                      ) : null}
 
-                      {project.liveUrl && project.liveUrl.trim() ? (
+                      {projectLiveUrl ? (
                         <a
-                          href={project.liveUrl}
+                          href={projectLiveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs text-lightgrey hover:text-white transition-colors duration-200 group/link py-1 ml-auto"
+                          className="inline-flex items-center gap-1.5 text-xs text-lightgrey hover:text-white transition-colors duration-200 group/link py-1"
                         >
                           <span>Live Project</span>
                           <ExternalLink className="w-3.5 h-3.5 text-mediumgrey group-hover/link:text-white transition-colors" />

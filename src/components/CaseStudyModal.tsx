@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { ProjectCaseStudy } from "@/data/projects";
-import { X, ExternalLink, Github, ArrowRight, ShieldCheck } from "lucide-react";
+import { X, ExternalLink, Github, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CaseStudyModalProps {
@@ -94,36 +94,27 @@ export function CaseStudyModal({ project, onClose, onOpenCallback }: CaseStudyMo
                   ))}
                 </div>
                 <div className="flex items-center gap-2">
-                  {project.liveUrl ? (
+                  {(project.liveUrl || project.caseStudy?.liveDemoUrl) && (
                     <a
-                      href={project.liveUrl}
+                      href={project.liveUrl || project.caseStudy?.liveDemoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-sunset text-white hover:bg-sunset-hover hover:-translate-y-0.5 transition-all shadow-sm"
                     >
-                      <span>Live Demo</span>
+                      <span>Live Project</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
-                  ) : (
-                    <span className="text-[11px] font-mono text-mediumgrey px-2.5 py-1 rounded border border-white/10 bg-white/[0.02]">
-                      Demo on Request
-                    </span>
                   )}
-                  {project.githubUrl ? (
+                  {(project.githubUrl || project.caseStudy?.githubRepositoryUrl) && (
                     <a
-                      href={project.githubUrl}
+                      href={project.githubUrl || project.caseStudy?.githubRepositoryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md glass-card-subtle text-lightgrey hover:text-white hover:border-white/20 hover:-translate-y-0.5 transition-all"
                     >
                       <Github className="w-3.5 h-3.5" />
-                      <span>Repository</span>
+                      <span>GitHub Repository</span>
                     </a>
-                  ) : (
-                    <span className="text-[11px] font-mono text-mediumgrey px-2.5 py-1 rounded border border-white/10 bg-white/[0.02] flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3 text-mediumgrey" />
-                      <span>Code on Request</span>
-                    </span>
                   )}
                 </div>
               </div>
