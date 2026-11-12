@@ -42,7 +42,7 @@ export function TechStack({ categories }: TechStackProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-xs font-mono uppercase tracking-[0.22em] text-secondary"
+            className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium"
           >
             02 — Core Technologies
           </motion.p>
@@ -52,7 +52,7 @@ export function TechStack({ categories }: TechStackProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading leading-[1.12] flex flex-wrap gap-x-3 gap-y-1"
+            className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.6rem,4vw,3.75rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1] flex flex-wrap gap-x-3 gap-y-1"
           >
             {headlineWords.map((word, i) => (
               <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-1">
@@ -73,7 +73,7 @@ export function TechStack({ categories }: TechStackProps) {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={2}
-            className="text-sm sm:text-base text-body leading-[1.7] font-sans max-w-2xl"
+            className="text-base sm:text-[1.0625rem] lg:text-[1.125rem] text-body leading-[1.7] font-body max-w-2xl"
           >
             A disciplined technical toolkit selected for strict type-safety, resilience under concurrency, and zero-compromise runtime performance.
           </motion.p>
@@ -142,15 +142,15 @@ export function TechStack({ categories }: TechStackProps) {
                       custom={index * 0.2}
                       className="flex items-center justify-between pb-3.5 mb-4 border-b border-border"
                     >
-                      <h3 className="text-xl font-serif text-heading tracking-tight">
+                      <h3 className="text-xl sm:text-[1.375rem] font-heading font-semibold text-heading tracking-tight">
                         {category.title}
                       </h3>
-                      <span className="text-[11px] font-mono text-secondary">
+                      <span className="text-xs font-mono font-medium text-secondary">
                         0{index + 1}
                       </span>
                     </motion.div>
 
-                    <p className="text-xs text-body mb-5 leading-relaxed font-sans">
+                    <p className="text-sm sm:text-[0.9375rem] text-body mb-5 leading-relaxed font-body">
                       {category.description}
                     </p>
 

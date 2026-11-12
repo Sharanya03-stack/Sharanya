@@ -86,10 +86,14 @@
 body {
   background-color: var(--bg);
   color: var(--body);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading), system-ui, -apple-system, sans-serif;
 }
 
 /* Reduced-motion / fallback graceful theme transition */

@@ -76,16 +76,16 @@ export function Testimonials({ milestones, items }: TestimonialsProps) {
           viewport={{ once: true, amount: 0.2 }}
           className="max-w-2xl mb-8 lg:mb-10 space-y-2.5"
         >
-          <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
+          <p className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium">
             05 — Standards &amp; Reliability
           </p>
           <motion.h2
             variants={lineReveal}
-            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading"
+            className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.6rem,4vw,3.75rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]"
           >
             Engineering Principles &amp; Delivery Standards
           </motion.h2>
-          <p className="text-sm sm:text-base text-body leading-relaxed font-sans">
+          <p className="text-base sm:text-[1.0625rem] lg:text-[1.125rem] text-body leading-[1.7] font-body">
             I prioritize clarity of communication, strict code standards, and verifiable execution over unsupported marketing claims.
           </p>
         </motion.div>
@@ -108,16 +108,16 @@ export function Testimonials({ milestones, items }: TestimonialsProps) {
                   <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-secondary">
                     {milestone.category}
                   </span>
-                  <div className="text-4xl font-serif font-normal text-heading mt-3 mb-1.5 tabular-nums">
+                  <div className="text-4xl font-heading font-bold text-heading mt-3 mb-1.5 tabular-nums">
                     <CountUpMetric
                       target={milestone.numericValue}
                       suffix={milestone.suffix}
                     />
                   </div>
-                  <div className="text-xs font-medium text-heading mb-2">
+                  <div className="text-sm font-heading font-semibold text-heading mb-2">
                     {milestone.label}
                   </div>
-                  <p className="text-xs text-body leading-relaxed font-sans">
+                  <p className="text-sm text-body leading-relaxed font-body">
                     {milestone.description}
                   </p>
                 </div>
@@ -134,7 +134,7 @@ export function Testimonials({ milestones, items }: TestimonialsProps) {
           custom={1}
           className="rounded-xl noir-card p-6 sm:p-8 mb-8"
         >
-          <h3 className="text-xl font-serif font-normal text-heading mb-6">
+          <h3 className="text-xl sm:text-2xl font-heading font-semibold text-heading mb-6">
             Client Collaboration Principles
           </h3>
 

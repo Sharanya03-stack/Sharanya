@@ -43,7 +43,7 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             custom={0}
-            className="text-xs font-mono uppercase tracking-[0.22em] text-secondary"
+            className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium"
           >
             01 — Profile &amp; Expertise
           </motion.p>
@@ -54,7 +54,7 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             custom={1}
-            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading leading-[1.12]"
+            className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.6rem,4vw,3.75rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]"
           >
             Architecting modern digital products with precision.
           </motion.h2>

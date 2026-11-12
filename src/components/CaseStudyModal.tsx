@@ -65,7 +65,7 @@ export function CaseStudyModal({
                 <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-secondary font-medium">
                   {project.category}
                 </span>
-                <h2 className="text-xl sm:text-2xl font-serif font-normal text-heading">
+                <h2 className="text-xl sm:text-2xl font-heading font-semibold text-heading">
                   {project.name}
                 </h2>
               </div>

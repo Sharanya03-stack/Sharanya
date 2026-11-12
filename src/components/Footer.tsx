@@ -10,11 +10,11 @@ export function Footer() {
       <div className="editorial-container py-10 lg:py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-8 border-b border-border">
           <div className="md:col-span-5 space-y-3">
-            <div className="text-2xl font-serif font-normal text-heading tracking-tight">
+            <div className="text-2xl font-heading font-bold text-heading tracking-tight">
               {siteConfig.name}
             </div>
 
-            <p className="text-body text-xs sm:text-sm leading-relaxed max-w-sm font-sans">
+            <p className="text-body text-sm sm:text-base leading-relaxed max-w-sm font-body">
               {siteConfig.headline}
             </p>
 

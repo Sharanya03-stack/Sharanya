@@ -163,7 +163,7 @@ function ProjectCard({ project, index, onSelect }: ProjectCardProps) {
                   onSelect(project);
                 }
               }}
-              className="text-xl sm:text-2xl font-serif font-normal text-heading group-hover:text-accent transition-colors cursor-pointer leading-snug"
+              className="text-[1.45rem] sm:text-[1.75rem] xl:text-[2rem] font-heading font-semibold text-heading group-hover:text-accent transition-colors cursor-pointer leading-[1.2] tracking-[-0.015em]"
             >
               {project.name}
             </motion.h3>
@@ -174,7 +174,7 @@ function ProjectCard({ project, index, onSelect }: ProjectCardProps) {
               whileInView="visible"
               viewport={{ once: true, amount: 0.05 }}
               custom={0.2}
-              className="text-xs sm:text-sm text-body leading-[1.65] font-sans"
+              className="text-sm sm:text-[1.0625rem] text-body leading-[1.7] font-body"
             >
               {project.shortOverview}
             </motion.p>
@@ -247,13 +247,13 @@ export function Projects({ items, categories }: ProjectsProps) {
           viewport={{ once: true, amount: 0.2 }}
           className="max-w-2xl mb-8 lg:mb-10 space-y-2.5"
         >
-          <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
+          <p className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium">
             04 — Selected Work
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading">
+          <h2 className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.6rem,4vw,3.75rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]">
             Featured Case Studies
           </h2>
-          <p className="text-sm sm:text-base text-body leading-relaxed font-sans">
+          <p className="text-base sm:text-[1.0625rem] lg:text-[1.125rem] text-body leading-[1.7] font-body">
             Real production systems, applications, and web platforms built for real-world operations and user adoption.
           </p>
         </motion.div>

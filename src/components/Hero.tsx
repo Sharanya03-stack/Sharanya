@@ -46,18 +46,18 @@ export function Hero() {
               className="flex items-center gap-3"
             >
               <span className="h-[1px] w-7 bg-secondary" aria-hidden="true" />
-              <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.22em] text-secondary font-medium">
+              <p className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium">
                 {siteConfig.role}
               </p>
             </motion.div>
 
-            {/* Split-text mask reveal with responsive clamp(3.8rem, 5.5vw, 5.8rem) on larger viewports */}
+            {/* Split-text mask reveal with Plus Jakarta Sans responsive scale */}
             <motion.h1
               variants={staggerWords}
               initial="hidden"
               animate="visible"
               custom={1.2}
-              className="text-[2.85rem] sm:text-[clamp(3.8rem,5.5vw,5.8rem)] font-serif font-normal tracking-[-0.015em] text-heading leading-[1.03] flex flex-wrap gap-x-3.5 lg:gap-x-4 gap-y-1"
+              className="text-[2.4rem] sm:text-[3.4rem] lg:text-[clamp(3.8rem,5.6vw,5.5rem)] font-heading font-bold tracking-[-0.025em] text-heading leading-[1.06] flex flex-wrap gap-x-3 lg:gap-x-4 gap-y-1"
             >
               {headlineWords.map((word, index) => (
                 <span
@@ -80,7 +80,7 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               custom={4.5}
-              className="text-base sm:text-lg text-body leading-[1.7] max-w-xl font-sans"
+              className="text-base sm:text-[1.0625rem] lg:text-[1.1875rem] text-body leading-[1.7] max-w-2xl font-body font-normal"
             >
               {siteConfig.supportingCopy}
             </motion.p>

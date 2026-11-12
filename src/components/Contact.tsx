@@ -111,16 +111,16 @@ export function Contact() {
             className="lg:col-span-5 space-y-6"
           >
             <div className="space-y-3">
-              <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
+              <p className="text-xs sm:text-[0.8125rem] font-mono uppercase tracking-[0.2em] text-secondary font-medium">
                 06 — Initiate Project
               </p>
               <motion.h2
                 variants={lineReveal}
-                className="text-3xl sm:text-4xl font-serif font-normal tracking-tight text-heading leading-[1.12]"
+                className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.5rem,3.6vw,3.5rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]"
               >
                 Have an idea? Let&apos;s build something meaningful.
               </motion.h2>
-              <p className="text-sm text-body leading-[1.7] font-sans">
+              <p className="text-base sm:text-[1.0625rem] text-body leading-[1.7] font-body">
                 Tell me about your product goals, timeline, and current challenges. I review every inquiry personally and respond within 24 hours.
               </p>
             </div>

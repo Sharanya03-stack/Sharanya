@@ -103,7 +103,7 @@ export function CallbackDrawer({ isOpen, onClose }: CallbackDrawerProps) {
             >
               <div className="px-6 py-4 border-b border-border bg-surface-subtle flex items-center justify-between sticky top-0 z-10 pt-[max(1rem,env(safe-area-inset-top))]">
                 <div>
-                  <h3 className="text-lg font-serif font-normal text-heading">
+                  <h3 className="text-lg font-heading font-semibold text-heading">
                     Initiate Project Inquiry
                   </h3>
                   <p className="text-[11px] font-mono text-muted">

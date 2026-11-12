@@ -97,7 +97,7 @@ export function Navbar() {
           {/* Brand */}
           <Link
             href="#hero"
-            className="text-heading hover:text-accent font-serif text-xl sm:text-2xl tracking-tight transition-colors shrink-0"
+            className="text-heading hover:text-accent font-heading font-bold text-xl sm:text-2xl tracking-tight transition-colors shrink-0"
           >
             {siteConfig.name}
           </Link>
@@ -110,9 +110,9 @@ export function Navbar() {
                 <Link
                   key={link.id}
                   href={link.href}
-                  className={`text-[11px] tracking-[0.14em] transition-colors relative py-1.5 uppercase font-mono ${
+                  className={`text-[0.8125rem] lg:text-[0.875rem] tracking-[0.04em] transition-colors relative py-1.5 font-heading font-semibold ${
                     isActive
-                      ? "text-heading font-medium"
+                      ? "text-heading"
                       : "text-muted hover:text-heading"
                   }`}
                 >

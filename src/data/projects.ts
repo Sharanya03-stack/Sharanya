@@ -243,7 +243,7 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Lighthouse Score", value: "99/100" },
       { label: "Avg Session", value: "3.4m" },
     ],
-    liveUrl: "",
+    liveUrl: "https://sharanya03-stack.github.io/zero-degree",
     githubUrl: "https://github.com/Sharanya03-stack/zero-degree",
     caseStudy: {
       projectOverview:
@@ -277,7 +277,7 @@ export const projects: ProjectCaseStudy[] = [
         "Maintained 99/100 Google Lighthouse Accessibility, Best Practices, and SEO scores.",
         "Achieved an average session duration of 3.4 minutes as visitors explored menus and brewery story.",
       ],
-      liveDemoUrl: "",
+      liveDemoUrl: "https://sharanya03-stack.github.io/zero-degree",
       githubRepositoryUrl: "https://github.com/Sharanya03-stack/zero-degree",
     },
   },

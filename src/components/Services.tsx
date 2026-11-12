@@ -75,11 +75,11 @@ function ServiceChapterCard({
         </span>
       </div>
 
-      <h3 className="text-2xl sm:text-3xl font-serif font-normal text-heading mb-3 tracking-tight">
+      <h3 className="text-[1.65rem] sm:text-[2rem] lg:text-[2.25rem] font-heading font-semibold text-heading mb-3 tracking-[-0.015em] leading-[1.15]">
         {service.title}
       </h3>
 
-      <p className="text-sm text-body leading-[1.7] font-sans mb-6">
+      <p className="text-base sm:text-[1.0625rem] text-body leading-[1.7] font-body mb-6">
         {service.value}
       </p>
 
@@ -157,12 +157,12 @@ export function Services({ items }: ServicesProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className="text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-normal tracking-tight text-heading leading-[1.1]"
+              className="text-[2rem] sm:text-[2.6rem] lg:text-[clamp(2.5rem,3.6vw,3.5rem)] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]"
             >
               Strategic execution for modern software products.
             </motion.h2>
 
-            <p className="text-sm text-body leading-[1.7] font-sans max-w-md">
+            <p className="text-base sm:text-[1.0625rem] text-body leading-[1.7] font-body max-w-md">
               I partner directly with founders and product teams to architect resilient systems, accelerate launch cycles, and solve engineering bottlenecks.
             </p>
 
@@ -216,10 +216,10 @@ export function Services({ items }: ServicesProps) {
             <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
               03 — Disciplines &amp; Services
             </p>
-            <h2 className="text-3xl font-serif font-normal tracking-tight text-heading">
+            <h2 className="text-[2rem] sm:text-[2.5rem] font-heading font-bold tracking-[-0.02em] text-heading leading-[1.1]">
               Strategic execution for modern software.
             </h2>
-            <p className="text-sm text-body leading-relaxed font-sans">
+            <p className="text-base text-body leading-[1.7] font-body">
               I partner directly with founders to architect scalable systems and ship polished digital products.
             </p>
           </div>
@@ -246,11 +246,11 @@ export function Services({ items }: ServicesProps) {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-serif font-normal text-heading mb-2">
+                <h3 className="text-[1.5rem] sm:text-[1.75rem] font-heading font-semibold text-heading mb-2 leading-[1.2] tracking-[-0.015em]">
                   {service.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-body mb-4 leading-relaxed font-sans">
+                <p className="text-sm sm:text-base text-body mb-4 leading-[1.65] font-body">
                   {service.value}
                 </p>
 
