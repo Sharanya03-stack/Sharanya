@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
-import { ArrowUpRight, CheckCircle2, AlertCircle, MessageCircle, Mail } from "lucide-react";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  AlertCircle,
+  MessageCircle,
+  Mail,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
+import { slideFromLeft, slideFromRight, lineReveal } from "@/lib/animations";
+import { MagneticButton } from "@/components/MagneticButton";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -18,7 +25,9 @@ export function Contact() {
     hp_field: "",
   });
 
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -54,11 +63,16 @@ export function Contact() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to submit inquiry. Please try again or email directly.");
+        throw new Error(
+          result.error ||
+            "Failed to submit inquiry. Please try again or email directly."
+        );
       }
 
       setStatus("success");
-      setSuccessMessage(result.message || "Thank you. Your message has been received.");
+      setSuccessMessage(
+        result.message || "Thank you. Your message has been received."
+      );
       setFormData({
         fullName: "",
         email: "",
@@ -74,16 +88,21 @@ export function Contact() {
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
-        setErrorMessage("An unexpected error occurred. Please contact via email directly.");
+        setErrorMessage(
+          "An unexpected error occurred. Please contact via email directly."
+        );
       }
     }
   };
 
   return (
-    <section id="contact" className="py-14 lg:py-18 bg-charcoal/30 border-t border-white/10 relative z-10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="contact"
+      className="py-10 sm:py-12 lg:py-14 bg-surface-subtle border-t border-border relative z-10 overflow-hidden"
+    >
+      <div className="editorial-container">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-          {/* Left Column: Context, Direct Email & WhatsApp Action */}
+          {/* Left Column */}
           <motion.div
             variants={slideFromLeft}
             initial="hidden"
@@ -91,37 +110,42 @@ export function Contact() {
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-5 space-y-6"
           >
-            <div className="space-y-2">
-              <p className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
-                Initiate Project
+            <div className="space-y-3">
+              <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
+                06 — Initiate Project
               </p>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
+              <motion.h2
+                variants={lineReveal}
+                className="text-3xl sm:text-4xl font-serif font-normal tracking-tight text-heading leading-[1.12]"
+              >
                 Have an idea? Let&apos;s build something meaningful.
-              </h2>
-              <p className="text-sm text-lightgrey leading-relaxed font-body">
+              </motion.h2>
+              <p className="text-sm text-body leading-[1.7] font-sans">
                 Tell me about your product goals, timeline, and current challenges. I review every inquiry personally and respond within 24 hours.
               </p>
             </div>
 
-            {/* Direct Communication Channels */}
-            <div className="space-y-3 pt-4 border-t border-white/10">
-              {/* WhatsApp Fast Channel */}
-              <div className="p-4 rounded-xl glass-card border border-white/10 space-y-2.5">
+            <div className="space-y-3 pt-4 border-t border-border">
+              {/* Preserved WhatsApp Action */}
+              <div className="p-4 rounded-xl noir-card space-y-2.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-400">
+                    <span className="p-1.5 rounded-md bg-secondary-muted text-secondary">
                       <MessageCircle className="w-4 h-4" />
                     </span>
-                    <span className="text-xs font-mono text-mediumgrey uppercase tracking-wider">
+                    <span className="text-xs font-mono text-muted uppercase tracking-wider">
                       Direct WhatsApp
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span
+                    style={{ color: "var(--whatsapp-link)" }}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-mono"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-current" />
                     Quick replies
                   </span>
                 </div>
-                <p className="text-xs text-lightgrey">
+                <p className="text-xs text-body">
                   Prefer a rapid discussion? Reach out on WhatsApp directly for quotes, timeline checks, and technical questions.
                 </p>
                 <div className="pt-1">
@@ -129,7 +153,7 @@ export function Contact() {
                     href={siteConfig.whatsapp.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-sm group"
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-md text-xs font-medium text-[#F8F2E8] bg-emerald-700 hover:bg-emerald-600 transition-colors group"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
                     <span>Chat on WhatsApp</span>
@@ -139,52 +163,52 @@ export function Contact() {
               </div>
 
               {/* Direct Email */}
-              <div className="p-4 rounded-xl glass-card border border-white/10 space-y-1.5">
+              <div className="p-4 rounded-xl noir-card space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <span className="p-1.5 rounded-md bg-white/5 text-lightgrey">
+                  <span className="p-1.5 rounded-md bg-surface-elevated border border-border text-secondary">
                     <Mail className="w-4 h-4" />
                   </span>
-                  <span className="text-xs font-mono text-mediumgrey uppercase tracking-wider">
+                  <span className="text-xs font-mono text-muted uppercase tracking-wider">
                     Direct Email
                   </span>
                 </div>
                 <a
                   href={`mailto:${siteConfig.contactEmail}`}
-                  className="block text-sm font-medium text-white hover:text-lightgrey transition-colors pt-0.5 font-mono"
+                  className="block text-sm font-medium text-heading hover:text-accent transition-colors pt-0.5 font-mono"
                 >
                   {siteConfig.contactEmail}
                 </a>
-                <p className="text-[11px] text-mediumgrey">
+                <p className="text-[11px] text-muted">
                   For formal RFPs, architecture reviews, and detailed briefs.
                 </p>
               </div>
 
-              {/* Social Channels */}
-              <div className="pt-2 flex items-center gap-4 text-xs">
+              {/* Social Links */}
+              <div className="pt-2 flex items-center gap-5 text-xs">
                 <a
                   href={siteConfig.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                  className="text-body hover:text-heading inline-flex items-center gap-1 transition-colors"
                 >
                   <span>LinkedIn</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-secondary" />
                 </a>
 
                 <a
                   href={siteConfig.socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lightgrey hover:text-white inline-flex items-center gap-1 transition-colors hover:-translate-y-0.5"
+                  className="text-body hover:text-heading inline-flex items-center gap-1 transition-colors"
                 >
                   <span>GitHub</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-secondary" />
                 </a>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Clean Glassmorphism Contact Form — Slide From Right */}
+          {/* Right Column */}
           <motion.div
             variants={slideFromRight}
             initial="hidden"
@@ -192,14 +216,15 @@ export function Contact() {
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-7"
           >
-            <div className="p-6 sm:p-8 rounded-2xl glass-card border border-white/10">
+            <div className="p-6 sm:p-8 rounded-xl noir-card">
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Honeypot */}
                 <input
                   type="text"
                   name="hp_field"
                   value={formData.hp_field}
-                  onChange={(e) => setFormData({ ...formData, hp_field: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, hp_field: e.target.value })
+                  }
                   className="hidden"
                   tabIndex={-1}
                   autoComplete="off"
@@ -209,7 +234,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="fullName"
-                      className="block text-xs font-mono text-lightgrey"
+                      className="block text-xs font-mono text-body"
                     >
                       Full Name *
                     </label>
@@ -222,14 +247,14 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, fullName: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="email"
-                      className="block text-xs font-mono text-lightgrey"
+                      className="block text-xs font-mono text-body"
                     >
                       Email Address *
                     </label>
@@ -242,7 +267,7 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -250,7 +275,7 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="company"
-                    className="block text-xs font-mono text-lightgrey"
+                    className="block text-xs font-mono text-body"
                   >
                     Company / Organization (Optional)
                   </label>
@@ -262,14 +287,14 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, company: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label
                     htmlFor="projectType"
-                    className="block text-xs font-mono text-lightgrey"
+                    className="block text-xs font-mono text-body"
                   >
                     Project Type
                   </label>
@@ -279,10 +304,14 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectType: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white text-xs sm:text-sm bg-charcoal"
+                    className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                   >
                     {projectTypes.map((type) => (
-                      <option key={type} value={type} className="bg-charcoal text-white">
+                      <option
+                        key={type}
+                        value={type}
+                        className="bg-surface text-ink"
+                      >
                         {type}
                       </option>
                     ))}
@@ -293,7 +322,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="budget"
-                      className="block text-xs font-mono text-lightgrey"
+                      className="block text-xs font-mono text-body"
                     >
                       Estimated Project Budget (Optional)
                     </label>
@@ -305,14 +334,14 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, budget: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="timeline"
-                      className="block text-xs font-mono text-lightgrey"
+                      className="block text-xs font-mono text-body"
                     >
                       Desired Timeline
                     </label>
@@ -322,10 +351,14 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, timeline: e.target.value })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white text-xs sm:text-sm bg-charcoal"
+                      className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm"
                     >
                       {timelineOptions.map((opt) => (
-                        <option key={opt} value={opt} className="bg-charcoal text-white">
+                        <option
+                          key={opt}
+                          value={opt}
+                          className="bg-surface text-ink"
+                        >
                           {opt}
                         </option>
                       ))}
@@ -336,7 +369,7 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="description"
-                    className="block text-xs font-mono text-lightgrey"
+                    className="block text-xs font-mono text-body"
                   >
                     Project Scope &amp; Objectives *
                   </label>
@@ -349,38 +382,50 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg glass-input text-white placeholder-mediumgrey text-xs sm:text-sm resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-md noir-input text-xs sm:text-sm resize-none"
                   />
                 </div>
 
-                {/* Error Banner */}
                 {status === "error" && (
-                  <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
+                  <div
+                    style={{
+                      backgroundColor: "var(--status-error-bg)",
+                      borderColor: "var(--status-error-border)",
+                      color: "var(--status-error-fg)",
+                    }}
+                    className="p-3 rounded-md border text-xs flex items-center gap-2"
+                  >
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
-                {/* Success Banner */}
                 {status === "success" && (
-                  <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
+                  <div
+                    style={{
+                      backgroundColor: "var(--status-success-bg)",
+                      borderColor: "var(--status-success-border)",
+                      color: "var(--status-success-fg)",
+                    }}
+                    className="p-3.5 rounded-md border text-xs flex items-center gap-2"
+                  >
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
                     <span>{successMessage}</span>
                   </div>
                 )}
 
-                {/* Elegant Submit Button */}
-                <button
+                <MagneticButton
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full py-3 px-6 rounded-lg font-medium text-xs sm:text-sm text-white bg-sunset hover:bg-sunset-hover hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                  wrapperClassName="w-full block"
+                  className="w-full py-3 px-6 rounded-md font-medium text-xs sm:text-sm text-accent-fg bg-accent hover:bg-accent-hover transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-accent cursor-pointer"
                 >
                   {status === "submitting" ? (
                     <span>Submitting...</span>
                   ) : (
                     <span>Submit Project Inquiry</span>
                   )}
-                </button>
+                </MagneticButton>
               </form>
             </div>
           </motion.div>

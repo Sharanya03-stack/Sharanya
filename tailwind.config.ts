@@ -6,81 +6,52 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        background: "#101114", // Rich Black (Dominant canvas)
-        charcoal: "#191A1E",   // Deep Charcoal
-        graphite: "#292B31",   // Graphite
-        mediumgrey: "#85878D", // Medium Grey
-        lightgrey: "#D5D6D8",  // Light Grey
-        offwhite: "#F5F5F2",   // Off-White
-        purewhite: "#FFFFFF",  // Pure White
+        background: "var(--bg)",
         surface: {
-          DEFAULT: "#191A1E",
-          subtle: "#141518",
-          card: "rgba(25, 26, 30, 0.72)",
-          hover: "#22242A",
-          border: "rgba(255, 255, 255, 0.12)",
-        },
-        electric: {
-          DEFAULT: "#286BFF", // Electric Blue accent
-          hover: "#4982FF",
-          muted: "rgba(40, 107, 255, 0.15)",
-          border: "rgba(40, 107, 255, 0.35)",
-        },
-        sunset: {
-          DEFAULT: "#FF713D", // Sunset Orange accent
-          hover: "#FF8557",
-          muted: "rgba(255, 113, 61, 0.15)",
-          border: "rgba(255, 113, 61, 0.35)",
-        },
-        text: {
-          primary: "#FFFFFF",   // Pure White for high-contrast primary statements
-          secondary: "#D5D6D8", // Crisp Light Grey for readability
-          muted: "#85878D",     // Medium Grey for secondary annotations
+          DEFAULT: "var(--surface)",
+          subtle: "var(--surface-subtle)",
+          elevated: "var(--surface-elevated)",
+          hover: "var(--surface-hover)",
         },
         border: {
-          DEFAULT: "rgba(255, 255, 255, 0.10)",
-          subtle: "rgba(255, 255, 255, 0.06)",
-          hover: "rgba(255, 255, 255, 0.25)",
+          DEFAULT: "var(--border)",
+          subtle: "var(--border-subtle)",
+          hover: "var(--border-hover)",
+        },
+        heading: "var(--heading)",
+        body: "var(--body)",
+        muted: "var(--muted)",
+        ink: "var(--ink-neutral)",
+        accent: {
+          DEFAULT: "var(--accent)",
+          hover: "var(--accent-hover)",
+          fg: "var(--accent-fg)",
+          muted: "var(--accent-muted)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          muted: "var(--secondary-muted)",
+        },
+        pill: {
+          bg: "var(--pill-bg)",
+          fg: "var(--pill-fg)",
         },
       },
       fontFamily: {
-        sans: [
-          "'Space Grotesk'",
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
-        ],
-        heading: [
-          "'Space Grotesk'",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "sans-serif",
-        ],
-        body: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
-        ],
-        mono: [
-          "JetBrains Mono",
-          "Fira Code",
-          "monospace",
-        ],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-instrument-serif)", "Georgia", "serif"],
+        heading: ["var(--font-instrument-serif)", "Georgia", "serif"],
+        body: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        card: "0 4px 20px -2px rgba(11, 20, 38, 0.5)",
-        "card-hover": "0 10px 30px -4px rgba(11, 20, 38, 0.7)",
-        orange: "0 4px 14px -2px rgba(255, 113, 61, 0.35)",
+        noir: "var(--shadow-card)",
+        "noir-hover": "var(--shadow-card-hover)",
+        accent: "var(--shadow-accent)",
       },
     },
   },

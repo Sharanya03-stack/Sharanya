@@ -10,9 +10,38 @@ interface NodePoint {
   scatterY: number;
   scatterZ: number;
   maxDisplacement: number;
-  isAccent: boolean; // Sunset Orange node vs Electric Blue
-  pulseOffset: number;
+  tier: "primary" | "secondary" | "accent";
+  repelX: number;
+  repelY: number;
 }
+
+interface SpherePalette {
+  primary: string;
+  secondary: string;
+  accent: string;
+  lineBase: string;
+  lineNear: string;
+  baseAlpha: number;
+}
+
+const SPHERE_PALETTES: Record<"dark" | "light", SpherePalette> = {
+  dark: {
+    primary: "243, 238, 228", // #F3EEE4 Bone
+    secondary: "201, 168, 124", // #C9A87C Champagne
+    accent: "228, 87, 46", // #E4572E Ember
+    lineBase: "140, 133, 123", // #8C857B Warm Grey
+    lineNear: "201, 168, 124", // #C9A87C Champagne
+    baseAlpha: 0.72,
+  },
+  light: {
+    primary: "64, 56, 50", // #403832 Espresso Body
+    secondary: "116, 122, 85", // #747A55 Olive
+    accent: "109, 38, 61", // #6D263D Burgundy
+    lineBase: "129, 117, 104", // #817568 Warm Taupe
+    lineNear: "109, 38, 61", // #6D263D Burgundy
+    baseAlpha: 0.56,
+  },
+};
 
 export function NetworkSphere() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -23,29 +52,31 @@ export function NetworkSphere() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let prefersReducedMotion = motionQuery.matches;
+    const finePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
     ).matches;
 
-    let animationFrameId: number;
+    let activeTheme: "dark" | "light" =
+      document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
+    let animationFrameId = 0;
     let width = 0;
     let height = 0;
     let dpr = 1;
 
-    // Responsive node count and scale
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-    const nodeCount = isMobile ? 48 : isTablet ? 84 : 124;
-    const baseRadius = isMobile ? 180 : isTablet ? 270 : 360;
-    const baseConnectionDist = isMobile ? 85 : isTablet ? 115 : 145;
+    const nodeCount = isMobile ? 46 : isTablet ? 82 : 118;
+    const baseRadius = isMobile ? 170 : isTablet ? 260 : 350;
+    const baseConnectionDist = isMobile ? 84 : isTablet ? 114 : 142;
 
-    // Generate points on sphere using Fibonacci distribution + deterministic scattering
     const points: NodePoint[] = [];
-    const phi = Math.PI * (Math.sqrt(5) - 1); // Golden ratio
+    const phi = Math.PI * (Math.sqrt(5) - 1);
 
     for (let i = 0; i < nodeCount; i++) {
-      const yNorm = 1 - (i / (nodeCount - 1)) * 2; // from 1 to -1
+      const yNorm = 1 - (i / (nodeCount - 1)) * 2;
       const radiusAtY = Math.sqrt(Math.max(0, 1 - yNorm * yNorm));
       const theta = phi * i;
 
@@ -57,37 +88,45 @@ export function NetworkSphere() {
       const baseY = normY * baseRadius;
       const baseZ = normZ * baseRadius;
 
-      // Deterministic scattering vector: radial push combined with organic curl
       const curlX = Math.sin(i * 3.71);
       const curlY = Math.cos(i * 5.13);
       const curlZ = Math.sin(i * 7.89);
 
-      // Normalizing the scatter vector
       const rawScatterX = normX * 0.75 + curlX * 0.25;
       const rawScatterY = normY * 0.75 + curlY * 0.25;
       const rawScatterZ = normZ * 0.75 + curlZ * 0.25;
-      const mag = Math.sqrt(rawScatterX * rawScatterX + rawScatterY * rawScatterY + rawScatterZ * rawScatterZ) || 1;
+      const mag =
+        Math.sqrt(
+          rawScatterX * rawScatterX +
+            rawScatterY * rawScatterY +
+            rawScatterZ * rawScatterZ
+        ) || 1;
 
-      // Maximum displacement per particle (disperses 200px to 550px outward)
-      const maxDisplacement = (isMobile ? 160 : 320) + (Math.sin(i * 2.14) * 0.5 + 0.5) * (isMobile ? 120 : 260);
+      const maxDisplacement =
+        (isMobile ? 150 : 300) +
+        (Math.sin(i * 2.14) * 0.5 + 0.5) * (isMobile ? 110 : 240);
 
-      // 1 in 7 nodes is Sunset Orange (#FF713D), others are Electric Blue (#286BFF)
-      const isAccent = i % 7 === 0;
+      let tier: NodePoint["tier"] = "primary";
+      if (i % 9 === 0) {
+        tier = "accent";
+      } else if (i % 3 === 0) {
+        tier = "secondary";
+      }
 
       points.push({
         baseX,
         baseY,
         baseZ,
-        scatterX: (rawScatterX / mag),
-        scatterY: (rawScatterY / mag),
-        scatterZ: (rawScatterZ / mag),
+        scatterX: rawScatterX / mag,
+        scatterY: rawScatterY / mag,
+        scatterZ: rawScatterZ / mag,
         maxDisplacement,
-        isAccent,
-        pulseOffset: (i * 0.3) % (Math.PI * 2),
+        tier,
+        repelX: 0,
+        repelY: 0,
       });
     }
 
-    // Resize handler with DPR cap at 2
     const handleResize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
@@ -98,114 +137,145 @@ export function NetworkSphere() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
 
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
 
-    // Continuous rotation angles & scroll-linked target
-    let rotX = 0.20;
+    let rotX = 0.22;
     let rotY = 0;
-    let targetRotX = 0.20;
+    let targetRotX = 0.22;
     let targetRotY = 0;
     let lastTime = performance.now();
 
-    // Scroll progress tracker
     let currentScrollProgress = 0;
     let targetScrollProgress = 0;
 
-    const handleScroll = () => {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      targetScrollProgress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let pointerActive = false;
 
-      // Scroll-linked continuous rotation
-      targetRotY = targetScrollProgress * Math.PI * 4.0;
-      targetRotX = 0.20 + targetScrollProgress * Math.PI * 1.5;
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!finePointer || prefersReducedMotion) return;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      pointerActive = true;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    const handleMouseLeave = () => {
+      pointerActive = false;
+    };
 
-    // Render loop
-    const render = (time: number) => {
-      const delta = (time - lastTime) / 1000;
+    const handleScroll = () => {
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      targetScrollProgress =
+        docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+
+      targetRotY = targetScrollProgress * Math.PI * 3.8;
+      targetRotX = 0.22 + targetScrollProgress * Math.PI * 1.4;
+    };
+
+    const drawFrame = (time: number) => {
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
       lastTime = time;
 
-      // Smooth interpolation for scroll progress (enables buttery forward & reverse motion)
-      currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08;
-
-      if (!prefersReducedMotion) {
-        rotY += 0.09 * delta; // slow continuous baseline rotation
+      if (prefersReducedMotion) {
+        currentScrollProgress = 0;
+      } else {
+        currentScrollProgress +=
+          (targetScrollProgress - currentScrollProgress) * 0.08;
+        rotY += 0.075 * delta;
         rotX += (targetRotX - rotX) * 0.04;
         rotY += (targetRotY - rotY) * 0.04;
       }
 
       ctx.clearRect(0, 0, width, height);
 
-      // Disintegration factor: 0 at top, continuously and deterministically increasing downward
-      // Smooth curve: f(s) = s^1.15
-      const disintegrationFactor = prefersReducedMotion ? 0 : Math.pow(currentScrollProgress, 1.15);
+      const palette = SPHERE_PALETTES[activeTheme];
+      const disintegrationFactor = prefersReducedMotion
+        ? 0
+        : Math.pow(currentScrollProgress, 1.15);
 
-      // Dynamic position across sections
-      // Hero (progress < 0.15): positioned toward the right
-      // Middle sections: centers gradually as it disassembles
-      const heroCenterX = isMobile ? width * 0.5 : width * 0.70;
+      const heroCenterX = isMobile
+        ? width * 0.5
+        : Math.min(width * 0.74, width * 0.5 + 340);
       const centeredX = width * 0.5;
       const transitionProgress = Math.min(currentScrollProgress / 0.25, 1);
-      const centerX = heroCenterX * (1 - transitionProgress) + centeredX * transitionProgress;
-      const centerY = isMobile ? height * 0.60 : height * 0.48;
+      const centerX =
+        heroCenterX * (1 - transitionProgress) + centeredX * transitionProgress;
+      const centerY = isMobile ? height * 0.58 : height * 0.48;
 
-      // Scale and baseline opacity
-      const sphereScale = isMobile ? 0.65 : 1.0;
-      const globalAlpha = isMobile ? 0.45 : 0.78;
+      const sphereScale = isMobile ? 0.62 : 1.0;
+      const globalAlpha = isMobile ? palette.baseAlpha * 0.52 : palette.baseAlpha;
 
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
 
-      // Perspective projection constants
       const fov = 680;
       const cameraDistance = 580;
+      const interactionRadius = 155;
+      const maxRepulsion = 18;
 
-      // 1. Calculate dynamic particle 3D positions with scroll-driven displacement
       const projected = points.map((p) => {
-        // Displaced coordinate along deterministic scattering vector
         const currentDisplacement = p.maxDisplacement * disintegrationFactor;
         const curX = p.baseX + p.scatterX * currentDisplacement;
         const curY = p.baseY + p.scatterY * currentDisplacement;
         const curZ = p.baseZ + p.scatterZ * currentDisplacement;
 
-        // Rotate around Y-axis
         const x1 = curX * cosY + curZ * sinY;
         const z1 = -curX * sinY + curZ * cosY;
 
-        // Rotate around X-axis
         const y2 = curY * cosX - z1 * sinX;
         const z2 = curY * sinX + z1 * cosX;
 
-        // Perspective scale factor
         const scale = (fov / (fov + z2 + cameraDistance)) * sphereScale;
-        const sx = centerX + x1 * scale;
-        const sy = centerY + y2 * scale;
+        const baseSx = centerX + x1 * scale;
+        const baseSy = centerY + y2 * scale;
 
-        // Depth ratio from 0 (far background) to 1 (near foreground)
-        const depth = Math.max(0, Math.min(1, (z2 + baseRadius * 1.5) / (baseRadius * 3)));
+        let targetRepelX = 0;
+        let targetRepelY = 0;
+        let mouseProximity = 0;
+
+        if (pointerActive && !prefersReducedMotion) {
+          const dx = baseSx - mouseX;
+          const dy = baseSy - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > 0.1 && dist < interactionRadius) {
+            const force = Math.pow(1 - dist / interactionRadius, 1.6);
+            mouseProximity = force;
+            targetRepelX = (dx / dist) * force * maxRepulsion;
+            targetRepelY = (dy / dist) * force * maxRepulsion;
+          }
+        }
+
+        p.repelX += (targetRepelX - p.repelX) * 0.1;
+        p.repelY += (targetRepelY - p.repelY) * 0.1;
+
+        const sx = baseSx + p.repelX;
+        const sy = baseSy + p.repelY;
+
+        const depth = Math.max(
+          0,
+          Math.min(1, (z2 + baseRadius * 1.5) / (baseRadius * 3))
+        );
 
         return {
           sx,
           sy,
-          z: z2,
           depth,
-          isAccent: p.isAccent,
+          tier: p.tier,
+          mouseProximity,
         };
       });
 
-      // 2. Dynamic connecting lines: disconnect as particles fly apart
-      // Max connection threshold contracts as disintegration proceeds
-      const currentMaxDist = baseConnectionDist * sphereScale * Math.max(0.2, 1 - disintegrationFactor * 0.65);
-      ctx.lineWidth = 0.85;
+      const currentMaxDist =
+        baseConnectionDist *
+        sphereScale *
+        Math.max(0.22, 1 - disintegrationFactor * 0.65);
+      ctx.lineWidth = 0.8;
 
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
@@ -218,12 +288,20 @@ export function NetworkSphere() {
 
           if (dist < currentMaxDist) {
             const distAlpha = 1 - dist / currentMaxDist;
-            const depthAlpha = Math.max(0.12, (p1.depth + p2.depth) / 2);
-            // Dynamic fade with disintegration: lines break away organically
-            const lineAlpha = distAlpha * depthAlpha * 0.50 * globalAlpha * (1 - disintegrationFactor * 0.45);
+            const depthAlpha = Math.max(0.1, (p1.depth + p2.depth) / 2);
+            const nearCursor = Math.max(p1.mouseProximity, p2.mouseProximity);
 
-            if (lineAlpha > 0.01) {
-              ctx.strokeStyle = `rgba(40, 107, 255, ${lineAlpha})`;
+            const baseLineAlpha =
+              distAlpha *
+              depthAlpha *
+              0.34 *
+              globalAlpha *
+              (1 - disintegrationFactor * 0.45);
+            const boostedAlpha = baseLineAlpha + nearCursor * 0.24 * distAlpha;
+
+            if (boostedAlpha > 0.01) {
+              const rgb = nearCursor > 0.15 ? palette.lineNear : palette.lineBase;
+              ctx.strokeStyle = `rgba(${rgb}, ${Math.min(0.65, boostedAlpha)})`;
               ctx.beginPath();
               ctx.moveTo(p1.sx, p1.sy);
               ctx.lineTo(p2.sx, p2.sy);
@@ -233,64 +311,103 @@ export function NetworkSphere() {
         }
       }
 
-      // 3. Render particles with Electric Blue & Sunset Orange glow
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
-        const depthAlpha = Math.max(0.25, p.depth) * globalAlpha;
-        const nodeRadius = (p.isAccent ? 3.0 : 2.2) * (0.65 + p.depth * 0.55) * sphereScale;
+        const depthAlpha = Math.max(0.22, p.depth) * globalAlpha;
+        const baseSize =
+          p.tier === "accent" ? 2.8 : p.tier === "secondary" ? 2.3 : 1.9;
+        const nodeRadius =
+          baseSize *
+          (0.65 + p.depth * 0.5 + p.mouseProximity * 0.35) *
+          sphereScale;
 
-        if (p.isAccent) {
-          // Sunset Orange Accent Node (#FF713D)
-          ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.95})`;
-          ctx.beginPath();
-          ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
-          ctx.fill();
+        const rgb =
+          p.tier === "accent"
+            ? palette.accent
+            : p.tier === "secondary"
+            ? palette.secondary
+            : palette.primary;
+        const strength =
+          p.tier === "accent" ? 0.92 : p.tier === "secondary" ? 0.88 : 0.85;
 
-          // Restrained neon-style illumination glow
-          if (p.depth > 0.4) {
-            ctx.fillStyle = `rgba(255, 113, 61, ${depthAlpha * 0.22})`;
-            ctx.beginPath();
-            ctx.arc(p.sx, p.sy, nodeRadius * 2.5, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        } else {
-          // Electric Blue Node (#286BFF)
-          ctx.fillStyle = `rgba(40, 107, 255, ${depthAlpha * 0.92})`;
-          ctx.beginPath();
-          ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Restrained neon-style illumination glow
-          if (p.depth > 0.4) {
-            ctx.fillStyle = `rgba(40, 107, 255, ${depthAlpha * 0.20})`;
-            ctx.beginPath();
-            ctx.arc(p.sx, p.sy, nodeRadius * 2.2, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
+        ctx.fillStyle = `rgba(${rgb}, ${Math.min(1, depthAlpha * strength)})`;
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, nodeRadius, 0, Math.PI * 2);
+        ctx.fill();
       }
-
-      animationFrameId = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    const renderLoop = (time: number) => {
+      drawFrame(time);
+      if (!prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(renderLoop);
+      }
+    };
 
-    // Pause animation when tab is inactive to preserve CPU/battery
+    handleScroll();
+    if (prefersReducedMotion) {
+      drawFrame(performance.now());
+    } else {
+      animationFrameId = requestAnimationFrame(renderLoop);
+    }
+
+    const handleResizeAndRedraw = () => {
+      handleResize();
+      if (prefersReducedMotion) {
+        drawFrame(performance.now());
+      }
+    };
+
     const handleVisibility = () => {
       if (document.hidden) {
         cancelAnimationFrame(animationFrameId);
-      } else {
+      } else if (!prefersReducedMotion) {
         lastTime = performance.now();
-        animationFrameId = requestAnimationFrame(render);
+        animationFrameId = requestAnimationFrame(renderLoop);
       }
     };
 
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      prefersReducedMotion = e.matches;
+      cancelAnimationFrame(animationFrameId);
+      if (prefersReducedMotion) {
+        drawFrame(performance.now());
+      } else {
+        lastTime = performance.now();
+        animationFrameId = requestAnimationFrame(renderLoop);
+      }
+    };
+
+    // Observe theme changes on <html> so sphere recolors immediately upon theme switch
+    const themeObserver = new MutationObserver(() => {
+      activeTheme =
+        document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      if (prefersReducedMotion) {
+        drawFrame(performance.now());
+      }
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    window.addEventListener("resize", handleResizeAndRedraw);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    if (finePointer) {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      document.addEventListener("mouseleave", handleMouseLeave);
+    }
     document.addEventListener("visibilitychange", handleVisibility);
+    motionQuery.addEventListener("change", handleMotionChange);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      themeObserver.disconnect();
+      window.removeEventListener("resize", handleResizeAndRedraw);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("visibilitychange", handleVisibility);
+      motionQuery.removeEventListener("change", handleMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

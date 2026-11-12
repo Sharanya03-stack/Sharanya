@@ -1,6 +1,5 @@
-"use client";
-
-import { useState } from "react";
+import { PortfolioShell } from "@/components/PortfolioShell";
+import { NetworkSphere } from "@/components/NetworkSphere";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -10,65 +9,26 @@ import { Projects } from "@/components/Projects";
 import { Testimonials } from "@/components/Testimonials";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { CallbackDrawer } from "@/components/CallbackDrawer";
-import { CaseStudyModal } from "@/components/CaseStudyModal";
-import { NetworkSphere } from "@/components/NetworkSphere";
-import { ProjectCaseStudy } from "@/data/projects";
+import { techCategories } from "@/data/technologies";
+import { services } from "@/data/services";
+import { projects, projectCategories } from "@/data/projects";
+import { testimonials, verifiedMilestones } from "@/data/testimonials";
 
 export default function Home() {
-  const [isCallbackOpen, setIsCallbackOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
-
   return (
-    <main className="relative min-h-screen bg-background text-text-primary selection:bg-dusk/20 selection:text-text-primary">
-      {/* Signature 3D Interconnected Network Sphere (Canvas Background) */}
-      <NetworkSphere />
-
-      {/* Sticky Navigation */}
-      <Navbar onOpenCallback={() => setIsCallbackOpen(true)} />
-
-      {/* Hero Section */}
-      <Hero onOpenCallback={() => setIsCallbackOpen(true)} />
-
-      {/* About & Personal Brand Reveal */}
-      <About />
-
-      {/* Technology Stack */}
-      <TechStack />
-
-      {/* Services */}
-      <Services onOpenCallback={() => setIsCallbackOpen(true)} />
-
-      {/* Projects & Case Studies */}
-      <Projects
-        onSelectProject={(project) => setSelectedProject(project)}
-        onOpenCallback={() => setIsCallbackOpen(true)}
-      />
-
-      {/* Results & Principles */}
-      <Testimonials />
-
-      {/* Contact Section */}
-      <Contact />
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Callback Drawer */}
-      <CallbackDrawer
-        isOpen={isCallbackOpen}
-        onClose={() => setIsCallbackOpen(false)}
-      />
-
-      {/* Detailed Case Study Modal */}
-      <CaseStudyModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onOpenCallback={() => {
-          setSelectedProject(null);
-          setIsCallbackOpen(true);
-        }}
-      />
-    </main>
+    <PortfolioShell>
+      <main className="relative min-h-screen bg-background text-body">
+        <NetworkSphere />
+        <Navbar />
+        <Hero />
+        <About />
+        <TechStack categories={techCategories} />
+        <Services items={services} />
+        <Projects items={projects} categories={projectCategories} />
+        <Testimonials milestones={verifiedMilestones} items={testimonials} />
+        <Contact />
+        <Footer />
+      </main>
+    </PortfolioShell>
   );
 }

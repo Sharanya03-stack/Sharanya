@@ -11,49 +11,47 @@ export interface TestimonialItem {
 
 // EDITABLE: Add genuine client reviews here once received.
 // We strictly adhere to our core policy: zero fabricated testimonials or fake client identities.
-export const testimonials: TestimonialItem[] = [
-  // Example structure when you add real testimonials:
-  // {
-  //   id: "1",
-  //   clientName: "Alex Rivera",
-  //   designation: "Founder & CTO",
-  //   company: "HyperScale Tech",
-  //   content: "Sharanya delivered our core MVP ahead of schedule with exceptional engineering quality.",
-  //   projectAssociated: "ACS Energy Operations",
-  //   rating: 5,
-  // }
-];
+export const testimonials: TestimonialItem[] = [];
 
 export interface VerifiedMilestone {
   label: string;
-  value: string;
+  numericValue: number;
+  suffix: string;
   description: string;
-  category: "Code Quality" | "Execution" | "Infrastructure" | "Reliability";
+  category: "Case Studies" | "Architecture" | "Code Quality" | "Execution";
 }
 
 export const verifiedMilestones: VerifiedMilestone[] = [
   {
-    label: "Production-Grade Codebase",
-    value: "100% TS",
-    description: "Strict TypeScript types, modular architecture, and zero any escapes across all client deliverables.",
+    label: "End-to-End Systems Built",
+    numericValue: 5,
+    suffix: "",
+    description:
+      "Production web, AI triage, SaaS operations, quick-commerce, and real-estate platforms documented in this portfolio.",
+    category: "Case Studies",
+  },
+  {
+    label: "Production Stack Modules",
+    numericValue: 19,
+    suffix: "",
+    description:
+      "Verified technologies spanning Next.js, FastAPI, Supabase, Docker, LLM workflows, and cross-platform mobile.",
+    category: "Architecture",
+  },
+  {
+    label: "Strict TypeScript Coverage",
+    numericValue: 100,
+    suffix: "%",
+    description:
+      "Strict compiler mode enabled across frontend components, data models, and API validation routes.",
     category: "Code Quality",
   },
   {
-    label: "On-Time Milestone Delivery",
-    value: "100%",
-    description: "Sprint-based iterative progress with regular staging builds, automated tests, and clear changelogs.",
+    label: "Direct Response Window",
+    numericValue: 24,
+    suffix: "h",
+    description:
+      "Single-developer communication directly with Sharanya from discovery call through production deployment.",
     category: "Execution",
-  },
-  {
-    label: "Enterprise Security & RLS",
-    value: "Zero Leak",
-    description: "Row-Level Security, strict JWT authorization, and sanitized input validation on every endpoint.",
-    category: "Infrastructure",
-  },
-  {
-    label: "Performance Optimization",
-    value: "95+ Score",
-    description: "Consistently scoring 95+ on Google Lighthouse for Performance, Accessibility, and Best Practices.",
-    category: "Reliability",
   },
 ];

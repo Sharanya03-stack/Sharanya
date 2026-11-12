@@ -1,37 +1,97 @@
 "use client";
 
-import { testimonials, verifiedMilestones } from "@/data/testimonials";
-import { motion } from "framer-motion";
-import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
+import { useEffect, useRef, useState } from "react";
+import type { TestimonialItem, VerifiedMilestone } from "@/data/testimonials";
+import {
+  motion,
+  useInView,
+  animate,
+  useReducedMotion,
+} from "framer-motion";
+import {
+  fadeUp,
+  lineReveal,
+  slideFromLeft,
+  slideFromRight,
+} from "@/lib/animations";
 
-export function Testimonials() {
-  const hasRealTestimonials = testimonials.length > 0;
+interface TestimonialsProps {
+  milestones: VerifiedMilestone[];
+  items: TestimonialItem[];
+}
+
+function CountUpMetric({
+  target,
+  suffix,
+}: {
+  target: number;
+  suffix: string;
+}) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const prefersReducedMotion = useReducedMotion();
+  const [displayValue, setDisplayValue] = useState(
+    prefersReducedMotion ? target : 0
+  );
+
+  useEffect(() => {
+    if (!inView) return;
+    if (prefersReducedMotion) {
+      setDisplayValue(target);
+      return;
+    }
+
+    const controls = animate(0, target, {
+      duration: 1.35,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (latest) => {
+        setDisplayValue(Math.round(latest));
+      },
+    });
+
+    return () => controls.stop();
+  }, [inView, target, prefersReducedMotion]);
 
   return (
-    <section id="results" className="py-14 lg:py-18 bg-transparent relative z-10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <span ref={ref}>
+      {displayValue}
+      {suffix}
+    </span>
+  );
+}
+
+export function Testimonials({ milestones, items }: TestimonialsProps) {
+  const hasRealTestimonials = items.length > 0;
+
+  return (
+    <section
+      id="results"
+      className="py-10 sm:py-12 lg:py-14 bg-transparent relative z-10"
+    >
+      <div className="editorial-container">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="max-w-2xl mb-10 space-y-2"
+          className="max-w-2xl mb-8 lg:mb-10 space-y-2.5"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
-            Standards &amp; Reliability
+          <p className="text-xs font-mono uppercase tracking-[0.22em] text-secondary">
+            05 — Standards &amp; Reliability
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
+          <motion.h2
+            variants={lineReveal}
+            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading"
+          >
             Engineering Principles &amp; Delivery Standards
-          </h2>
-          <p className="text-sm text-lightgrey leading-relaxed font-body">
-            I prioritize clarity of communication, strict code standards, and dependable project execution over unsupported marketing claims.
+          </motion.h2>
+          <p className="text-sm sm:text-base text-body leading-relaxed font-sans">
+            I prioritize clarity of communication, strict code standards, and verifiable execution over unsupported marketing claims.
           </p>
         </motion.div>
 
-        {/* Verified Milestones with Alternating Directional Reveals */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {verifiedMilestones.map((milestone, idx) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-10">
+          {milestones.map((milestone, idx) => {
             const variant = idx % 2 === 0 ? slideFromLeft : slideFromRight;
 
             return (
@@ -41,20 +101,23 @@ export function Testimonials() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                custom={idx * 0.35}
-                className="p-5 rounded-xl glass-card flex flex-col justify-between hover:-translate-y-1 hover:border-white/25 transition-all duration-300"
+                custom={idx * 0.25}
+                className="p-6 rounded-xl noir-card flex flex-col justify-between hover:-translate-y-1 hover:border-secondary"
               >
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-mediumgrey">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-secondary">
                     {milestone.category}
                   </span>
-                  <div className="text-2xl font-bold text-white mt-2 mb-1 font-heading">
-                    {milestone.value}
+                  <div className="text-4xl font-serif font-normal text-heading mt-3 mb-1.5 tabular-nums">
+                    <CountUpMetric
+                      target={milestone.numericValue}
+                      suffix={milestone.suffix}
+                    />
                   </div>
-                  <div className="text-xs font-medium text-white mb-2">
+                  <div className="text-xs font-medium text-heading mb-2">
                     {milestone.label}
                   </div>
-                  <p className="text-xs text-lightgrey leading-relaxed font-body">
+                  <p className="text-xs text-body leading-relaxed font-sans">
                     {milestone.description}
                   </p>
                 </div>
@@ -63,82 +126,81 @@ export function Testimonials() {
           })}
         </div>
 
-        {/* Working Approach & Collaboration Principles */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           custom={1}
-          className="rounded-2xl glass-card p-6 sm:p-8 mb-10"
+          className="rounded-xl noir-card p-6 sm:p-8 mb-8"
         >
-          <h3 className="text-base font-semibold text-white mb-6 font-heading">
+          <h3 className="text-xl font-serif font-normal text-heading mb-6">
             Client Collaboration Principles
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="space-y-1.5">
-              <div className="text-xs font-medium text-white font-mono">
+              <div className="text-xs font-medium text-secondary font-mono">
                 Async &amp; Transparent
               </div>
-              <p className="text-xs text-lightgrey leading-relaxed font-body">
+              <p className="text-xs text-body leading-relaxed font-sans">
                 Clear asynchronous progress updates, staging review environments, and direct Slack/Discord channels.
               </p>
             </div>
 
             <div className="space-y-1.5">
-              <div className="text-xs font-medium text-white font-mono">
+              <div className="text-xs font-medium text-secondary font-mono">
                 Scope Certainty
               </div>
-              <p className="text-xs text-lightgrey leading-relaxed font-body">
+              <p className="text-xs text-body leading-relaxed font-sans">
                 Milestone-based delivery agreements, explicit technical blueprints, and zero surprise overhead.
               </p>
             </div>
 
             <div className="space-y-1.5">
-              <div className="text-xs font-medium text-white font-mono">
+              <div className="text-xs font-medium text-secondary font-mono">
                 Documented Handoffs
               </div>
-              <p className="text-xs text-lightgrey leading-relaxed font-body">
+              <p className="text-xs text-body leading-relaxed font-sans">
                 Comprehensive setup walkthroughs, environment blueprints, and recorded architecture overviews.
               </p>
             </div>
 
             <div className="space-y-1.5">
-              <div className="text-xs font-medium text-white font-mono">
+              <div className="text-xs font-medium text-secondary font-mono">
                 Full IP Ownership
               </div>
-              <p className="text-xs text-lightgrey leading-relaxed font-body">
+              <p className="text-xs text-body leading-relaxed font-sans">
                 100% of the repository source code, assets, and deployment keys are transferred to you upon milestone sign-off.
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Real Testimonials or Restrained Reference Notice */}
         {hasRealTestimonials ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div
-                key={t.id}
-                className="p-6 rounded-xl glass-card space-y-4"
-              >
-                <p className="text-xs sm:text-sm text-lightgrey leading-relaxed italic font-body">
+            {items.map((t) => (
+              <div key={t.id} className="p-6 rounded-xl noir-card space-y-4">
+                <p className="text-xs sm:text-sm text-body leading-relaxed italic font-sans">
                   &ldquo;{t.content}&rdquo;
                 </p>
-                <div className="pt-3 border-t border-white/10">
-                  <div className="text-xs font-medium text-white">{t.clientName}</div>
-                  <div className="text-[11px] text-mediumgrey">{t.designation} {t.company && `at ${t.company}`}</div>
+                <div className="pt-3 border-t border-border">
+                  <div className="text-xs font-medium text-heading">
+                    {t.clientName}
+                  </div>
+                  <div className="text-[11px] text-muted">
+                    {t.designation} {t.company && `at ${t.company}`}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="p-6 rounded-xl glass-card-subtle text-center max-w-xl mx-auto space-y-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-white font-medium">
+          <div className="p-6 rounded-xl noir-card-subtle text-center max-w-2xl mx-auto space-y-2">
+            <h4 className="text-xs font-mono uppercase tracking-[0.18em] text-secondary font-medium">
               Client References &amp; Endorsements
             </h4>
-            <p className="text-xs text-lightgrey leading-relaxed font-body">
+            <p className="text-xs text-body leading-relaxed font-sans">
               In adherence to strict professional ethics, no fake customer quotes or fabricated metrics are displayed. Verified client references and private technical demos are gladly shared upon mutual agreement during initial discovery calls.
             </p>
           </div>

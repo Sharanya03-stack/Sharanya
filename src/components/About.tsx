@@ -4,7 +4,13 @@ import Image from "next/image";
 import { siteConfig } from "@/data/siteConfig";
 import { Code2, Cpu, Trophy, Palette } from "lucide-react";
 import { motion } from "framer-motion";
-import { fadeUp, slideFromLeft, slideFromRight } from "@/lib/animations";
+import {
+  fadeUp,
+  lineReveal,
+  slideFromLeft,
+  slideFromRight,
+  springReveal,
+} from "@/lib/animations";
 
 export function About() {
   const cards = siteConfig.aboutCards;
@@ -12,79 +18,80 @@ export function About() {
   const getCardIcon = (id: string) => {
     switch (id) {
       case "card-1":
-        return <Code2 className="w-4 h-4 text-white" />;
+        return <Code2 className="w-4 h-4 text-heading" />;
       case "card-2":
-        return <Cpu className="w-4 h-4 text-electric" />;
+        return <Cpu className="w-4 h-4 text-secondary" />;
       case "card-3":
-        return <Trophy className="w-4 h-4 text-sunset" />;
+        return <Trophy className="w-4 h-4 text-accent" />;
       case "card-4":
-        return <Palette className="w-4 h-4 text-white" />;
       default:
-        return <Code2 className="w-4 h-4 text-white" />;
+        return <Palette className="w-4 h-4 text-heading" />;
     }
   };
 
   return (
     <section
       id="about"
-      className="relative py-14 lg:py-20 overflow-hidden bg-transparent z-10"
+      className="relative py-10 sm:py-12 lg:py-14 overflow-hidden bg-transparent z-10"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="editorial-container relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 lg:mb-14">
-          <motion.div
+        <div className="text-center max-w-2xl mx-auto mb-8 lg:mb-10 space-y-2.5">
+          <motion.p
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             custom={0}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card-subtle mb-3"
+            className="text-xs font-mono uppercase tracking-[0.22em] text-secondary"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-white" />
-            <span className="text-xs font-mono uppercase tracking-widest text-lightgrey font-medium">
-              Profile &amp; Expertise
-            </span>
-          </motion.div>
+            01 — Profile &amp; Expertise
+          </motion.p>
 
           <motion.h2
-            variants={fadeUp}
+            variants={lineReveal}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             custom={1}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white font-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-heading leading-[1.12]"
           >
             Architecting modern digital products with precision.
           </motion.h2>
         </div>
 
-        {/* Desktop Composition: Layered Stage with Subject in Foreground Overlapping Frame & Floating Cards Behind */}
-        <div className="hidden lg:flex relative w-full h-[540px] items-center justify-center">
-          {/* LAYER 1: Background Rectangular Portrait Frame (z-10) */}
+        {/* Desktop Composition: Wider balanced stage */}
+        <div className="hidden lg:flex relative w-full h-[500px] items-center justify-center max-w-[1160px] mx-auto">
+          {/* LAYER 1: Portrait Frame */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.90 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            variants={springReveal}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute z-10 w-[350px] h-[450px] rounded-3xl bg-gradient-to-b from-charcoal/90 via-surface/95 to-background border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden"
+            custom={0}
+            className="absolute z-10 w-[340px] h-[430px] rounded-2xl bg-surface border border-border shadow-noir overflow-hidden"
           >
-            {/* Subtle inner grid lines */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent pointer-events-none" />
-            
-            {/* Subtle technical corner markers */}
-            <div className="absolute top-4 left-4 w-5 h-5 border-t border-l border-white/20 pointer-events-none" />
-            <div className="absolute top-4 right-4 w-5 h-5 border-t border-r border-white/20 pointer-events-none" />
-            <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l border-white/20 pointer-events-none" />
-            <div className="absolute bottom-4 right-4 w-5 h-5 border-b border-r border-white/20 pointer-events-none" />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at top, var(--radial-glow), transparent 65%)",
+              }}
+            />
+
+            <div className="absolute top-4 left-4 w-5 h-5 border-t border-l border-secondary/60 pointer-events-none" />
+            <div className="absolute top-4 right-4 w-5 h-5 border-t border-r border-secondary/60 pointer-events-none" />
+            <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l border-secondary/60 pointer-events-none" />
+            <div className="absolute bottom-4 right-4 w-5 h-5 border-b border-r border-secondary/60 pointer-events-none" />
 
             <div className="absolute bottom-5 inset-x-0 text-center pointer-events-none">
-              <span className="text-[11px] font-mono tracking-widest text-mediumgrey uppercase">
+              <span className="text-[11px] font-mono tracking-[0.2em] text-muted uppercase">
                 Sharanya N · Engineer
               </span>
             </div>
           </motion.div>
 
-          {/* LAYER 2: Floating Glass Information Cards Behind the Subject (z-20) */}
+          {/* LAYER 2: Alternating Directional Info Cards */}
           {/* Card 1: Top Left */}
           <motion.div
             variants={slideFromLeft}
@@ -92,20 +99,20 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={1}
-            className="absolute z-20 top-6 left-0 xl:left-8 w-[290px] p-5 rounded-2xl glass-card shadow-2xl hover:border-white/30 hover:-translate-y-1 transition-all"
+            className="absolute z-20 top-5 left-0 xl:left-4 w-[310px] p-5 rounded-xl noir-card hover:-translate-y-1"
           >
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-xl bg-white/10 border border-white/15 shrink-0">
+              <div className="p-2.5 rounded-lg bg-surface-elevated border border-border shrink-0">
                 {getCardIcon("card-1")}
               </div>
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-mediumgrey">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-muted">
                   {cards[0].category}
                 </span>
-                <h3 className="text-sm font-semibold text-white tracking-tight">
+                <h3 className="text-sm font-medium text-heading tracking-tight">
                   {cards[0].title}
                 </h3>
-                <p className="text-xs text-lightgrey leading-relaxed">
+                <p className="text-xs text-body leading-relaxed">
                   {cards[0].description}
                 </p>
               </div>
@@ -119,20 +126,20 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={2}
-            className="absolute z-20 bottom-8 left-4 xl:left-12 w-[290px] p-5 rounded-2xl glass-card shadow-2xl hover:border-white/30 hover:-translate-y-1 transition-all"
+            className="absolute z-20 bottom-6 left-4 xl:left-8 w-[310px] p-5 rounded-xl noir-card hover:-translate-y-1"
           >
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-xl bg-electric/15 border border-electric/30 shrink-0">
+              <div className="p-2.5 rounded-lg bg-secondary-muted border border-secondary/35 shrink-0">
                 {getCardIcon("card-2")}
               </div>
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-electric">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-secondary">
                   {cards[1].category}
                 </span>
-                <h3 className="text-sm font-semibold text-white tracking-tight">
+                <h3 className="text-sm font-medium text-heading tracking-tight">
                   {cards[1].title}
                 </h3>
-                <p className="text-xs text-lightgrey leading-relaxed">
+                <p className="text-xs text-body leading-relaxed">
                   {cards[1].description}
                 </p>
               </div>
@@ -146,20 +153,20 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={1}
-            className="absolute z-20 top-8 right-0 xl:right-8 w-[290px] p-5 rounded-2xl glass-card shadow-2xl hover:border-white/30 hover:-translate-y-1 transition-all"
+            className="absolute z-20 top-6 right-0 xl:right-4 w-[310px] p-5 rounded-xl noir-card hover:-translate-y-1"
           >
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-xl bg-sunset/15 border border-sunset/30 shrink-0">
+              <div className="p-2.5 rounded-lg bg-accent-muted border border-accent/35 shrink-0">
                 {getCardIcon("card-3")}
               </div>
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-sunset">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
                   {cards[2].category}
                 </span>
-                <h3 className="text-sm font-semibold text-white tracking-tight">
+                <h3 className="text-sm font-medium text-heading tracking-tight">
                   {cards[2].title}
                 </h3>
-                <p className="text-xs text-lightgrey leading-relaxed">
+                <p className="text-xs text-body leading-relaxed">
                   {cards[2].description}
                 </p>
               </div>
@@ -173,39 +180,34 @@ export function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={2}
-            className="absolute z-20 bottom-6 right-4 xl:right-12 w-[290px] p-5 rounded-2xl glass-card shadow-2xl hover:border-white/30 hover:-translate-y-1 transition-all"
+            className="absolute z-20 bottom-5 right-4 xl:right-8 w-[310px] p-5 rounded-xl noir-card hover:-translate-y-1"
           >
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-xl bg-white/10 border border-white/15 shrink-0">
+              <div className="p-2.5 rounded-lg bg-surface-elevated border border-border shrink-0">
                 {getCardIcon("card-4")}
               </div>
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-mediumgrey">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-muted">
                   {cards[3].category}
                 </span>
-                <h3 className="text-sm font-semibold text-white tracking-tight">
+                <h3 className="text-sm font-medium text-heading tracking-tight">
                   {cards[3].title}
                 </h3>
-                <p className="text-xs text-lightgrey leading-relaxed">
+                <p className="text-xs text-body leading-relaxed">
                   {cards[3].description}
                 </p>
               </div>
             </div>
           </motion.div>
 
-          {/* LAYER 3: Foreground Portrait Subject (z-30) Extending Outside Frame */}
+          {/* LAYER 3: Portrait Cutout */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.82, y: 35 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            variants={springReveal}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            transition={{
-              type: "spring",
-              stiffness: 85,
-              damping: 14,
-              mass: 0.85,
-              delay: 0.15,
-            }}
-            className="relative z-30 w-[340px] flex items-end justify-center select-none pointer-events-none mt-2 [mask-image:linear-gradient(to_bottom,black_86%,transparent_100%)]"
+            custom={1.2}
+            className="relative z-30 w-[330px] flex items-end justify-center select-none pointer-events-none mt-2 [mask-image:linear-gradient(to_bottom,black_86%,transparent_100%)]"
           >
             <Image
               src={siteConfig.photo.src}
@@ -213,24 +215,21 @@ export function About() {
               width={601}
               height={666}
               priority
-              className="w-full h-auto object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.9)]"
+              className="w-full h-auto object-contain drop-shadow-[0_22px_38px_rgba(0,0,0,0.45)]"
             />
           </motion.div>
         </div>
 
-        {/* Mobile & Tablet Composition: Portrait Frame + Responsive Stacked Cards */}
-        <div className="lg:hidden space-y-8">
-          {/* Centered Portrait with Frame */}
-          <div className="relative w-[280px] sm:w-[320px] h-[400px] sm:h-[440px] mx-auto flex items-end justify-center">
-            {/* Background Frame */}
-            <div className="absolute inset-x-2 bottom-0 h-[82%] rounded-2xl bg-gradient-to-b from-charcoal/90 to-background border border-white/15 shadow-xl" />
+        {/* Mobile & Tablet Composition */}
+        <div className="lg:hidden space-y-6">
+          <div className="relative w-[270px] sm:w-[310px] h-[380px] sm:h-[420px] mx-auto flex items-end justify-center">
+            <div className="absolute inset-x-2 bottom-0 h-[82%] rounded-2xl bg-surface border border-border shadow-noir" />
 
-            {/* Cutout Portrait overlapping frame */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              variants={springReveal}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5 }}
               className="relative z-20 w-[95%] select-none pointer-events-none [mask-image:linear-gradient(to_bottom,black_86%,transparent_100%)]"
             >
               <Image
@@ -239,12 +238,11 @@ export function About() {
                 width={601}
                 height={666}
                 priority
-                className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
+                className="w-full h-auto object-contain drop-shadow-[0_14px_26px_rgba(0,0,0,0.45)]"
               />
             </motion.div>
           </div>
 
-          {/* Clean 2-column or stacked cards on mobile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {cards.map((card, idx) => (
               <motion.div
@@ -253,27 +251,29 @@ export function About() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                custom={idx}
-                className="p-5 rounded-xl glass-card"
+                custom={idx * 0.4}
+                className="p-5 rounded-xl noir-card"
               >
                 <div className="flex items-start gap-3">
-                  <div className={`p-2 rounded-lg shrink-0 border ${
-                    card.id === "card-2"
-                      ? "bg-electric/15 border-electric/30 text-electric"
-                      : card.id === "card-3"
-                      ? "bg-sunset/15 border-sunset/30 text-sunset"
-                      : "bg-white/10 border-white/15 text-white"
-                  }`}>
+                  <div
+                    className={`p-2 rounded-lg shrink-0 border ${
+                      card.id === "card-2"
+                        ? "bg-secondary-muted border-secondary/35"
+                        : card.id === "card-3"
+                        ? "bg-accent-muted border-accent/35"
+                        : "bg-surface-elevated border-border"
+                    }`}
+                  >
                     {getCardIcon(card.id)}
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-mediumgrey">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-muted">
                       {card.category}
                     </span>
-                    <h3 className="text-sm font-semibold text-white">
+                    <h3 className="text-sm font-medium text-heading">
                       {card.title}
                     </h3>
-                    <p className="text-xs text-lightgrey leading-relaxed">
+                    <p className="text-xs text-body leading-relaxed">
                       {card.description}
                     </p>
                   </div>
